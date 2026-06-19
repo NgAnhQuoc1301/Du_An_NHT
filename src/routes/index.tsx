@@ -1,0 +1,21 @@
+import { Routes, Route } from "react-router-dom";
+
+import MainLayout from "../layouts/MainLayout";
+
+import HomePage from "../pages/Home/HomePage";
+import SolutionsPage from "../pages/Solutions/SolutionsPage";
+import SolutionDetailPage from "../pages/SolutionDetail/SolutionDetailPage";
+import ContactPage from "../pages/Contact/ContactPage";
+
+export default function AppRoutes() {
+  return (
+    <Routes>
+      <Route element={<MainLayout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/solutions" element={<SolutionsPage />} />
+        <Route path="/solutions/:id" element={<SolutionDetailPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Route>
+    </Routes>
+  );
+}
