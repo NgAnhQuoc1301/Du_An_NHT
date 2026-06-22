@@ -1,21 +1,22 @@
-import type { ReactNode } from "react";
-
-interface ChartCardProps {
+import LineChartWidget from "./charts/LineChartWidget";
+type Props = {
   title: string;
-  children: ReactNode;
-}
+};
 
 export default function ChartCard({
   title,
-  children,
-}: ChartCardProps) {
+}: Props) {
   return (
     <div className="bg-white rounded-xl shadow p-5">
+
       <h3 className="font-semibold mb-4">
         {title}
       </h3>
 
-      {children}
+      <div className="h-72 bg-slate-100 rounded-lg flex items-center justify-center">
+        <LineChartWidget />
+      </div>
+
     </div>
   );
 }

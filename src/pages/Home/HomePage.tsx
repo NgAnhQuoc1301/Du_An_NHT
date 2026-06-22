@@ -1,13 +1,23 @@
+import HeroSection from "../../components/home/HeroSection";
+import AboutSection from "../../components/home/AboutSection";
+import SolutionsSection from "../../components/home/SolutionsSection";
+import DashboardShowcase from "../../components/home/DashboardShowcase";
+import TechnologySection from "../../components/home/TechnologySection";
+import WhyChooseSection from "../../components/home/WhyChooseSection";
+import CTASection from "../../components/home/CTASection";
+import Footer from "../../components/home/Footer";
+
 export default function HomePage() {
   return (
-    <div className="p-10">
-      <h1 className="text-4xl font-bold text-blue-600">
-        NHT Solution Showcase
-      </h1>
-
-      <p className="mt-4 text-slate-600">
-        Solution Library & Dashboard Showcase
-      </p>
-    </div>
+    <>
+      <HeroSection />
+      <AboutSection />
+      <SolutionsSection />
+      <DashboardShowcase />
+      <TechnologySection />
+      <WhyChooseSection />
+      <CTASection />
+      <Footer />
+    </>
   );
 }
