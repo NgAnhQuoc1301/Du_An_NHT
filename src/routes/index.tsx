@@ -1,11 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import DashboardLibraryPage from "../pages/Dashboards/DashboardLibraryPage";
-import DashboardDetailPage from "../pages/Dashboards/DashboardDetailPage";
 import HomePage from "../pages/Home/HomePage";
 import SolutionsPage from "../pages/Solutions/SolutionsPage";
 import SolutionDetailPage from "../pages/SolutionDetail/SolutionDetailPage";
 import ContactPage from "../pages/Contact/ContactPage";
+import DashboardSettingsPage from "../pages/DashboardSettingsPage";
+import DashboardDetailPage from "../pages/Dashboards/DashboardDetailPage";
 
 export default function AppRoutes() {
   return (
@@ -16,6 +17,7 @@ export default function AppRoutes() {
         <Route path="/solutions/:id" element={<SolutionDetailPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/dashboards" element={<DashboardLibraryPage />} />
+        <Route path="/dashboard-settings" element={<DashboardSettingsPage />}/>
         <Route path="/dashboards/:slug" element={<DashboardDetailPage />} />
       </Route>
     </Routes>

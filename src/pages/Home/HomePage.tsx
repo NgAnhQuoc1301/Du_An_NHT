@@ -5,7 +5,6 @@ import DashboardShowcase from "../../components/home/DashboardShowcase";
 import TechnologySection from "../../components/home/TechnologySection";
 import WhyChooseSection from "../../components/home/WhyChooseSection";
 import CTASection from "../../components/home/CTASection";
-import Footer from "../../components/home/Footer";
 
 export default function HomePage() {
   return (
@@ -17,7 +16,6 @@ export default function HomePage() {
       <TechnologySection />
       <WhyChooseSection />
       <CTASection />
-      <Footer />
     </>
   );
 }

@@ -11,18 +11,16 @@ type Props = {
 export default function WidgetRenderer({
   widget,
 }: Props) {
-
   switch (widget.type) {
-
     case "kpi":
       return (
         <KpiCard
           title={widget.title}
-          value="100"
+          value={widget.value ?? "-"}
         />
       );
 
-    case "chart":
+    case "line-chart":
       return (
         <ChartCard
           title={widget.title}
@@ -35,12 +33,6 @@ export default function WidgetRenderer({
           title={widget.title}
         />
       );
-      case "line-chart":
-  return (
-    <ChartCard
-      title={widget.title}
-    />
-  );
 
     default:
       return null;

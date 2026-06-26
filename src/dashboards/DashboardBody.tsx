@@ -1,9 +1,6 @@
-import WidgetRenderer
-from "../components/dashboard/WidgetRenderer";
-
-import type {
-  WidgetConfig,
-} from "../types/widget";
+import WidgetRenderer from "../components/dashboard/WidgetRenderer";
+import type { WidgetConfig } from "../types/widget";
+import { gridSpan } from "../utils/grid";
 
 type Props = {
   widgets: WidgetConfig[];
@@ -14,18 +11,14 @@ export default function DashboardBody({
 }: Props) {
   return (
     <div className="grid grid-cols-12 gap-6">
-
       {widgets.map((widget) => (
         <div
           key={widget.id}
-          className="col-span-3"
+          className={gridSpan[widget.width ?? 3]}
         >
-          <WidgetRenderer
-            widget={widget}
-          />
+          <WidgetRenderer widget={widget} />
         </div>
       ))}
-
     </div>
   );
 }

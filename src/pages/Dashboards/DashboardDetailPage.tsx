@@ -1,46 +1,75 @@
 import { useParams } from "react-router-dom";
-
+import { dashboardMetadata } from "../../data/dashboardMetadata";
+import { dashboardConfigs } from "../../data/dashboardConfigs";
+import DashboardRenderer from "../../dashboards/DashboardRenderer";
+import { getDashboardStyle } from "../../services/dashboardConfigService";
+import DashboardInfo from "../../components/dashboardDetail/DashboardInfo";
+import DashboardGallery from "../../components/dashboardDetail/DashboardGallery";
+import { dashboardGallery } from "../../data/dashboardGallery";
+import CRMDashboard from "../../dashboards/dashboardPages/CRMDashboard";
+import SalesDashboard from "../../dashboards/dashboardPages/SalesDashboard";
+import CEODashboard from "../../dashboards/dashboardPages/CEODashboard";
+import WarehouseDashboard from "../../dashboards/dashboardPages/WarehouseDashboard";
 export default function DashboardDetailPage() {
+
   const { slug } = useParams();
+
+  const dashboard = dashboardConfigs.find(
+  (item) => item.id === slug
+);
+
+if (!dashboard) {
+  return (
+    <div className="p-10">
+      Dashboard not found
+    </div>
+  );
+}
+
+const selectedStyle =
+  getDashboardStyle(dashboard.id) ||
+  dashboard.style;
+
+const metadata =
+  dashboardMetadata[
+    dashboard.id as keyof typeof dashboardMetadata
+  ];
+  const gallery =
+  dashboardGallery[
+    dashboard.id as keyof typeof dashboardGallery
+  ];
 
   return (
     <div className="max-w-7xl mx-auto py-20 px-6">
 
       <h1 className="text-5xl font-bold mb-6">
-        {slug?.toUpperCase()} Dashboard
+        {dashboard.name}
       </h1>
-
-      <p className="text-slate-500 mb-10">
-        Dashboard specification and KPI definition.
-      </p>
-
-      <div className="grid md:grid-cols-2 gap-10">
-
-        <div className="bg-slate-100 rounded-xl h-96"></div>
-
-        <div>
-          <h2 className="text-2xl font-bold mb-4">
-            Business Purpose
-          </h2>
-
-          <p>
-            Monitor performance and support
-            decision-making processes.
-          </p>
-
-          <h2 className="text-2xl font-bold mt-10 mb-4">
-            KPIs
-          </h2>
-
-          <ul className="list-disc pl-6">
-            <li>Revenue</li>
-            <li>Growth</li>
-            <li>Conversion Rate</li>
-            <li>Performance</li>
-          </ul>
-        </div>
-
-      </div>
+      <DashboardInfo
+        solution={metadata.solution}
+        description={metadata.description}
+        businessValue={metadata.businessValue}
+        tags={metadata.tags}
+        currentStyle={selectedStyle}
+      /> 
+      <DashboardGallery
+          images={gallery}
+      />
+      {dashboard.id === "crm" ? (
+  <CRMDashboard />
+) : dashboard.id === "sales" ? (
+  <SalesDashboard />
+) : dashboard.id === "ceo" ? (
+  <CEODashboard />
+) : dashboard.id === "warehouse" ? (
+  <WarehouseDashboard />
+) : (
+  <DashboardRenderer
+    style={selectedStyle}
+    title={dashboard.name}
+    widgets={dashboard.widgets}
+  />
+)}
 
     </div>
   );

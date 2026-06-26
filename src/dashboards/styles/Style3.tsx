@@ -1,8 +1,18 @@
+import DashboardBody from "../DashboardBody";
+
+import type {
+  WidgetConfig,
+} from "../../types/widget";
+
 type Props = {
   title: string;
+  widgets: WidgetConfig[];
 };
 
-export default function Style3({ title }: Props) {
+export default function Style3({
+  title,
+  widgets,
+}: Props) {
   return (
     <div className="p-8">
 
@@ -10,27 +20,15 @@ export default function Style3({ title }: Props) {
         {title}
       </h1>
 
-      <div className="grid grid-cols-4 gap-4 mb-8">
-        <div className="bg-blue-500 text-white p-4 rounded-xl">
-          Revenue
-        </div>
-
-        <div className="bg-green-500 text-white p-4 rounded-xl">
-          Orders
-        </div>
-
-        <div className="bg-orange-500 text-white p-4 rounded-xl">
-          Customers
-        </div>
-
-        <div className="bg-purple-500 text-white p-4 rounded-xl">
-          Growth
-        </div>
+      <div className="bg-white rounded-xl shadow p-6 mb-8">
+        <p className="text-slate-500">
+          Executive Dashboard View
+        </p>
       </div>
 
-      <div className="bg-white rounded-xl shadow p-6 h-96">
-        Chart Area
-      </div>
+      <DashboardBody
+        widgets={widgets}
+      />
 
     </div>
   );

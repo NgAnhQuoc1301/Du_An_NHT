@@ -13,28 +13,22 @@ const data = [
   { month: "Mar", value: 4800 },
   { month: "Apr", value: 6800 },
   { month: "May", value: 7200 },
+  { month: "Jun", value: 8100 },
 ];
 
 export default function LineChartWidget() {
   return (
-    <div className="h-80">
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={data}>
+        <XAxis dataKey="month" />
+        <YAxis />
+        <Tooltip />
 
-      <ResponsiveContainer
-        width="100%"
-        height="100%"
-      >
-        <LineChart data={data}>
-          <XAxis dataKey="month" />
-          <YAxis />
-          <Tooltip />
-
-          <Line
-            type="monotone"
-            dataKey="value"
-          />
-        </LineChart>
-      </ResponsiveContainer>
-
-    </div>
+        <Line
+          type="monotone"
+          dataKey="value"
+        />
+      </LineChart>
+    </ResponsiveContainer>
   );
 }
