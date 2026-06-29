@@ -4,7 +4,7 @@ import {
   warrantyTypeData,
   warrantyRequestData,
 } from "../../data/mockData/warrantyData";
-
+import KpiCard from "../../components/common/KpiCard";
 import ConversionChart
   from "../../components/charts/ConversionChart";
 
@@ -17,25 +17,8 @@ export default function WarrantyDashboard() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {warrantyKpiData.map((kpi) => (
-          <div
-            key={kpi.id}
-            className="bg-white rounded-2xl shadow p-6"
-          >
-            <p className="text-sm text-slate-500">
-              {kpi.title}
-            </p>
-            <h3 className="text-3xl font-bold mt-2">
-              {kpi.value}
-            </h3>
-            <p className={`text-sm mt-2 font-medium ${
-              kpi.positive
-                ? "text-green-500"
-                : "text-red-500"
-            }`}>
-              {kpi.change} so với tháng trước
-            </p>
-          </div>
-        ))}
+  <KpiCard key={kpi.id} {...kpi} />
+))}
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">

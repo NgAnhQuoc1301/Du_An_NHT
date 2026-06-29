@@ -23,7 +23,6 @@ export default function LineChartWidget() {
         <XAxis dataKey="month" />
         <YAxis />
         <Tooltip />
-
         <Line
           type="monotone"
           dataKey="value"

@@ -90,14 +90,40 @@ export default function DashboardLibraryPage() {
       <div className="max-w-7xl mx-auto px-4 md:px-6">
 
         {/* HEADER */}
+    <div className="flex items-start justify-between mb-8">
+
+      <div>
         <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
           Dashboard Library
         </h1>
-
-        <p className="text-slate-300 mb-8 text-sm md:text-base">
+        <p className="text-slate-300 text-sm md:text-base">
           Explore business dashboards developed by NHT Solutions.
         </p>
+      </div>
 
+      <Link
+        to="/dashboard-settings"
+        className="
+          flex items-center gap-2
+          px-5 py-2.5
+          rounded-xl
+          bg-gradient-to-r from-cyan-500 to-blue-600
+          text-white
+          text-sm
+          font-semibold
+          shadow-lg shadow-cyan-500/30
+          hover:from-cyan-400 hover:to-blue-500
+          hover:shadow-cyan-400/40
+          transition-all
+          duration-300
+          whitespace-nowrap
+        "
+      >
+        ⚙ Dashboard Settings
+      </Link>
+
+    </div>
+        
         {/* SEARCH + SORT */}
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
 

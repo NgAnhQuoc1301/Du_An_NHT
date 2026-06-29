@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { dashboardMetadata } from "../../data/dashboardMetadata";
 import { dashboardConfigs } from "../../data/dashboardConfigs";
 import DashboardRenderer from "../../dashboards/DashboardRenderer";
@@ -77,9 +77,34 @@ export default function DashboardDetailPage() {
   return (
     <div className="max-w-7xl mx-auto py-12 md:py-20 px-4 md:px-6">
 
-      <h1 className="text-3xl md:text-5xl font-bold mb-6">  
-        {dashboard.name}
-      </h1>
+      {/* HEADER ROW */}
+      <div className="flex items-center justify-between mb-6">
+
+        <h1 className="text-3xl md:text-5xl font-bold">
+          {dashboard.name}
+        </h1>
+
+        <Link
+          to="/dashboard-settings"
+          className="
+            flex items-center gap-2
+            px-5 py-2.5
+            rounded-xl
+            bg-gradient-to-r from-cyan-500 to-blue-600
+            text-white
+            text-sm
+            font-semibold
+            shadow-lg shadow-cyan-500/30
+            hover:from-cyan-400 hover:to-blue-500
+            hover:shadow-cyan-400/40
+            transition-all
+            duration-300
+          "
+        >
+          ⚙ Dashboard Settings
+        </Link>
+
+      </div>
 
       <DashboardInfo
         solution={metadata.solution}

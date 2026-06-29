@@ -37,6 +37,8 @@ export const salesWidgets: WidgetConfig[] = [
     type: "line-chart",
     title: "Sales Trend",
     width: 6,
+
+    dataSource: "salesRevenueTrendData",
   },
 ];
 
