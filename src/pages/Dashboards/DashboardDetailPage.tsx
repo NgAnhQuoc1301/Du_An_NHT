@@ -1,4 +1,5 @@
-import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
 import { dashboardMetadata } from "../../data/dashboardMetadata";
 import { dashboardConfigs } from "../../data/dashboardConfigs";
 import DashboardRenderer from "../../dashboards/DashboardRenderer";
@@ -35,10 +36,26 @@ export default function DashboardDetailPage() {
     );
   }
 
-  const selectedStyle =
-    getDashboardStyle(dashboard.id) ||
-    dashboard.style;
+  const [selectedStyle, setSelectedStyle] = useState(
+  getDashboardStyle(dashboard.id) || dashboard.style
+);
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const newStyle =
+        getDashboardStyle(dashboard.id) ||
+        dashboard.style;
+      setSelectedStyle(newStyle);
+    };
 
+    window.addEventListener("storage", handleStorageChange);
+
+    // Đọc lại mỗi khi vào trang
+    handleStorageChange();
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [dashboard.id, dashboard.style]);
   const metadata =
     dashboardMetadata[
       dashboard.id as keyof typeof dashboardMetadata

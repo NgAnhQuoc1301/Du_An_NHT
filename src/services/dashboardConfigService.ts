@@ -1,25 +1,31 @@
+import type { DashboardStyle } from "../types/dashboard";
+
+const KEY = "dashboard-styles";
+
 export function saveDashboardStyle(
   dashboardId: string,
-  style: string
+  style: DashboardStyle
 ) {
-  const configs = JSON.parse(
-    localStorage.getItem("dashboardStyles") || "{}"
-  );
+  const current = getAllStyles();
+  current[dashboardId] = style;
+  localStorage.setItem(KEY, JSON.stringify(current));
 
-  configs[dashboardId] = style;
-
-  localStorage.setItem(
-    "dashboardStyles",
-    JSON.stringify(configs)
-  );
+  // Phát sự kiện để DashboardDetailPage cập nhật
+  window.dispatchEvent(new Event("storage"));
 }
 
 export function getDashboardStyle(
   dashboardId: string
-) {
-  const configs = JSON.parse(
-    localStorage.getItem("dashboardStyles") || "{}"
-  );
+): DashboardStyle | null {
+  const all = getAllStyles();
+  return (all[dashboardId] as DashboardStyle) || null;
+}
 
-  return configs[dashboardId];
+function getAllStyles(): Record<string, string> {
+  try {
+    const raw = localStorage.getItem(KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
 }
