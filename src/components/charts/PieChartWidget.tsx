@@ -8,7 +8,8 @@ import {
 } from "recharts";
 
 type PieItem = {
-  source: string;
+  source?: string;
+  name?: string;
   value: number;
   color: string;
 };
@@ -18,21 +19,27 @@ type Props = {
 };
 
 export default function PieChartWidget({ data }: Props) {
+
+  const normalized = data.map((item) => ({
+    ...item,
+    name: item.name ?? item.source ?? "",
+  }));
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <PieChart>
         <Pie
-          data={data}
+          data={normalized}
           dataKey="value"
-          nameKey="source"
+          nameKey="name"
           cx="50%"
           cy="50%"
           outerRadius={100}
           label={({ name, percent }) =>
             `${name} ${((percent ?? 0) * 100).toFixed(0)}%`
-            }
+          }
         >
-          {data.map((item, index) => (
+          {normalized.map((item, index) => (
             <Cell
               key={index}
               fill={item.color}
@@ -44,4 +51,4 @@ export default function PieChartWidget({ data }: Props) {
       </PieChart>
     </ResponsiveContainer>
   );
-}
+} 

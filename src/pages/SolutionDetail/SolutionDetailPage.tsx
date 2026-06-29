@@ -1,98 +1,105 @@
-import React from "react";
-
-type DashboardItem = {
-  name: string;
-};
-
-const dashboards: Record<string, DashboardItem[]> = {
-  ERP: [
-    { name: "CEO Dashboard" },
-    { name: "Warehouse Dashboard" },
-    { name: "HR Dashboard" },
-    { name: "Finance Dashboard" },
-    { name: "Production Dashboard" },
-    { name: "Task Dashboard" },
-  ],
-  CRM: [
-    { name: "CRM Dashboard" },
-    { name: "Sales Dashboard" },
-    { name: "KPI Dashboard" },
-  ],
-  Dashboard: [
-    { name: "Executive Dashboard" },
-    { name: "Project Dashboard" },
-  ],
-};
+import { useParams, Link } from "react-router-dom";
+import { solutionsData } from "../../data/solutionsData";
 
 export default function SolutionDetailPage() {
-  const selected = "ERP"; // tạm fix cứng (sau có router đổi sau)
+
+  const { id } = useParams();
+
+  const solution = solutionsData.find(
+    (s) => s.id === id
+  );
+
+  if (!solution) {
+    return (
+      <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
+        <p className="text-xl text-slate-400">
+          Solution not found
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>⚙️ {selected} Solution</h1>
-      <p style={styles.subtitle}>
-        Danh sách dashboard liên quan đến giải pháp {selected}
-      </p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white">
 
-      <div style={styles.grid}>
-        {dashboards[selected].map((d, i) => (
-          <div key={i} style={styles.card}>
-            <h3 style={styles.cardTitle}>{d.name}</h3>
-            <p style={styles.desc}>
-              Dashboard phân tích và điều hành thuộc hệ thống {selected}.
-            </p>
+      <div className="max-w-7xl mx-auto px-6 py-20">
 
-            <div style={styles.tag}>Active</div>
+        {/* Back */}
+        <Link
+          to="/solutions"
+          className="text-cyan-400 hover:text-cyan-300 text-sm mb-8 inline-block"
+        >
+          ← Back to Solutions
+        </Link>
+
+        {/* Header */}
+        <div className="mb-12">
+
+          <div
+            className="inline-block px-4 py-2 rounded-full text-sm font-medium mb-4 bg-white/10"
+            style={{ color: solution.color }}
+          >
+            {solution.name}
           </div>
-        ))}
+
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            {solution.tagline}
+          </h1>
+
+          <p className="text-slate-300 text-lg max-w-3xl leading-relaxed">
+            {solution.description}
+          </p>
+
+        </div>
+
+        {/* Dashboards */}
+        <h2 className="text-2xl font-bold mb-6 text-cyan-300">
+          Dashboards thuộc giải pháp này
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {solution.dashboards.map((db) => (
+            <Link
+              key={db.id}
+              to={`/dashboards/${db.id}`}
+            >
+              <div className="
+                group
+                p-6
+                rounded-2xl
+                bg-white/5
+                border border-cyan-400/10
+                hover:border-cyan-400/40
+                hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]
+                hover:-translate-y-1
+                transition-all duration-300
+              ">
+
+                <div
+                  className="w-2 h-2 rounded-full mb-4"
+                  style={{
+                    backgroundColor: solution.color,
+                    boxShadow: `0 0 8px ${solution.color}`,
+                  }}
+                />
+
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-cyan-300 transition">
+                  {db.name}
+                </h3>
+
+                <p className="text-slate-400 text-sm">
+                  Xem dashboard →
+                </p>
+
+              </div>
+            </Link>
+          ))}
+
+        </div>
+
       </div>
+
     </div>
   );
 }
-
-const styles: Record<string, React.CSSProperties> = {
-  container: {
-    padding: "30px",
-    fontFamily: "Arial",
-    background: "linear-gradient(135deg, #0b1220, #0f172a)",
-    minHeight: "100vh",
-    color: "white",
-  },
-  title: {
-    fontSize: "26px",
-    marginBottom: "6px",
-    color: "#38bdf8",
-  },
-  subtitle: {
-    color: "#94a3b8",
-    marginBottom: "20px",
-  },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-    gap: "16px",
-  },
-  card: {
-    padding: "16px",
-    borderRadius: "14px",
-    background: "rgba(255,255,255,0.05)",
-    border: "1px solid rgba(37,99,235,0.25)",
-    backdropFilter: "blur(10px)",
-  },
-  cardTitle: {
-    fontSize: "15px",
-    marginBottom: "6px",
-  },
-  desc: {
-    fontSize: "13px",
-    color: "#cbd5e1",
-    marginBottom: "10px",
-  },
-  tag: {
-    display: "inline-block",
-    padding: "3px 8px",
-    borderRadius: "6px",
-    background: "#22c55e",
-    fontSize: "11px",
-  },
-};

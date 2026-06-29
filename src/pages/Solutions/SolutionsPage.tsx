@@ -1,23 +1,10 @@
-import React from "react";
-
-type SolutionGroup = {
-  name: string;
-  goal: string;
-};
-
-const groups: SolutionGroup[] = [
-  { name: "ERP", goal: "Quản trị tổng thể doanh nghiệp" },
-  { name: "CRM", goal: "Quản lý khách hàng và bán hàng" },
-  { name: "Dashboard", goal: "Phân tích dữ liệu và điều hành" },
-  { name: "Mobile App", goal: "Truy cập hệ thống di động" },
-  { name: "AI & IoT", goal: "Chuyển đổi số & tự động hóa" },
-];
+import { Link } from "react-router-dom";
+import { solutionsData } from "../../data/solutionsData";
 
 export default function SolutionsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white">
 
-      {/* HEADER */}
       <div className="max-w-7xl mx-auto px-6 pt-20 pb-10">
         <div className="text-center">
 
@@ -29,7 +16,6 @@ export default function SolutionsPage() {
             Hệ thống giải pháp chuyển đổi số toàn diện dành cho doanh nghiệp hiện đại
           </p>
 
-          {/* subtle line */}
           <div className="mt-6 flex justify-center">
             <div className="h-[2px] w-24 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full" />
           </div>
@@ -37,15 +23,15 @@ export default function SolutionsPage() {
         </div>
       </div>
 
-      {/* GRID */}
       <div className="max-w-7xl mx-auto px-6 pb-24">
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-          {groups.map((g, index) => (
-            <div
-              key={index}
-              className="
+          {solutionsData.map((solution) => (
+            <Link
+              key={solution.id}
+              to={`/solutions/${solution.id}`}
+            >
+              <div className="
                 group
                 relative
                 p-6
@@ -57,42 +43,45 @@ export default function SolutionsPage() {
                 hover:border-cyan-400/40
                 hover:shadow-[0_0_25px_rgba(34,211,238,0.25)]
                 hover:-translate-y-1
-              "
-            >
+              ">
 
-              {/* glow dot */}
-              <div className="w-2 h-2 bg-cyan-400 rounded-full mb-4 shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
+                <div
+                  className="w-2 h-2 rounded-full mb-4"
+                  style={{
+                    backgroundColor: solution.color,
+                    boxShadow: `0 0 10px ${solution.color}`,
+                  }}
+                />
 
-              {/* badge */}
-              <div className="inline-block px-3 py-1 rounded-full text-xs bg-cyan-500/10 text-cyan-300 border border-cyan-400/20 mb-4">
-                {g.name}
+                <div className="inline-block px-3 py-1 rounded-full text-xs bg-cyan-500/10 text-cyan-300 border border-cyan-400/20 mb-4">
+                  {solution.name}
+                </div>
+
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-cyan-300 transition">
+                  {solution.tagline}
+                </h3>
+
+                <p className="text-slate-300 text-sm leading-6">
+                  {solution.description}
+                </p>
+
+                <p className="text-xs text-slate-400 mt-4">
+                  {solution.dashboards.length} dashboards
+                </p>
+
+                <div className="mt-5 h-[2px] w-0 group-hover:w-full transition-all duration-500 bg-gradient-to-r from-cyan-400 to-blue-500" />
+
+                <p className="mt-5 text-sm text-cyan-300 group-hover:text-white transition">
+                  View Details →
+                </p>
+
               </div>
-
-              {/* title */}
-              <h3 className="text-lg font-semibold mb-2 group-hover:text-cyan-300 transition">
-                {g.goal}
-              </h3>
-
-              {/* description */}
-              <p className="text-slate-300 text-sm leading-6">
-                Giải pháp <span className="text-cyan-300 font-medium">{g.name}</span>{" "}
-                giúp doanh nghiệp tối ưu vận hành, tăng hiệu suất và chuẩn hóa quy trình quản trị.
-              </p>
-
-              {/* footer accent */}
-              <div className="mt-5 h-[2px] w-0 group-hover:w-full transition-all duration-500 bg-gradient-to-r from-cyan-400 to-blue-500" />
-
-              {/* button */}
-              <button className="mt-5 text-sm text-cyan-300 hover:text-white transition">
-                View Details →
-              </button>
-
-            </div>
+            </Link>
           ))}
 
         </div>
-
       </div>
+
     </div>
   );
 }

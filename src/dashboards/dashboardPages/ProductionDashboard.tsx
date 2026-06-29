@@ -1,0 +1,113 @@
+import {
+  productionKpiData,
+  productionTrendData,
+  productionLineData,
+  productionAlertData,
+} from "../../data/mockData/productionData";
+
+import ConversionChart
+  from "../../components/charts/ConversionChart";
+
+import BarChartWidget
+  from "../../components/charts/BarChartWidget";
+
+export default function ProductionDashboard() {
+  return (
+    <div className="p-6 space-y-8">
+
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        {productionKpiData.map((kpi) => (
+          <div
+            key={kpi.id}
+            className="bg-white rounded-2xl shadow p-6"
+          >
+            <p className="text-sm text-slate-500">
+              {kpi.title}
+            </p>
+            <h3 className="text-3xl font-bold mt-2">
+              {kpi.value}
+            </h3>
+            <p className={`text-sm mt-2 font-medium ${
+              kpi.positive
+                ? "text-green-500"
+                : "text-red-500"
+            }`}>
+              {kpi.change} so với hôm qua
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-6">
+
+        <div className="bg-white rounded-2xl shadow p-6">
+          <h2 className="text-xl font-bold mb-6">
+            Production Trend
+          </h2>
+          <ConversionChart
+            data={productionTrendData.map((i) => ({
+              month: i.month,
+              rate: i.rate,
+            }))}
+          />
+        </div>
+
+        <div className="bg-white rounded-2xl shadow p-6">
+          <h2 className="text-xl font-bold mb-6">
+            Output By Line
+          </h2>
+          <BarChartWidget data={productionLineData} />
+        </div>
+
+      </div>
+
+      <div className="bg-white rounded-2xl shadow p-6">
+        <h2 className="text-xl font-bold mb-6">
+          Production Alerts
+        </h2>
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b text-left text-slate-500">
+              <th className="pb-3">Dây chuyền</th>
+              <th className="pb-3">Vấn đề</th>
+              <th className="pb-3">Thời gian</th>
+              <th className="pb-3">Mức độ</th>
+            </tr>
+          </thead>
+          <tbody>
+            {productionAlertData.map((row) => (
+              <tr
+                key={row.id}
+                className="border-b hover:bg-slate-50"
+              >
+                <td className="py-3 font-medium">
+                  {row.line}
+                </td>
+                <td className="py-3 text-slate-500">
+                  {row.issue}
+                </td>
+                <td className="py-3 text-slate-500">
+                  {row.time}
+                </td>
+                <td className="py-3">
+                  <span className={`
+                    px-3 py-1 rounded-full text-xs font-medium
+                    ${row.severity === "high"
+                      ? "bg-red-100 text-red-600"
+                      : row.severity === "medium"
+                      ? "bg-orange-100 text-orange-600"
+                      : "bg-green-100 text-green-600"
+                    }
+                  `}>
+                    {row.severity}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  );
+}   

@@ -1,4 +1,4 @@
-import { solutions } from "../../data/solutionsData";
+import { solutionsData } from "../../data/solutionsData";
 
 export default function SolutionsSection() {
   return (
@@ -18,9 +18,9 @@ export default function SolutionsSection() {
         {/* GRID - giữ logic cũ */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-          {solutions.map((item) => (
+          {solutionsData.map((item) => (
             <div
-              key={item.title}
+              key={item.id}
               className="
                 group
                 bg-white/5
@@ -40,7 +40,7 @@ export default function SolutionsSection() {
 
               {/* TITLE */}
               <h3 className="text-xl font-bold mb-4 text-white group-hover:text-cyan-300 transition">
-                {item.title}
+                {item.tagline}
               </h3>
 
               {/* DESCRIPTION */}

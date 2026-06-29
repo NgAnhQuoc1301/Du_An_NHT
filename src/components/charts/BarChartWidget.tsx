@@ -11,7 +11,8 @@ import {
 
 type BarItem = {
   name: string;
-  revenue: number;
+  revenue?: number;
+  value?: number;
   color: string;
 };
 
@@ -20,10 +21,16 @@ type Props = {
 };
 
 export default function BarChartWidget({ data }: Props) {
+
+  const normalized = data.map((item) => ({
+    ...item,
+    revenue: item.revenue ?? item.value ?? 0,
+  }));
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart
-        data={data}
+        data={normalized}
         layout="vertical"
         margin={{ left: 80 }}
       >
@@ -36,7 +43,7 @@ export default function BarChartWidget({ data }: Props) {
         <XAxis
           type="number"
           tickFormatter={(v) =>
-            `$${(v / 1000).toFixed(0)}k`
+            `${(v / 1000).toFixed(0)}k`
           }
           tick={{ fontSize: 12 }}
         />
@@ -49,13 +56,13 @@ export default function BarChartWidget({ data }: Props) {
 
         <Tooltip
           formatter={(value) => [
-            `$${Number(value).toLocaleString()}`,
-            "Revenue",
+            Number(value).toLocaleString(),
+            "Value",
           ]}
         />
 
         <Bar dataKey="revenue" radius={[0, 6, 6, 0]}>
-          {data.map((item, index) => (
+          {normalized.map((item, index) => (
             <Cell
               key={index}
               fill={item.color}
