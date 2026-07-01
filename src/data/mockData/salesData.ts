@@ -13,6 +13,20 @@ export const salesKpiData = [
     change: "+8%",
     positive: true,
   },
+  {
+    id: "customers",
+    title: "New Customers",
+    value: "48",
+    change: "+5%",
+    positive: true,
+  },
+  {
+    id: "margin",
+    title: "Profit Margin",
+    value: "29%",
+    change: "+2%",
+    positive: true,
+  },
 ];
 
 export const salesRevenueTrendData = [
@@ -27,31 +41,18 @@ export const salesRevenueTrendData = [
 ];
 
 export const salesByEmployeeData = [
-  {
-    name: "Nguyễn Văn A",
-    revenue: 32000,
-    color: "#3B82F6",
-  },
-  {
-    name: "Trần Thị B",
-    revenue: 28000,
-    color: "#10B981",
-  },
-  {
-    name: "Lê Văn C",
-    revenue: 24000,
-    color: "#8B5CF6",
-  },
-  {
-    name: "Phạm Thị D",
-    revenue: 21000,
-    color: "#F59E0B",
-  },
-  {
-    name: "Hoàng Văn E",
-    revenue: 15000,
-    color: "#EF4444",
-  },
+  { name: "Nguyễn Văn A", revenue: 32000, color: "#3B82F6" },
+  { name: "Trần Thị B", revenue: 28000, color: "#10B981" },
+  { name: "Lê Văn C", revenue: 24000, color: "#8B5CF6" },
+  { name: "Phạm Thị D", revenue: 21000, color: "#F59E0B" },
+  { name: "Hoàng Văn E", revenue: 15000, color: "#EF4444" },
+];
+
+export const salesByProductData = [
+  { name: "Điện tử", value: 42000, color: "#3B82F6" },
+  { name: "Gia dụng", value: 31000, color: "#10B981" },
+  { name: "Phụ kiện", value: 28000, color: "#8B5CF6" },
+  { name: "Khác", value: 19000, color: "#F59E0B" },
 ];
 
 export const salesKpiListData = [

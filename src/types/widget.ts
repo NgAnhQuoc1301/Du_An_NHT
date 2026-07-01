@@ -7,18 +7,8 @@ export type WidgetType =
   | "funnel-chart";
 
 export type WidgetWidth =
-  | 1
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 7
-  | 8
-  | 9
-  | 10
-  | 11
-  | 12;
+  | 1 | 2 | 3 | 4 | 5 | 6
+  | 7 | 8 | 9 | 10 | 11 | 12;
 
 export type ChartType =
   | "line"
@@ -26,43 +16,41 @@ export type ChartType =
   | "pie"
   | "funnel";
 
+export interface ChartDataPoint {
+  name: string;
+  [key: string]: string | number;
+}
+
+export interface TableRow {
+  [key: string]: string | number;
+}
+
 export interface WidgetConfig {
   id: string;
-
   type: WidgetType;
-
   title: string;
-
   width?: WidgetWidth;
 
+  // KPI
   value?: string;
-
-  /*
-   * Chart
-   */
-  chartType?: ChartType;
-
-  dataSource?: string;
-
-  /*
-   * Display
-   */
   description?: string;
-
-  icon?: string;
-
-  unit?: string;
-
   color?: string;
+  positive?: boolean;
 
-  /*
-   * Dashboard
-   */
+  // Chart
+  chartType?: ChartType;
+  chartData?: ChartDataPoint[];
+  chartKeys?: { key: string; color: string }[];
+
+  // Table
+  tableColumns?: string[];
+  tableRows?: TableRow[];
+
+  // Display
+  icon?: string;
+  unit?: string;
   refreshInterval?: number;
-
   exportable?: boolean;
-
   filterable?: boolean;
-
   fullscreen?: boolean;
 }
