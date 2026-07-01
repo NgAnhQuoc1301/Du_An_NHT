@@ -4,7 +4,7 @@ import {
   warrantyTypeData,
   warrantyRequestData,
 } from "../../data/mockData/warrantyData";
-
+import DashboardHeader from "../../components/dashboard/DashboardHeader";
 import ConversionChart from "../../components/charts/ConversionChart";
 import PieChartWidget from "../../components/charts/PieChartWidget";
 import StyleKpiCard from "../../components/common/StyleKpiCard";
@@ -16,7 +16,10 @@ export default function WarrantyDashboard({ style }: Props) {
     <div className={`p-6 space-y-8 ${
       style === "style4" ? "bg-slate-900 rounded-2xl" : ""
     }`}>
-
+<DashboardHeader
+    title="Warranty Dashboard"
+    description="Monitor warranty requests, trends and type performance."
+/>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {warrantyKpiData.map((kpi) => (
           <StyleKpiCard key={kpi.id} {...kpi} style={style} />

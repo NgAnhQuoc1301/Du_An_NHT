@@ -10,7 +10,7 @@ import FunnelChart from "../../components/charts/FunnelChart";
 import PieChartWidget from "../../components/charts/PieChartWidget";
 import ConversionChart from "../../components/charts/ConversionChart";
 import StyleKpiCard from "../../components/common/StyleKpiCard";
-
+import DashboardHeader from "../../components/dashboard/DashboardHeader";
 type Props = { style: string };
 
 export default function CRMDashboard({ style }: Props) {
@@ -18,7 +18,10 @@ export default function CRMDashboard({ style }: Props) {
     <div className={`p-6 space-y-8 ${
       style === "style4" ? "bg-slate-900 rounded-2xl" : ""
     }`}>
-
+      <DashboardHeader
+    title="CRM Dashboard"
+    description="Monitor customer metrics, trends and performance."
+/>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {crmKpiData.map((kpi) => (
           <StyleKpiCard key={kpi.id} {...kpi} style={style} />

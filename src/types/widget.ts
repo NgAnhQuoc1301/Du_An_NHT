@@ -27,33 +27,42 @@ export type ChartType =
   | "funnel";
 
 export interface WidgetConfig {
-
   id: string;
 
   type: WidgetType;
 
   title: string;
 
-  value?: string;
-
   width?: WidgetWidth;
 
+  value?: string;
+
   /*
-   * Future Ready
+   * Chart
    */
-
-  description?: string;
-
-  icon?: string;
-
   chartType?: ChartType;
 
   dataSource?: string;
+
+  /*
+   * Display
+   */
+  description?: string;
+
+  icon?: string;
 
   unit?: string;
 
   color?: string;
 
+  /*
+   * Dashboard
+   */
   refreshInterval?: number;
 
+  exportable?: boolean;
+
+  filterable?: boolean;
+
+  fullscreen?: boolean;
 }

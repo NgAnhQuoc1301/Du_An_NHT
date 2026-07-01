@@ -3,7 +3,7 @@ import {
   warehouseCategoryData,
   warehouseAlertData,
 } from "../../data/mockData/warehouseData";
-
+import DashboardHeader from "../../components/dashboard/DashboardHeader";
 import BarChartWidget from "../../components/charts/BarChartWidget";
 import StyleKpiCard from "../../components/common/StyleKpiCard";
 
@@ -14,7 +14,10 @@ export default function WarehouseDashboard({ style }: Props) {
     <div className={`p-6 space-y-8 ${
       style === "style4" ? "bg-slate-900 rounded-2xl" : ""
     }`}>
-
+      <DashboardHeader
+    title="Warehouse Dashboard"
+    description="Monitor inventory levels, categories and alerts."
+/>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {warehouseKpiData.map((kpi) => (
           <StyleKpiCard key={kpi.id} {...kpi} style={style} />

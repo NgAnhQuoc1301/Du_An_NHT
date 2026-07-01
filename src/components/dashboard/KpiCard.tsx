@@ -1,21 +1,93 @@
+import { BarChart3 } from "lucide-react";
 type Props = {
   title: string;
   value: string;
+
+  change?: string;
+
+  positive?: boolean;
+
+  subtitle?: string;
+
+  icon?: React.ReactNode;
 };
 
 export default function KpiCard({
   title,
   value,
+  change,
+  positive = true,
+  subtitle = "Compared with last month",
+  icon,
 }: Props) {
-  return (
-    <div className="bg-white rounded-xl shadow p-5">
-      <p className="text-slate-500 text-sm">
-        {title} 
-      </p>
 
-      <h2 className="text-3xl font-bold mt-2">
+  return (
+
+    <div
+      className="
+      bg-white
+      rounded-xl
+      shadow-sm
+      hover:shadow-lg
+      transition-all
+      duration-300
+      border
+      border-slate-100
+      p-5
+      "
+    >
+
+      <div className="flex justify-between items-center">
+
+        <p className="text-sm text-slate-500">
+          {title}
+        </p>
+
+        <div
+        className="
+          h-11
+          w-11
+          rounded-xl
+          bg-slate-100
+          flex
+          items-center
+          justify-center
+          text-slate-600
+        "
+      >
+        {icon ?? <BarChart3 size={22} />}
+      </div>
+
+      </div>
+
+      <h2 className="text-3xl font-bold mt-4 text-slate-800">
         {value}
       </h2>
+
+      {change && (
+
+        <div className="mt-4">
+
+          <p
+            className={`font-semibold ${
+              positive
+                ? "text-green-600"
+                : "text-red-600"
+            }`}
+          >
+            {positive ? "▲" : "▼"} {change}
+          </p>
+
+          <p className="text-xs text-slate-400 mt-1">
+            {subtitle}
+          </p>
+
+        </div>
+
+      )}
+
     </div>
+
   );
+
 }

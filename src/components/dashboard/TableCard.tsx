@@ -2,60 +2,122 @@ type Props = {
   title: string;
 };
 
+const rows = [
+  {
+    product: "Air Conditioner",
+    revenue: "$32,500",
+    growth: "+12%",
+    status: "Active",
+  },
+  {
+    product: "Smart TV",
+    revenue: "$28,000",
+    growth: "+8%",
+    status: "Active",
+  },
+  {
+    product: "Washing Machine",
+    revenue: "$21,500",
+    growth: "-2%",
+    status: "Warning",
+  },
+  {
+    product: "Microwave",
+    revenue: "$18,000",
+    growth: "+5%",
+    status: "Active",
+  },
+];
+
 export default function TableCard({
   title,
 }: Props) {
   return (
-    <div className="bg-white rounded-xl shadow p-5">
-      <h3 className="font-semibold mb-4">
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+
+      <h3 className="font-semibold text-slate-700 mb-4">
         {title}
       </h3>
 
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="border-b">
-            <th className="text-left py-2">
-              Name
-            </th>
+      <div className="overflow-x-auto">
 
-            <th className="text-left py-2">
-              Value
-            </th>
-          </tr>
-        </thead>
+        <table className="w-full text-sm">
 
-        <tbody>
-          <tr className="border-b">
-            <td className="py-2">
-              Product A
-            </td>
+          <thead className="bg-slate-50">
 
-            <td className="py-2">
-              120
-            </td>
-          </tr>
+            <tr>
 
-          <tr className="border-b">
-            <td className="py-2">
-              Product B
-            </td>
+              <th className="text-left px-3 py-3 font-semibold text-slate-600">
+                Product
+              </th>
 
-            <td className="py-2">
-              98
-            </td>
-          </tr>
+              <th className="text-right px-3 py-3 font-semibold text-slate-600">
+                Revenue
+              </th>
 
-          <tr>
-            <td className="py-2">
-              Product C
-            </td>
+              <th className="text-center px-3 py-3 font-semibold text-slate-600">
+                Growth
+              </th>
 
-            <td className="py-2">
-              75
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              <th className="text-center px-3 py-3 font-semibold text-slate-600">
+                Status
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            {rows.map((row, index) => (
+
+              <tr
+                key={index}
+                className="border-b last:border-0 hover:bg-slate-50 transition"
+              >
+
+                <td className="px-3 py-3 font-medium text-slate-700">
+                  {row.product}
+                </td>
+
+                <td className="px-3 py-3 text-right font-semibold">
+                  {row.revenue}
+                </td>
+
+                <td
+                  className={`px-3 py-3 text-center font-medium ${
+                    row.growth.startsWith("+")
+                      ? "text-green-600"
+                      : "text-red-600"
+                  }`}
+                >
+                  {row.growth}
+                </td>
+
+                <td className="px-3 py-3 text-center">
+
+                  <span
+                    className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${
+                      row.status === "Active"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-yellow-100 text-yellow-700"
+                    }`}
+                  >
+                    {row.status}
+                  </span>
+
+                </td>
+
+              </tr>
+
+            ))}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
     </div>
   );
 }

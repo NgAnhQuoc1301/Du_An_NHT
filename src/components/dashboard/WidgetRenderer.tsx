@@ -17,8 +17,10 @@ export default function WidgetRenderer({
     case "kpi":
       return (
         <KpiCard
-          title={widget.title}
-          value={widget.value ?? "-"}
+            title={widget.title}
+            value={widget.value ?? "-"}
+            change="+12.5%"
+            positive
         />
       );
 

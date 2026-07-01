@@ -1,45 +1,99 @@
 import type { WidgetConfig } from "../types/widget";
 
 export const salesWidgets: WidgetConfig[] = [
+
   {
-    id: "revenue",
-    type: "kpi",
-    title: "Revenue",
-    value: "$120,000",
-    width: 3,
-  },
+    id:"revenue",
+
+    type:"kpi",
+
+    title:"Revenue",
+
+    value:"$120,000",
+
+    width:3,
+
+    icon:"DollarSign",
+
+    description:"Total sales revenue",
+
+    dataSource:"salesRevenue",
+
+    refreshInterval:300
+},
 
   {
     id: "profit",
+
     type: "kpi",
+
     title: "Profit",
+
     value: "$35,000",
+
     width: 3,
+
+    icon: "TrendingUp",
+
+    color: "blue",
+
+    description: "Net Profit",
   },
 
   {
     id: "margin",
+
     type: "kpi",
+
     title: "Margin",
+
     value: "29%",
+
     width: 3,
+
+    icon: "Percent",
+
+    color: "purple",
+
+    description: "Profit Margin",
   },
 
   {
-    id: "top-products",
-    type: "table",
-    title: "Top Products",
-    width: 6,
-  },
+    id:"top-products",
+
+    type:"table",
+
+    title:"Top Products",
+
+    width:6,
+
+    dataSource:"salesTopProducts",
+
+    exportable:true,
+
+    filterable:true
+},
 
   {
-    id: "sales-trend",
-    type: "line-chart",
-    title: "Sales Trend",
-    width: 6,
+    id:"sales-trend",
 
-    dataSource: "salesRevenueTrendData",
+    type:"line-chart",
+
+    chartType:"line",
+
+    title:"Sales Trend",
+
+    width:6,
+
+    dataSource:"salesRevenueTrend",
+
+    exportable:true,
+
+    filterable:true,
+
+    fullscreen:true
   },
+
 ];
 
 export const crmWidgets: WidgetConfig[] = [

@@ -4,7 +4,7 @@ import {
   productionLineData,
   productionAlertData,
 } from "../../data/mockData/productionData";
-
+import DashboardHeader from "../../components/dashboard/DashboardHeader";
 import ConversionChart from "../../components/charts/ConversionChart";
 import BarChartWidget from "../../components/charts/BarChartWidget";
 import StyleKpiCard from "../../components/common/StyleKpiCard";
@@ -16,7 +16,10 @@ export default function ProductionDashboard({ style }: Props) {
     <div className={`p-6 space-y-8 ${
       style === "style4" ? "bg-slate-900 rounded-2xl" : ""
     }`}>
-
+      <DashboardHeader
+    title="Production Dashboard"
+    description="Monitor production metrics, trends and performance."
+/>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {productionKpiData.map((kpi) => (
           <StyleKpiCard key={kpi.id} {...kpi} style={style} />
