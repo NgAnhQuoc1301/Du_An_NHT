@@ -4,49 +4,48 @@ import {
   projectListData,
 } from "../../data/mockData/projectData";
 
-import PieChartWidget
-  from "../../components/charts/PieChartWidget";
-import KpiCard from "../../components/common/KpiCard";
-export default function ProjectDashboard() {
+import PieChartWidget from "../../components/charts/PieChartWidget";
+import StyleKpiCard from "../../components/common/StyleKpiCard";
+
+type Props = { style: string };
+
+export default function ProjectDashboard({ style }: Props) {
   return (
-    <div className="p-6 space-y-8">
+    <div className={`p-6 space-y-8 ${
+      style === "style4" ? "bg-slate-900 rounded-2xl" : ""
+    }`}>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {projectKpiData.map((kpi) => (
-  <KpiCard key={kpi.id} {...kpi} />
-))}
+          <StyleKpiCard key={kpi.id} {...kpi} style={style} />
+        ))}
       </div>
 
-      <div className="bg-white rounded-2xl shadow p-6">
-        <h2 className="text-xl font-bold mb-6">
-          Project Status
-        </h2>
+      <div className={`rounded-2xl shadow p-6 ${
+        style === "style4" ? "bg-slate-800" : "bg-white"
+      }`}>
+        <h2 className={`text-xl font-bold mb-6 ${
+          style === "style4" ? "text-white" : ""
+        }`}>Project Status</h2>
         <PieChartWidget data={projectStatusData} />
       </div>
 
-      <div className="bg-white rounded-2xl shadow p-6">
-        <h2 className="text-xl font-bold mb-6">
-          Project List
-        </h2>
+      <div className={`rounded-2xl shadow p-6 ${
+        style === "style4" ? "bg-slate-800" : "bg-white"
+      }`}>
+        <h2 className={`text-xl font-bold mb-6 ${
+          style === "style4" ? "text-white" : ""
+        }`}>Project List</h2>
         <div className="space-y-4">
           {projectListData.map((project) => (
-            <div
-              key={project.id}
-              className="border rounded-xl p-4 hover:bg-slate-50"
-            >
+            <div key={project.id} className="border rounded-xl p-4 hover:bg-slate-50">
               <div className="flex justify-between items-center mb-2">
-                <h3 className="font-semibold">
-                  {project.name}
-                </h3>
-                <span className={`
-                  px-3 py-1 rounded-full text-xs font-medium
-                  ${project.status === "completed"
-                    ? "bg-green-100 text-green-600"
-                    : project.status === "delayed"
-                    ? "bg-red-100 text-red-600"
-                    : "bg-blue-100 text-blue-600"
-                  }
-                `}>
+                <h3 className="font-semibold">{project.name}</h3>
+                <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                  project.status === "completed" ? "bg-green-100 text-green-600"
+                  : project.status === "delayed" ? "bg-red-100 text-red-600"
+                  : "bg-blue-100 text-blue-600"
+                }`}>
                   {project.status}
                 </span>
               </div>

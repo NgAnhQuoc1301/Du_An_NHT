@@ -4,34 +4,39 @@ import {
   kpiListData,
 } from "../../data/mockData/kpiData";
 
-import ConversionChart
-  from "../../components/charts/ConversionChart";
-import KpiCard
-  from "../../components/common/KpiCard";
-import ProgressBar
-  from "../../components/common/ProgressBar";
+import ConversionChart from "../../components/charts/ConversionChart";
+import StyleKpiCard from "../../components/common/StyleKpiCard";
+import ProgressBar from "../../components/common/ProgressBar";
 
-export default function KPIDashboard() {
+type Props = { style: string };
+
+export default function KPIDashboard({ style }: Props) {
   return (
-    <div className="p-6 space-y-8">
+    <div className={`p-6 space-y-8 ${
+      style === "style4" ? "bg-slate-900 rounded-2xl" : ""
+    }`}>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {kpiCardsData.map((kpi) => (
-          <KpiCard key={kpi.id} {...kpi} />
+          <StyleKpiCard key={kpi.id} {...kpi} style={style} />
         ))}
       </div>
 
-      <div className="bg-white rounded-2xl shadow p-6">
-        <h2 className="text-xl font-bold mb-6">
-          KPI Trend
-        </h2>
+      <div className={`rounded-2xl shadow p-6 ${
+        style === "style4" ? "bg-slate-800" : "bg-white"
+      }`}>
+        <h2 className={`text-xl font-bold mb-6 ${
+          style === "style4" ? "text-white" : ""
+        }`}>KPI Trend</h2>
         <ConversionChart data={kpiTrendData} />
       </div>
 
-      <div className="bg-white rounded-2xl shadow p-6">
-        <h2 className="text-xl font-bold mb-6">
-          KPI List
-        </h2>
+      <div className={`rounded-2xl shadow p-6 ${
+        style === "style4" ? "bg-slate-800" : "bg-white"
+      }`}>
+        <h2 className={`text-xl font-bold mb-6 ${
+          style === "style4" ? "text-white" : ""
+        }`}>KPI List</h2>
         <div className="space-y-5">
           {kpiListData.map((item) => (
             <ProgressBar key={item.id} {...item} />

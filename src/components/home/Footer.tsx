@@ -56,9 +56,9 @@ export default function Footer() {
               Liên hệ
             </h4>
             <div className="flex flex-col gap-2 text-slate-400 text-sm">
-              <p>📧 info@nhtsolutions.vn</p>
-              <p>📞 +84 28 1234 5678</p>
-              <p>📍 Hà Nội, Việt Nam</p>
+              <p>📧 cskh@anerp.com.vn</p>
+              <p>📞 0328992139</p>
+              <p>📍 Địa chỉ: Tầng 3, Gold Tower, 275 Nguyễn Trãi, Thanh Xuân, Hà Nội</p>
             </div>
           </div>
 

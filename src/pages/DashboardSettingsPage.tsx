@@ -70,7 +70,7 @@ export default function DashboardSettingsPage() {
     setSaved(dashboardId);
     setTimeout(() => setSaved(null), 1500);
   };
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white">
 

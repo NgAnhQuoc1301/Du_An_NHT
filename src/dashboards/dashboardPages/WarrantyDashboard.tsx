@@ -4,45 +4,51 @@ import {
   warrantyTypeData,
   warrantyRequestData,
 } from "../../data/mockData/warrantyData";
-import KpiCard from "../../components/common/KpiCard";
-import ConversionChart
-  from "../../components/charts/ConversionChart";
 
-import PieChartWidget
-  from "../../components/charts/PieChartWidget";
+import ConversionChart from "../../components/charts/ConversionChart";
+import PieChartWidget from "../../components/charts/PieChartWidget";
+import StyleKpiCard from "../../components/common/StyleKpiCard";
 
-export default function WarrantyDashboard() {
+type Props = { style: string };
+
+export default function WarrantyDashboard({ style }: Props) {
   return (
-    <div className="p-6 space-y-8">
+    <div className={`p-6 space-y-8 ${
+      style === "style4" ? "bg-slate-900 rounded-2xl" : ""
+    }`}>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {warrantyKpiData.map((kpi) => (
-  <KpiCard key={kpi.id} {...kpi} />
-))}
+          <StyleKpiCard key={kpi.id} {...kpi} style={style} />
+        ))}
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
-
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h2 className="text-xl font-bold mb-6">
-            Warranty Requests Trend
-          </h2>
+        <div className={`rounded-2xl shadow p-6 ${
+          style === "style4" ? "bg-slate-800" : "bg-white"
+        }`}>
+          <h2 className={`text-xl font-bold mb-6 ${
+            style === "style4" ? "text-white" : ""
+          }`}>Warranty Requests Trend</h2>
           <ConversionChart data={warrantyTrendData} />
         </div>
 
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h2 className="text-xl font-bold mb-6">
-            Warranty By Type
-          </h2>
+        <div className={`rounded-2xl shadow p-6 ${
+          style === "style4" ? "bg-slate-800" : "bg-white"
+        }`}>
+          <h2 className={`text-xl font-bold mb-6 ${
+            style === "style4" ? "text-white" : ""
+          }`}>Warranty By Type</h2>
           <PieChartWidget data={warrantyTypeData} />
         </div>
-
       </div>
 
-      <div className="bg-white rounded-2xl shadow p-6">
-        <h2 className="text-xl font-bold mb-6">
-          Warranty Requests
-        </h2>
+      <div className={`rounded-2xl shadow p-6 ${
+        style === "style4" ? "bg-slate-800" : "bg-white"
+      }`}>
+        <h2 className={`text-xl font-bold mb-6 ${
+          style === "style4" ? "text-white" : ""
+        }`}>Warranty Requests</h2>
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b text-left text-slate-500">
@@ -54,29 +60,16 @@ export default function WarrantyDashboard() {
           </thead>
           <tbody>
             {warrantyRequestData.map((row) => (
-              <tr
-                key={row.id}
-                className="border-b hover:bg-slate-50"
-              >
-                <td className="py-3 font-medium">
-                  {row.customer}
-                </td>
-                <td className="py-3 text-slate-500">
-                  {row.product}
-                </td>
-                <td className="py-3 text-slate-500">
-                  {row.issue}
-                </td>
+              <tr key={row.id} className="border-b hover:bg-slate-50">
+                <td className="py-3 font-medium">{row.customer}</td>
+                <td className="py-3 text-slate-500">{row.product}</td>
+                <td className="py-3 text-slate-500">{row.issue}</td>
                 <td className="py-3">
-                  <span className={`
-                    px-3 py-1 rounded-full text-xs font-medium
-                    ${row.status === "resolved"
-                      ? "bg-green-100 text-green-600"
-                      : row.status === "processing"
-                      ? "bg-blue-100 text-blue-600"
-                      : "bg-orange-100 text-orange-600"
-                    }
-                  `}>
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    row.status === "resolved" ? "bg-green-100 text-green-600"
+                    : row.status === "processing" ? "bg-blue-100 text-blue-600"
+                    : "bg-orange-100 text-orange-600"
+                  }`}>
                     {row.status}
                   </span>
                 </td>

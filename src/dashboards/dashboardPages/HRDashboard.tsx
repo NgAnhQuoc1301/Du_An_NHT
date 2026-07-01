@@ -4,29 +4,32 @@ import {
   hrDepartmentData,
   hrEmployeeData,
 } from "../../data/mockData/hrData";
-import KpiCard from "../../components/common/KpiCard";
+
 import ConversionChart from "../../components/charts/ConversionChart";
 import PieChartWidget from "../../components/charts/PieChartWidget";
+import StyleKpiCard from "../../components/common/StyleKpiCard";
 
-export default function HRDashboard() {
+type Props = { style: string };
+
+export default function HRDashboard({ style }: Props) {
   return (
-    <div className="p-6 space-y-8">
+    <div className={`p-6 space-y-8 ${
+      style === "style4" ? "bg-slate-900 rounded-2xl" : ""
+    }`}>
 
-      {/* KPI */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {hrKpiData.map((kpi) => (
-  <KpiCard key={kpi.id} {...kpi} />
-))}
+          <StyleKpiCard key={kpi.id} {...kpi} style={style} />
+        ))}
       </div>
 
-      {/* Charts */}
       <div className="grid lg:grid-cols-2 gap-6">
-
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h2 className="text-xl font-bold mb-6">
-            Hiring Trend
-          </h2>
-
+        <div className={`rounded-2xl shadow p-6 ${
+          style === "style4" ? "bg-slate-800" : "bg-white"
+        }`}>
+          <h2 className={`text-xl font-bold mb-6 ${
+            style === "style4" ? "text-white" : ""
+          }`}>Hiring Trend</h2>
           <ConversionChart
             data={hrHiringTrendData.map((i) => ({
               month: i.month,
@@ -35,23 +38,22 @@ export default function HRDashboard() {
           />
         </div>
 
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h2 className="text-xl font-bold mb-6">
-            Department Distribution
-          </h2>
-
+        <div className={`rounded-2xl shadow p-6 ${
+          style === "style4" ? "bg-slate-800" : "bg-white"
+        }`}>
+          <h2 className={`text-xl font-bold mb-6 ${
+            style === "style4" ? "text-white" : ""
+          }`}>Department Distribution</h2>
           <PieChartWidget data={hrDepartmentData} />
         </div>
-
       </div>
 
-      {/* Employee Table */}
-      <div className="bg-white rounded-2xl shadow p-6">
-
-        <h2 className="text-xl font-bold mb-6">
-          Employee List
-        </h2>
-
+      <div className={`rounded-2xl shadow p-6 ${
+        style === "style4" ? "bg-slate-800" : "bg-white"
+      }`}>
+        <h2 className={`text-xl font-bold mb-6 ${
+          style === "style4" ? "text-white" : ""
+        }`}>Employee List</h2>
         <table className="w-full text-sm">
           <thead>
             <tr className="text-left text-slate-500 border-b">
@@ -61,25 +63,12 @@ export default function HRDashboard() {
               <th className="pb-3">Status</th>
             </tr>
           </thead>
-
           <tbody>
             {hrEmployeeData.map((emp) => (
-              <tr
-                key={emp.id}
-                className="border-b hover:bg-slate-50"
-              >
-                <td className="py-3 font-medium">
-                  {emp.name}
-                </td>
-
-                <td className="py-3 text-slate-500">
-                  {emp.role}
-                </td>
-
-                <td className="py-3 text-slate-500">
-                  {emp.department}
-                </td>
-
+              <tr key={emp.id} className="border-b hover:bg-slate-50">
+                <td className="py-3 font-medium">{emp.name}</td>
+                <td className="py-3 text-slate-500">{emp.role}</td>
+                <td className="py-3 text-slate-500">{emp.department}</td>
                 <td className="py-3">
                   <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                     emp.status === "active"
@@ -89,14 +78,12 @@ export default function HRDashboard() {
                     {emp.status}
                   </span>
                 </td>
-
               </tr>
             ))}
           </tbody>
         </table>
-
       </div>
 
     </div>
   );
-}   
+}

@@ -28,18 +28,15 @@ export default function DashboardDetailPage() {
     (item) => item.id === slug
   );
 
-  if (!dashboard) {
-    return (
-      <div className="p-10">
-        Dashboard not found
-      </div>
-    );
-  }
+  const defaultStyle = dashboard
+    ? getDashboardStyle(dashboard.id) || dashboard.style
+    : "style1";
 
-  const [selectedStyle, setSelectedStyle] = useState(
-  getDashboardStyle(dashboard.id) || dashboard.style
-);
+  const [selectedStyle, setSelectedStyle] = useState(defaultStyle);
+
   useEffect(() => {
+    if (!dashboard) return;
+
     const handleStorageChange = () => {
       const newStyle =
         getDashboardStyle(dashboard.id) ||
@@ -48,14 +45,23 @@ export default function DashboardDetailPage() {
     };
 
     window.addEventListener("storage", handleStorageChange);
-
-    // Đọc lại mỗi khi vào trang
     handleStorageChange();
 
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [dashboard.id, dashboard.style]);
+  }, [dashboard?.id, dashboard?.style]);
+
+  if (!dashboard) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-slate-500 text-lg">
+          Dashboard not found
+        </p>
+      </div>
+    );
+  }
+
   const metadata =
     dashboardMetadata[
       dashboard.id as keyof typeof dashboardMetadata
@@ -68,18 +74,18 @@ export default function DashboardDetailPage() {
 
   const renderDashboard = () => {
     switch (dashboard.id) {
-      case "crm":       return <CRMDashboard />;
-      case "sales":     return <SalesDashboard />;
-      case "ceo":       return <CEODashboard />;
-      case "warehouse": return <WarehouseDashboard />;
-      case "hr":        return <HRDashboard />;
-      case "finance":   return <FinanceDashboard />;
-      case "kpi":       return <KPIDashboard />;
-      case "production":return <ProductionDashboard />;
-      case "warranty":  return <WarrantyDashboard />;
-      case "project":   return <ProjectDashboard />;
-      case "workflow":  return <WorkflowDashboard />;
-      case "task":      return <TaskDashboard />;
+      case "crm":        return <CRMDashboard style={selectedStyle} />;
+      case "sales":      return <SalesDashboard style={selectedStyle} />;
+      case "ceo":        return <CEODashboard style={selectedStyle} />;
+      case "warehouse":  return <WarehouseDashboard style={selectedStyle} />;
+      case "hr":         return <HRDashboard style={selectedStyle} />;
+      case "finance":    return <FinanceDashboard style={selectedStyle} />;
+      case "kpi":        return <KPIDashboard style={selectedStyle} />;
+      case "production": return <ProductionDashboard style={selectedStyle} />;
+      case "warranty":   return <WarrantyDashboard style={selectedStyle} />;
+      case "project":    return <ProjectDashboard style={selectedStyle} />;
+      case "workflow":   return <WorkflowDashboard style={selectedStyle} />;
+      case "task":       return <TaskDashboard style={selectedStyle} />;
       default:
         return (
           <DashboardRenderer
@@ -113,7 +119,6 @@ export default function DashboardDetailPage() {
             font-semibold
             shadow-lg shadow-cyan-500/30
             hover:from-cyan-400 hover:to-blue-500
-            hover:shadow-cyan-400/40
             transition-all
             duration-300
           "
