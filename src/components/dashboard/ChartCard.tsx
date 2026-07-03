@@ -33,7 +33,7 @@ export default function ChartCard({
 
       default:
         return (
-          <div className="flex items-center justify-center h-full text-slate-400">
+          <div className="flex items-center justify-center h-full text-slate-700-700-400">
             Coming Soon
           </div>
         );
@@ -52,11 +52,11 @@ export default function ChartCard({
 
         <div>
 
-          <h3 className="font-semibold text-slate-700">
+          <h3 className="font-semibold text-slate-700-700">
             {title}
           </h3>
 
-          <div className="flex items-center gap-2 text-xs text-slate-400 mt-1">
+          <div className="flex items-center gap-2 text-xs text-slate-700-400 mt-1">
 
             <CalendarDays size={14} />
 

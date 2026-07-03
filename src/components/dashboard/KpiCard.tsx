@@ -45,16 +45,16 @@ export default function KpiCard({
 
         <div
         className="
-          h-11
-          w-11
-          rounded-xl
-          bg-slate-100
-          flex
-          items-center
-          justify-center
-          text-slate-600
+        h-11
+        w-11
+        rounded-xl
+        bg-green-100
+        flex
+        items-center
+        justify-center
+        text-green-700
         "
-      >
+        >
         {icon ?? <BarChart3 size={22} />}
       </div>
 

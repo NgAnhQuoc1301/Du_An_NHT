@@ -13,17 +13,17 @@ export default function Header() {
   ];
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
-    isActive
-      ? "text-cyan-300 font-semibold"
-      : "text-slate-300 hover:text-cyan-300 transition";
+  isActive
+    ? "text-green-600 font-semibold"
+    : "text-gray-700 hover:text-green-600 transition";
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-slate-950 via-blue-950 to-slate-900 border-b border-cyan-400/10 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 bg-white border-b border-green-200 backdrop-blur-xl">            
 
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
         {/* LOGO */}
-        <div className="text-xl font-bold bg-gradient-to-r from-cyan-300 to-blue-400 text-transparent bg-clip-text">
+        <div className="text-xl font-bold bg-gradient-to-r from-green-600 to-green-400 text-transparent bg-clip-text">
           NHT Solutions
         </div>
 
@@ -46,13 +46,13 @@ export default function Header() {
           className="md:hidden flex flex-col gap-1.5 p-2"
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          <span className={`block w-6 h-0.5 bg-cyan-300 transition-all duration-300 ${
+          <span className={`block w-6 h-0.5 bg-green-600 transition-all duration-300 ${
             menuOpen ? "rotate-45 translate-y-2" : ""
           }`} />
-          <span className={`block w-6 h-0.5 bg-cyan-300 transition-all duration-300 ${
+          <span className={`block w-6 h-0.5 bg-green-600 transition-all duration-300 ${
             menuOpen ? "opacity-0" : ""
           }`} />
-          <span className={`block w-6 h-0.5 bg-cyan-300 transition-all duration-300 ${
+          <span className={`block w-6 h-0.5 bg-green-600 transition-all duration-300 ${
             menuOpen ? "-rotate-45 -translate-y-2" : ""
           }`} />
         </button>
@@ -61,7 +61,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-slate-950/95 border-t border-cyan-400/10 px-6 py-4 flex flex-col gap-4">
+        <div className="md:hidden bg-white border-t border-green-200 px-6 py-4 flex flex-col gap-4">
           {navLinks.map((link) => (
             <NavLink
               key={link.to}

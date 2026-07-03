@@ -3,27 +3,40 @@ import { solutionsData } from "../../data/solutionsData";
 
 export default function SolutionsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-white">
 
-      <div className="max-w-7xl mx-auto px-6 pt-20 pb-10">
-        <div className="text-center">
+      {/* Hero */}
+      <div className="relative overflow-hidden">
 
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-300 via-blue-400 to-cyan-200 text-transparent bg-clip-text">
-            NHT Solution Catalog
-          </h1>
+        {/* Glow */}
+        <div className="absolute -top-32 -left-32 w-[450px] h-[450px] bg-green-300/30 blur-[170px] rounded-full" />
+        <div className="absolute -bottom-32 -right-32 w-[450px] h-[450px] bg-green-200/40 blur-[170px] rounded-full" />
 
-          <p className="mt-4 text-slate-300 max-w-2xl mx-auto text-lg">
-            Hệ thống giải pháp chuyển đổi số toàn diện dành cho doanh nghiệp hiện đại
-          </p>
+        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-10">
 
-          <div className="mt-6 flex justify-center">
-            <div className="h-[2px] w-24 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full" />
+          <div className="text-center">
+
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-700 via-green-500 to-green-400 text-transparent bg-clip-text">
+              NHT Solution Catalog
+            </h1>
+
+            <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-lg">
+              Hệ thống giải pháp chuyển đổi số toàn diện dành cho doanh nghiệp hiện đại
+            </p>
+
+            <div className="mt-6 flex justify-center">
+              <div className="h-[2px] w-24 rounded-full bg-gradient-to-r from-green-500 to-green-300" />
+            </div>
+
           </div>
 
         </div>
+
       </div>
 
+      {/* Grid */}
       <div className="max-w-7xl mx-auto px-6 pb-24">
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
           {solutionsData.map((solution) => (
@@ -31,20 +44,25 @@ export default function SolutionsPage() {
               key={solution.id}
               to={`/solutions/${solution.id}`}
             >
-              <div className="
-                group
-                relative
-                p-6
-                rounded-2xl
-                bg-white/5
-                border border-cyan-400/10
-                backdrop-blur-xl
-                transition-all duration-300
-                hover:border-cyan-400/40
-                hover:shadow-[0_0_25px_rgba(34,211,238,0.25)]
-                hover:-translate-y-1
-              ">
+              <div
+                className="
+                  group
+                  relative
+                  p-6
+                  rounded-2xl
+                  bg-white
+                  border border-green-200
+                  backdrop-blur-xl
+                  shadow-md
+                  transition-all
+                  duration-300
+                  hover:border-green-400
+                  hover:shadow-lg
+                  hover:-translate-y-1
+                "
+              >
 
+                {/* Dot */}
                 <div
                   className="w-2 h-2 rounded-full mb-4"
                   style={{
@@ -53,25 +71,43 @@ export default function SolutionsPage() {
                   }}
                 />
 
-                <div className="inline-block px-3 py-1 rounded-full text-xs bg-cyan-500/10 text-cyan-300 border border-cyan-400/20 mb-4">
+                {/* Badge */}
+                <div
+                  className="
+                    inline-block
+                    px-3
+                    py-1
+                    rounded-full
+                    text-xs
+                    bg-green-100
+                    text-green-700
+                    border border-green-300
+                    mb-4
+                  "
+                >
                   {solution.name}
                 </div>
 
-                <h3 className="text-lg font-semibold mb-2 group-hover:text-cyan-300 transition">
+                {/* Title */}
+                <h3 className="text-lg font-semibold mb-2 text-gray-800 group-hover:text-green-600 transition">
                   {solution.tagline}
                 </h3>
 
-                <p className="text-slate-300 text-sm leading-6">
+                {/* Description */}
+                <p className="text-gray-600 text-sm leading-6">
                   {solution.description}
                 </p>
 
-                <p className="text-xs text-slate-400 mt-4">
+                {/* Dashboard Count */}
+                <p className="text-xs text-gray-500 mt-4">
                   {solution.dashboards.length} dashboards
                 </p>
 
-                <div className="mt-5 h-[2px] w-0 group-hover:w-full transition-all duration-500 bg-gradient-to-r from-cyan-400 to-blue-500" />
+                {/* Bottom Line */}
+                <div className="mt-5 h-[2px] w-0 group-hover:w-full transition-all duration-500 bg-gradient-to-r from-green-500 to-green-300" />
 
-                <p className="mt-5 text-sm text-cyan-300 group-hover:text-white transition">
+                {/* CTA */}
+                <p className="mt-5 text-sm text-green-600 group-hover:text-green-700 transition">
                   View Details →
                 </p>
 
@@ -80,6 +116,7 @@ export default function SolutionsPage() {
           ))}
 
         </div>
+
       </div>
 
     </div>

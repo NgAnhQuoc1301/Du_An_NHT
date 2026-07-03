@@ -6,9 +6,9 @@ import {
 } from "lucide-react";
 
 type Props = {
-  title: string;
-  description: string;
-};
+    title:string;
+    description:string;
+}
 
 export default function DashboardHeader({
   title,

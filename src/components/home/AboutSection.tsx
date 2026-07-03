@@ -1,10 +1,11 @@
 export default function AboutSection() {
   return (
-    <section className="relative py-24 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white overflow-hidden">
+    <section className="relative py-24 bg-gradient-to-br from-white via-emerald-50 to-green-100 overflow-hidden">
 
       {/* glow background */}
-      <div className="absolute top-[-100px] left-[-100px] w-[350px] h-[350px] bg-cyan-500/20 blur-[120px] rounded-full" />
-      <div className="absolute bottom-[-120px] right-[-120px] w-[400px] h-[400px] bg-blue-500/20 blur-[140px] rounded-full" />
+      <div className="absolute top-[-100px] left-[-100px] w-[350px] h-[350px] bg-green-300/30 blur-[120px] rounded-full" />
+
+      <div className="absolute bottom-[-120px] right-[-120px] w-[400px] h-[400px] bg-green-200/40 blur-[140px] rounded-full" />
 
       <div className="relative max-w-7xl mx-auto px-6">
 
@@ -12,16 +13,16 @@ export default function AboutSection() {
 
           {/* LEFT CONTENT */}
           <div>
-            <span className="text-cyan-400 font-semibold tracking-widest text-sm">
+            <span className="text-green-600 font-semibold tracking-widest text-sm">
               ABOUT NHT SOLUTIONS
             </span>
 
-            <h2 className="text-4xl font-bold mt-4 leading-snug bg-gradient-to-r from-cyan-300 via-blue-400 to-cyan-200 text-transparent bg-clip-text">
+            <h2 className="text-4xl font-bold mt-4 leading-snug bg-gradient-to-r from-green-700 via-green-500 to-green-400 text-transparent bg-clip-text">
               Empowering Businesses Through
               Digital Transformation
             </h2>
 
-            <p className="mt-6 text-slate-300 leading-8">
+            <p className="mt-6 text-gray-600 leading-8">
               NHT Solutions delivers enterprise-grade
               ERP, CRM, Dashboard Analytics,
               Mobile Applications and Digital
@@ -32,11 +33,11 @@ export default function AboutSection() {
           </div>
 
           {/* RIGHT STATS */}
-          <div className="bg-white/5 border border-cyan-400/20 backdrop-blur-xl rounded-3xl p-10 shadow-[0_0_30px_rgba(34,211,238,0.15)]">
+          <div className="bg-white border border-green-200 backdrop-blur-xl rounded-3xl p-10 shadow-lg">
 
             <div className="grid grid-cols-2 gap-6">
 
-              <div className="bg-white/5 border border-cyan-400/10 p-6 rounded-xl hover:border-cyan-400/40 transition">
+              <div className="bg-green-50 border border-green-200 p-6 rounded-xl hover:border-green-400 transition">
                 <h3 className="text-3xl font-bold text-cyan-300">
                   100+
                 </h3>
@@ -45,8 +46,8 @@ export default function AboutSection() {
                 </p>
               </div>
 
-              <div className="bg-white/5 border border-cyan-400/10 p-6 rounded-xl hover:border-cyan-400/40 transition">
-                <h3 className="text-3xl font-bold text-cyan-300">
+              <div className="bg-green-50 border border-green-200 p-6 rounded-xl hover:border-green-400 transition">
+                <h3 className="text-3xl font-bold text-green-600">
                   12
                 </h3>
                 <p className="text-slate-300 text-sm mt-1">
@@ -54,7 +55,7 @@ export default function AboutSection() {
                 </p>
               </div>
 
-              <div className="bg-white/5 border border-cyan-400/10 p-6 rounded-xl hover:border-cyan-400/40 transition">
+              <div className="bg-green-50 border border-green-200 p-6 rounded-xl hover:border-green-400 transition">
                 <h3 className="text-3xl font-bold text-cyan-300">
                   ERP
                 </h3>
@@ -63,11 +64,11 @@ export default function AboutSection() {
                 </p>
               </div>
 
-              <div className="bg-white/5 border border-cyan-400/10 p-6 rounded-xl hover:border-cyan-400/40 transition">
+              <div className="bg-green-50 border border-green-200 p-6 rounded-xl hover:border-green-400 transition">
                 <h3 className="text-3xl font-bold text-cyan-300">
                   CRM
                 </h3>
-                <p className="text-slate-300 text-sm mt-1">
+                <p className="text-gray-600 text-sm mt-1">
                   Customer Management
                 </p>
               </div>

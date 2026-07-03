@@ -155,11 +155,11 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-white">
 
       <div className="max-w-7xl mx-auto px-6 py-20">
 
-        <h1 className="text-4xl font-bold text-cyan-300 mb-10">
+        <h1 className="text-4xl font-bold mb-10 bg-gradient-to-r from-green-700 via-green-500 to-emerald-500 bg-clip-text text-transparent">
           Contact Management
         </h1>
 
@@ -174,7 +174,22 @@ export default function ContactPage() {
               onChange={(e) =>
                 setForm({ ...form, name: e.target.value })
               }
-              className="w-full p-3 rounded-xl bg-white/5 border border-cyan-400/10"
+              className="
+              w-full
+              p-3
+              rounded-xl
+              bg-white
+              border
+              border-green-200
+              shadow-sm
+              text-gray-700
+              placeholder:text-gray-400
+              focus:border-green-500
+              focus:ring-2
+              focus:ring-green-200
+              outline-none
+              transition
+              "
             />
             {errors.name && (
               <p className="text-red-400 text-xs mt-1">{errors.name}</p>
@@ -235,17 +250,26 @@ export default function ContactPage() {
                 status: e.target.value as ContactStatus,
               })
             }
-            className="w-full p-3 rounded-xl bg-slate-900 text-white border border-cyan-400/20 appearance-none focus:outline-none focus:ring-2 focus:ring-cyan-400"
+            className="
+            w-full
+            p-3
+            rounded-xl
+            bg-white
+            text-gray-700
+            border
+            border-green-200
+            shadow-sm
+            appearance-none
+            focus:outline-none
+            focus:ring-2
+            focus:ring-green-200
+            focus:border-green-500
+            transition
+            "
           >
-            <option value="new" className="bg-slate-900 text-white">
-              🆕 New
-            </option>
-            <option value="processing" className="bg-slate-900 text-white">
-              ⚙ Processing
-            </option>
-            <option value="done" className="bg-slate-900 text-white">
-              ✅ Done
-            </option>
+            <option value="new">🆕 New</option>
+            <option value="processing">⚙ Processing</option>
+            <option value="done">✅ Done</option>
           </select>
 
         </div>
@@ -255,14 +279,38 @@ export default function ContactPage() {
           {editId ? (
             <button
               onClick={handleUpdate}
-              className="px-6 py-3 rounded-xl bg-yellow-500 text-black font-semibold"
+              className="
+              px-7
+              py-3
+              rounded-xl
+              bg-amber-500
+              text-white
+              font-semibold
+              shadow-md
+              hover:bg-amber-600
+              hover:shadow-lg
+              transition-all
+              duration-300
+              "
             >
               Update
             </button>
           ) : (
             <button
               onClick={handleAdd}
-              className="px-6 py-3 rounded-xl bg-cyan-500 text-white font-semibold"
+              className="
+              px-7
+              py-3
+              rounded-xl
+              bg-green-600
+              text-white
+              font-semibold
+              shadow-md
+              hover:bg-green-700
+              hover:shadow-lg
+              transition-all
+              duration-300
+              "
             >
               Add Contact
             </button>
@@ -273,27 +321,86 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
           {contacts.map((c) => (
-            <div key={c.id} className="p-6 rounded-2xl bg-white/5 border border-cyan-400/10">
+            <div
+            key={c.id}
+            className="
+              group
+              relative
+              overflow-hidden
 
-              <b>{c.name}</b>
-              <p className="text-sm text-cyan-300">
+              p-6
+
+              rounded-2xl
+
+              bg-white
+
+              border-2
+              border-green-300
+
+              ring-1
+              ring-green-100
+
+              shadow-lg
+
+              transition-all
+              duration-500
+
+              hover:-translate-y-2
+              hover:border-green-600
+              hover:ring-green-300
+              hover:shadow-[0_18px_45px_rgba(34,197,94,0.22)]
+            "
+          >
+
+              <b className="text-gray-800">{c.name}</b>
+
+              <p className="text-sm text-green-600 font-medium">
                 {c.status}
               </p>
-              <p className="text-sm text-slate-300">{c.email}</p>
-              <p className="text-sm text-slate-300">{c.phone}</p>
-              <p className="text-sm text-slate-400">{c.message}</p>
+
+              <p className="text-sm text-gray-600">
+                {c.email}
+              </p>
+
+              <p className="text-sm text-gray-600">
+                {c.phone}
+              </p>
+
+              <p className="text-sm text-gray-500">
+                {c.message}
+              </p>
 
               <div className="flex gap-2 mt-4">
                 <button
                   onClick={() => handleEdit(c)}
-                  className="flex-1 py-2 rounded-lg border border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/10 transition"
+                  className="
+                  flex-1
+                  py-2
+                  rounded-lg
+                  border
+                  border-green-300
+                  text-green-600
+                  font-medium
+                  hover:bg-green-50
+                  hover:border-green-500
+                  transition
+                  "
                 >
                   Edit
                 </button> 
 
                 <button
                   onClick={() => handleDelete(c.id)}
-                  className="flex-1 py-2 rounded-lg bg-red-500/90 hover:bg-red-500 transition"
+                  className="
+                  flex-1
+                  py-2
+                  rounded-lg
+                  bg-red-500    
+                  text-white
+                  font-medium
+                  hover:bg-red-600
+                  transition
+                  "
                 >
                   Delete
                 </button>

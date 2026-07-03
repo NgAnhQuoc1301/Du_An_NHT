@@ -5,7 +5,7 @@ export const solutionsData = [
     tagline: "Quản trị tổng thể doanh nghiệp",
     description:
       "Hệ thống ERP giúp doanh nghiệp tích hợp toàn bộ quy trình vận hành từ kho hàng, nhân sự, tài chính đến sản xuất trên một nền tảng duy nhất.",
-    color: "#3B82F6",
+    color: "#15803D", // Green 700
     dashboards: [
       { id: "ceo", name: "CEO Dashboard" },
       { id: "warehouse", name: "Warehouse Dashboard" },
@@ -21,7 +21,7 @@ export const solutionsData = [
     tagline: "Quản lý khách hàng và bán hàng",
     description:
       "Hệ thống CRM giúp doanh nghiệp theo dõi toàn bộ hành trình khách hàng từ lead, cơ hội kinh doanh đến chăm sóc sau bán hàng.",
-    color: "#10B981",
+    color: "#16A34A", // Green 600
     dashboards: [
       { id: "crm", name: "CRM Dashboard" },
       { id: "sales", name: "Sales Dashboard" },
@@ -34,7 +34,7 @@ export const solutionsData = [
     tagline: "Phân tích dữ liệu và điều hành",
     description:
       "Hệ thống Dashboard cung cấp góc nhìn toàn diện về hoạt động doanh nghiệp thông qua biểu đồ và chỉ số thời gian thực.",
-    color: "#8B5CF6",
+    color: "#22C55E", // Green 500
     dashboards: [
       { id: "ceo", name: "Executive Dashboard" },
       { id: "kpi", name: "KPI Dashboard" },
@@ -47,7 +47,7 @@ export const solutionsData = [
     tagline: "Truy cập hệ thống di động",
     description:
       "Ứng dụng mobile giúp nhân viên và quản lý truy cập hệ thống mọi lúc mọi nơi, phê duyệt workflow và theo dõi KPI trực tiếp trên điện thoại.",
-    color: "#F59E0B",
+    color: "#4ADE80", // Green 400
     dashboards: [
       { id: "workflow", name: "Workflow Dashboard" },
       { id: "task", name: "Task Dashboard" },
@@ -59,7 +59,7 @@ export const solutionsData = [
     tagline: "Chuyển đổi số & tự động hóa",
     description:
       "Giải pháp AI và IoT giúp doanh nghiệp tự động hóa quy trình, dự báo xu hướng và tối ưu vận hành thông qua dữ liệu thông minh.",
-    color: "#EF4444",
+    color: "#65A30D", // Lime 600
     dashboards: [
       { id: "production", name: "Production Dashboard" },
       { id: "warehouse", name: "Warehouse Dashboard" },

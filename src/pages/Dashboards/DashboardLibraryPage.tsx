@@ -86,17 +86,17 @@ export default function DashboardLibraryPage() {
   }, [search, activeCategory, sortBy]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 py-12 md:py-20 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-white">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
 
         {/* HEADER */}
     <div className="flex items-start justify-between mb-8">
 
       <div>
-        <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
+        <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-green-400 text-transparent bg-clip-text">
           Dashboard Library
         </h1>
-        <p className="text-slate-300 text-sm md:text-base">
+        <p className="text-white-300 text-sm md:text-base">
           Explore business dashboards developed by NHT Solutions.
         </p>
       </div>
@@ -107,13 +107,13 @@ export default function DashboardLibraryPage() {
           flex items-center gap-2
           px-5 py-2.5
           rounded-xl
-          bg-gradient-to-r from-cyan-500 to-blue-600
+          bg-gradient-to-r from-green-500 to-green-600
           text-white
           text-sm
           font-semibold
-          shadow-lg shadow-cyan-500/30
-          hover:from-cyan-400 hover:to-blue-500
-          hover:shadow-cyan-400/40
+          shadow-lg shadow-green-500/30
+          hover:from-green-400 hover:to-green-500
+          hover:shadow-green-400/40
           transition-all
           duration-300
           whitespace-nowrap
@@ -141,13 +141,13 @@ export default function DashboardLibraryPage() {
                 w-full
                 pl-10 pr-4 py-3
                 rounded-xl
-                bg-white/5
-                border border-cyan-400/20
+                bg-white
+                border border-green-400/20
                 text-white
                 placeholder-slate-400
                 text-sm
                 focus:outline-none
-                focus:border-cyan-400/50
+                focus:border-green-400/50
                 transition
               "
             />
@@ -199,7 +199,7 @@ export default function DashboardLibraryPage() {
                 duration-200
                 ${activeCategory === cat
                   ? "bg-cyan-500 border-cyan-500 text-white shadow-lg shadow-cyan-500/30"
-                  : "bg-white/5 border-cyan-400/20 text-slate-300 hover:border-cyan-400/50 hover:text-cyan-300"
+                  : "bg-white border-cyan-400/20 text-slate-300 hover:border-cyan-400/50 hover:text-cyan-300"
                 }
               `}
             >
@@ -243,13 +243,13 @@ export default function DashboardLibraryPage() {
                 className="group"
               >
                 <div className="
-                  bg-white/5
+                  bg-white
                   backdrop-blur-lg
                   border border-cyan-400/20
                   rounded-2xl
                   p-4
                   hover:border-cyan-400/50
-                  hover:shadow-[0_0_25px_rgba(34,211,238,0.25)]
+                  hover:shadow-[0_20px_50px_rgba(34,197,94,0.18)]
                   transition-all
                   duration-300
                   h-full
