@@ -8,32 +8,40 @@ type Props = {
 export default function DashboardGallery({
   images,
 }: Props) {
-
   const [selectedIndex, setSelectedIndex] =
     useState<number | null>(null);
 
   return (
     <section className="mb-16">
 
-      <h2 className="text-3xl font-bold mb-8">
+      <h2 className="text-3xl font-bold text-green-700 mb-8">
         Dashboard Gallery
       </h2>
 
-      <div className="grid md:grid-cols-2 gap-8">
+      {/* Thu nhỏ gallery */}
+      <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
 
         {images.map((image, index) => (
 
           <div
             key={index}
             className="
+              group
               bg-white
               rounded-2xl
-              shadow
               overflow-hidden
-              transition
-              hover:shadow-2xl
+
+              border-2
+              border-green-200
+
+              shadow-lg
+
+              transition-all
+              duration-500
+
+              hover:border-green-500
               hover:-translate-y-2
-              duration-300
+              hover:shadow-[0_18px_40px_rgba(34,197,94,0.18)]
             "
           >
 
@@ -43,19 +51,25 @@ export default function DashboardGallery({
               onClick={() => setSelectedIndex(index)}
               className="
                 w-full
-                h-72
+                h-56
                 object-cover
                 cursor-pointer
+                transition-transform
+                duration-500
+                group-hover:scale-105
               "
             />
 
-            <div className="p-5">
-              <p className="text-sm text-slate-500">
+            <div className="p-4">
+
+              <p className="text-sm text-gray-500">
                 Screenshot {index + 1}
               </p>
-              <h3 className="font-semibold mt-2">
+
+              <h3 className="font-semibold text-gray-800 mt-2">
                 Dashboard Preview
               </h3>
+
             </div>
 
           </div>

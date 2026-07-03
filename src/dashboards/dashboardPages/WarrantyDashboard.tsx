@@ -1,57 +1,61 @@
+import Style1 from "../styles/Style1";
+import Style2 from "../styles/Style2";
+import Style3 from "../styles/Style3";
+import Style4 from "../styles/Style4";
+import Style5 from "../styles/Style5";
+import type { WidgetConfig } from "../../types/widget";
 import {
+  warrantyKpiData,
+  warrantyTrendData,
+  warrantyTypeData,
   warrantyRequestData,
 } from "../../data/mockData/warrantyData";
-import DashboardHeader from "../../components/dashboard/DashboardHeader";
-
 
 type Props = { style: string };
 
+const warrantyWidgets: WidgetConfig[] = [
+  ...warrantyKpiData.map((kpi) => ({
+    id: `kpi-${kpi.id}`,
+    type: "kpi" as const,
+    title: kpi.title,
+    value: kpi.value,
+    description: kpi.change,
+    positive: kpi.positive,
+    width: 3 as const,
+  })),
+  {
+    id: "warranty-trend",
+    type: "line-chart" as const,
+    title: "Warranty Requests Trend",
+    width: 6 as const,
+    chartData: warrantyTrendData.map((i) => ({ name: i.month, requests: i.rate })),
+    chartKeys: [{ key: "requests", color: "#F59E0B" }],
+  },
+  {
+    id: "warranty-type",
+    type: "pie-chart" as const,
+    title: "Warranty By Type",
+    width: 6 as const,
+    chartData: warrantyTypeData.map((i) => ({ name: i.name, value: i.value })),
+    chartKeys: [{ key: "value", color: "#EF4444" }],
+  },
+  {
+    id: "requests",
+    type: "table" as const,
+    title: "Warranty Requests",
+    width: 12 as const,
+    tableColumns: ["customer", "product", "issue", "status"],
+    tableRows: warrantyRequestData,
+  },
+];
+
 export default function WarrantyDashboard({ style }: Props) {
-  return (
-    <div className={`p-6 space-y-8 ${
-      style === "style4" ? "bg-slate-900 rounded-2xl" : ""
-    }`}>
-<DashboardHeader
-    title="Warranty Dashboard"
-    description="Monitor warranty requests, trends and type performance."
-/>
-
-      <div className={`rounded-2xl shadow p-6 ${
-        style === "style4" ? "bg-slate-800" : "bg-white"
-      }`}>
-        <h2 className={`text-xl font-bold mb-6 ${
-          style === "style4" ? "text-white" : ""
-        }`}>Warranty Requests</h2>
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b text-left text-slate-500">
-              <th className="pb-3">Khách hàng</th>
-              <th className="pb-3">Sản phẩm</th>
-              <th className="pb-3">Vấn đề</th>
-              <th className="pb-3">Trạng thái</th>
-            </tr>
-          </thead>
-          <tbody>
-            {warrantyRequestData.map((row) => (
-              <tr key={row.id} className="border-b hover:bg-slate-50">
-                <td className="py-3 font-medium">{row.customer}</td>
-                <td className="py-3 text-slate-500">{row.product}</td>
-                <td className="py-3 text-slate-500">{row.issue}</td>
-                <td className="py-3">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    row.status === "resolved" ? "bg-green-100 text-green-600"
-                    : row.status === "processing" ? "bg-blue-100 text-blue-600"
-                    : "bg-orange-100 text-orange-600"
-                  }`}>
-                    {row.status}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  );
+  const props = { title: "Warranty Dashboard", widgets: warrantyWidgets };
+  switch (style) {
+    case "style2": return <Style2 {...props} />;
+    case "style3": return <Style3 {...props} />;
+    case "style4": return <Style4 {...props} />;
+    case "style5": return <Style5 {...props} />;
+    default:       return <Style1 {...props} />;
+  }
 }

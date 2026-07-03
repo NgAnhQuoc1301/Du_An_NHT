@@ -72,29 +72,40 @@ export default function DashboardSettingsPage() {
   };
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-white">
 
       <div className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-20">
 
         {/* HEADER */}
-    <div className="mb-12">
+    <div className="mb-14">
 
-      <Link
-        to="/dashboards"
-        className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm transition mb-6"
-      >
-        ← Quay lại Dashboard Library
-      </Link>
+  <Link
+    to="/dashboards"
+    className="
+      inline-flex
+      items-center
+      gap-2
+      text-green-600
+      hover:text-green-700
+      font-medium
+      transition
+      mb-6
+    "
+  >
+    ← Quay lại Dashboard Library
+  </Link>
 
-      <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-300 to-blue-400 text-transparent bg-clip-text">
-        Dashboard Settings
-      </h1>
-      <p className="text-slate-400 mt-2 text-sm">
-        Tuỳ chỉnh layout style cho từng dashboard
-      </p>
-      <div className="mt-4 h-[2px] w-24 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full" />
+  <h1 className="text-5xl font-bold bg-gradient-to-r from-green-700 via-green-500 to-emerald-500 bg-clip-text text-transparent">
+    Dashboard Settings
+  </h1>
 
-    </div>
+  <p className="mt-4 text-gray-600 text-lg">
+    Tuỳ chỉnh layout style cho từng Dashboard
+  </p>
+
+  <div className="mt-6 h-1 w-28 rounded-full bg-gradient-to-r from-green-600 via-green-500 to-emerald-400" />
+
+</div>
 
         {/* DASHBOARD LIST */}
         <div className="space-y-6">
@@ -103,30 +114,71 @@ export default function DashboardSettingsPage() {
             <div
               key={dashboard.id}
               className="
-                bg-white/5
-                border border-cyan-400/20
-                rounded-2xl
-                p-6
-                hover:border-cyan-400/30
-                transition
-              "
-            >
+                group
+                relative
+                overflow-hidden
 
+                bg-white
+
+                rounded-2xl
+
+                p-6
+
+                border-2
+                border-green-300
+
+                ring-1
+                ring-green-100
+
+                shadow-lg
+
+                transition-all
+                duration-500
+
+                hover:-translate-y-2
+                hover:border-green-600
+                hover:ring-green-300
+                hover:shadow-[0_20px_45px_rgba(34,197,94,0.18)]
+                "
+            >
+              <div
+                className="
+                  absolute
+                  top-0
+                  left-0
+                  h-1
+                  w-full
+                  bg-gradient-to-r
+                  from-green-600
+                  via-green-500
+                  to-emerald-400
+                "
+              />
               {/* TOP ROW */}
               <div className="flex items-center justify-between mb-4">
 
                 <div>
-                  <h2 className="font-bold text-lg text-white">
+                  <h2 className="font-bold text-xl text-gray-800">
                     {dashboard.name}
                   </h2>
-                  <p className="text-slate-400 text-xs mt-1">
+                  <p className="text-gray-500 text-sm mt-1">
                     ID: {dashboard.id}
                   </p>
                 </div>
 
                 {/* Saved badge */}
                 {saved === dashboard.id && (
-                  <span className="text-xs text-green-400 bg-green-400/10 border border-green-400/20 px-3 py-1 rounded-full">
+                  <span className="
+                  text-xs
+                  font-semibold
+                  text-green-700
+                  bg-green-100
+                  border
+                  border-green-300
+                  px-3
+                  py-1
+                  rounded-full
+                  ">
                     ✓ Đã lưu
                   </span>
                 )}
@@ -142,22 +194,50 @@ export default function DashboardSettingsPage() {
                       handleChange(dashboard.id, style.value)
                     }
                     className={`
-                      p-3
+                      p-4
+
                       rounded-xl
-                      border
-                      text-left
+
+                      border-2
+
                       transition-all
-                      duration-200
-                      ${styles[dashboard.id] === style.value
-                        ? "bg-cyan-500/20 border-cyan-400/60 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
-                        : "bg-white/5 border-cyan-400/10 hover:border-cyan-400/30"
+                      duration-300
+
+                      ${
+                      styles[dashboard.id]===style.value
+                      ?`
+                      bg-green-600
+                      border-green-600
+                      text-white
+                      shadow-lg
+                      scale-105
+                      `
+                      :`
+                      bg-white
+                      border-green-200
+                      hover:border-green-500
+                      hover:bg-green-50
+                      hover:-translate-y-1
+                      `
                       }
-                    `}
+                      `}
                   >
-                    <p className="text-sm font-semibold text-white">
+                    <p
+                      className={`text-sm font-semibold ${
+                      styles[dashboard.id]===style.value
+                      ? "text-white"
+                      : "text-gray-800"
+                      }`}
+                      >
                       {style.label}
                     </p>
-                    <p className="text-[10px] text-slate-400 mt-1 leading-4">
+                    <p
+                      className={`text-[10px] mt-1 leading-4 ${
+                      styles[dashboard.id]===style.value
+                      ? "text-green-100"
+                      : "text-gray-500"
+                      }`}
+                      >
                       {style.desc}
                     </p>
                   </button>
@@ -167,9 +247,9 @@ export default function DashboardSettingsPage() {
               {/* BOTTOM ROW */}
               <div className="flex items-center justify-between">
 
-                <p className="text-xs text-slate-500">
+                <p className="text-sm text-gray-600">
                   Style hiện tại:{" "}
-                  <span className="text-cyan-300 font-medium">
+                  <span className="font-semibold text-green-600">
                     {styles[dashboard.id]}
                   </span>
                 </p>
@@ -178,7 +258,13 @@ export default function DashboardSettingsPage() {
                   onClick={() =>
                     handleReset(dashboard.id, dashboard.style)
                   }
-                  className="text-xs text-slate-400 hover:text-cyan-300 transition"
+                  className="
+                  text-sm
+                  font-medium
+                  text-green-600
+                  hover:text-green-700
+                  transition
+                  "
                 >
                   ↺ Reset mặc định
                 </button>

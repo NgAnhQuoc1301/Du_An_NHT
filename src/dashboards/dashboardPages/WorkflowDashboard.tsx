@@ -1,60 +1,52 @@
+import Style1 from "../styles/Style1";
+import Style2 from "../styles/Style2";
+import Style3 from "../styles/Style3";
+import Style4 from "../styles/Style4";
+import Style5 from "../styles/Style5";
+import type { WidgetConfig } from "../../types/widget";
 import {
+  workflowKpiData,
+  workflowTypeData,
   workflowListData,
 } from "../../data/mockData/workflowData";
-import DashboardHeader from "../../components/dashboard/DashboardHeader";
-
 
 type Props = { style: string };
 
+const workflowWidgets: WidgetConfig[] = [
+  ...workflowKpiData.map((kpi) => ({
+    id: `kpi-${kpi.id}`,
+    type: "kpi" as const,
+    title: kpi.title,
+    value: kpi.value,
+    description: kpi.change,
+    positive: kpi.positive,
+    width: 3 as const,
+  })),
+  {
+    id: "workflow-type",
+    type: "pie-chart" as const,
+    title: "Workflow By Type",
+    width: 6 as const,
+    chartData: workflowTypeData.map((i) => ({ name: i.name, value: i.value })),
+    chartKeys: [{ key: "value", color: "#6366F1" }],
+  },
+  {
+    id: "workflow-list",
+    type: "table" as const,
+    title: "Workflow List",
+    width: 6 as const,
+    tableColumns: ["name", "type", "requester", "created", "status"],
+    tableRows: workflowListData,
+  },
+];
+
 export default function WorkflowDashboard({ style }: Props) {
-  return (
-    
-    <div className={`p-6 space-y-8 ${
-      style === "style4" ? "bg-slate-900 rounded-2xl" : ""
-    }`}>
-      <DashboardHeader
-    title="Workflow Dashboard"
-    description="Monitor workflow, type and status performance."
-/>
-
-      <div className={`rounded-2xl shadow p-6 ${
-        style === "style4" ? "bg-slate-800" : "bg-white"
-      }`}>
-        <h2 className={`text-xl font-bold mb-6 ${
-          style === "style4" ? "text-white" : ""
-        }`}>Workflow List</h2>
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b text-left text-slate-500">
-              <th className="pb-3">Tên workflow</th>
-              <th className="pb-3">Loại</th>
-              <th className="pb-3">Người yêu cầu</th>
-              <th className="pb-3">Ngày tạo</th>
-              <th className="pb-3">Trạng thái</th>
-            </tr>
-          </thead>
-          <tbody>
-            {workflowListData.map((row) => (
-              <tr key={row.id} className="border-b hover:bg-slate-50">
-                <td className="py-3 font-medium">{row.name}</td>
-                <td className="py-3 text-slate-500">{row.type}</td>
-                <td className="py-3 text-slate-500">{row.requester}</td>
-                <td className="py-3 text-slate-500">{row.created}</td>
-                <td className="py-3">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    row.status === "approved" ? "bg-green-100 text-green-600"
-                    : row.status === "rejected" ? "bg-red-100 text-red-600"
-                    : "bg-orange-100 text-orange-600"
-                  }`}>
-                    {row.status}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  );
+  const props = { title: "Workflow Dashboard", widgets: workflowWidgets };
+  switch (style) {
+    case "style2": return <Style2 {...props} />;
+    case "style3": return <Style3 {...props} />;
+    case "style4": return <Style4 {...props} />;
+    case "style5": return <Style5 {...props} />;
+    default:       return <Style1 {...props} />;
+  }
 }

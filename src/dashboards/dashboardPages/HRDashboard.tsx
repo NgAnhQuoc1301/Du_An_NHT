@@ -1,61 +1,61 @@
+import Style1 from "../styles/Style1";
+import Style2 from "../styles/Style2";
+import Style3 from "../styles/Style3";
+import Style4 from "../styles/Style4";
+import Style5 from "../styles/Style5";
+import type { WidgetConfig } from "../../types/widget";
 import {
   hrKpiData,
+  hrHiringTrendData,
+  hrDepartmentData,
   hrEmployeeData,
 } from "../../data/mockData/hrData";
-import StyleKpiCard from "../../components/common/StyleKpiCard";
-import DashboardHeader from "../../components/dashboard/DashboardHeader";
+
 type Props = { style: string };
 
-export default function HRDashboard({ style }: Props) {
-  return (
-    <div className={`p-6 space-y-8 ${
-      style === "style4" ? "bg-slate-900 rounded-2xl" : ""
-    }`}>
-      <DashboardHeader
-    title="HR Dashboard"
-    description="Monitor human resources metrics and performance."
-/>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        {hrKpiData.map((kpi) => (
-          <StyleKpiCard key={kpi.id} {...kpi} style={style} />
-        ))}
-      </div>
-      <div className={`rounded-2xl shadow p-6 ${
-        style === "style4" ? "bg-slate-800" : "bg-white"
-      }`}>
-        <h2 className={`text-xl font-bold mb-6 ${
-          style === "style4" ? "text-white" : ""
-        }`}>Employee List</h2>
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="text-left text-slate-500 border-b">
-              <th className="pb-3">Name</th>
-              <th className="pb-3">Role</th>
-              <th className="pb-3">Department</th>
-              <th className="pb-3">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {hrEmployeeData.map((emp) => (
-              <tr key={emp.id} className="border-b hover:bg-slate-50">
-                <td className="py-3 font-medium">{emp.name}</td>
-                <td className="py-3 text-slate-500">{emp.role}</td>
-                <td className="py-3 text-slate-500">{emp.department}</td>
-                <td className="py-3">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    emp.status === "active"
-                      ? "bg-green-100 text-green-600"
-                      : "bg-slate-100 text-slate-500"
-                  }`}>
-                    {emp.status}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+const hrWidgets: WidgetConfig[] = [
+  ...hrKpiData.map((kpi) => ({
+    id: `kpi-${kpi.id}`,
+    type: "kpi" as const,
+    title: kpi.title,
+    value: kpi.value,
+    description: kpi.change,
+    positive: kpi.positive,
+    width: 3 as const,
+  })),
+  {
+    id: "hiring-trend",
+    type: "line-chart" as const,
+    title: "Hiring Trend",
+    width: 6 as const,
+    chartData: hrHiringTrendData.map((i) => ({ name: i.month, hired: i.value })),
+    chartKeys: [{ key: "hired", color: "#3B82F6" }],
+  },
+  {
+    id: "department",
+    type: "pie-chart" as const,
+    title: "Department Distribution",
+    width: 6 as const,
+    chartData: hrDepartmentData.map((i) => ({ name: i.name, value: i.value })),
+    chartKeys: [{ key: "value", color: "#10B981" }],
+  },
+  {
+    id: "employees",
+    type: "table" as const,
+    title: "Employee List",
+    width: 12 as const,
+    tableColumns: ["name", "role", "department", "status"],
+    tableRows: hrEmployeeData,
+  },
+];
 
-    </div>
-  );
+export default function HRDashboard({ style }: Props) {
+  const props = { title: "HR Dashboard", widgets: hrWidgets };
+  switch (style) {
+    case "style2": return <Style2 {...props} />;
+    case "style3": return <Style3 {...props} />;
+    case "style4": return <Style4 {...props} />;
+    case "style5": return <Style5 {...props} />;
+    default:       return <Style1 {...props} />;
+  }
 }

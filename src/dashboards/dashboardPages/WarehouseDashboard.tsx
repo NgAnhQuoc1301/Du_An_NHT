@@ -1,58 +1,52 @@
+import Style1 from "../styles/Style1";
+import Style2 from "../styles/Style2";
+import Style3 from "../styles/Style3";
+import Style4 from "../styles/Style4";
+import Style5 from "../styles/Style5";
+import type { WidgetConfig } from "../../types/widget";
 import {
+  warehouseKpiData,
+  warehouseCategoryData,
   warehouseAlertData,
 } from "../../data/mockData/warehouseData";
-import DashboardHeader from "../../components/dashboard/DashboardHeader";
-
 
 type Props = { style: string };
 
-export default function WarehouseDashboard({ style }: Props) {
-  return (
-    <div className={`p-6 space-y-8 ${
-      style === "style4" ? "bg-slate-900 rounded-2xl" : ""
-    }`}>
-      <DashboardHeader
-    title="Warehouse Dashboard"
-    description="Monitor revenue, orders and sales performance."
-/>
-      <div className={`rounded-2xl shadow p-6 ${
-        style === "style4" ? "bg-slate-800" : "bg-white"
-      }`}>
-        <h2 className={`text-xl font-bold mb-6 ${
-          style === "style4" ? "text-white" : ""
-        }`}>Cảnh báo tồn kho</h2>
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b text-left text-slate-500">
-              <th className="pb-3">Sản phẩm</th>
-              <th className="pb-3">Danh mục</th>
-              <th className="pb-3">Tồn kho</th>
-              <th className="pb-3">Tối thiểu</th>
-              <th className="pb-3">Trạng thái</th>
-            </tr>
-          </thead>
-          <tbody>
-            {warehouseAlertData.map((row) => (
-              <tr key={row.id} className="border-b hover:bg-slate-50">
-                <td className="py-3 font-medium">{row.product}</td>
-                <td className="py-3 text-slate-500">{row.category}</td>
-                <td className="py-3 font-semibold">{row.stock}</td>
-                <td className="py-3 text-slate-500">{row.minStock}</td>
-                <td className="py-3">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    row.status === "out"
-                      ? "bg-red-100 text-red-600"
-                      : "bg-orange-100 text-orange-600"
-                  }`}>
-                    {row.status === "out" ? "Hết hàng" : "Sắp hết"}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+const warehouseWidgets: WidgetConfig[] = [
+  ...warehouseKpiData.map((kpi) => ({
+    id: `kpi-${kpi.id}`,
+    type: "kpi" as const,
+    title: kpi.title,
+    value: kpi.value,
+    description: kpi.change,
+    positive: kpi.positive,
+    width: 3 as const,
+  })),
+  {
+    id: "category-chart",
+    type: "bar-chart" as const,
+    title: "Cơ cấu hàng tồn theo danh mục",
+    width: 6 as const,
+    chartData: warehouseCategoryData.map((i) => ({ name: i.name, value: i.value })),
+    chartKeys: [{ key: "value", color: "#3B82F6" }],
+  },
+  {
+    id: "alert-table",
+    type: "table" as const,
+    title: "Cảnh báo tồn kho",
+    width: 6 as const,
+    tableColumns: ["product", "category", "stock", "minStock", "status"],
+    tableRows: warehouseAlertData,
+  },
+];
 
-    </div>
-  );
-}
+export default function WarehouseDashboard({ style }: Props) {
+  const props = { title: "Warehouse Dashboard", widgets: warehouseWidgets };
+  switch (style) {
+    case "style2": return <Style2 {...props} />;
+    case "style3": return <Style3 {...props} />;
+    case "style4": return <Style4 {...props} />;
+    case "style5": return <Style5 {...props} />;
+    default:       return <Style1 {...props} />;
+  }
+}     

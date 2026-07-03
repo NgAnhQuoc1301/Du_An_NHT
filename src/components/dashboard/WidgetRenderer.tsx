@@ -1,6 +1,4 @@
 import type { WidgetConfig } from "../../types/widget";
-
-import KpiCard from "./KpiCard";
 import ChartCard from "./ChartCard";
 import TableCard from "./TableCard";
 
@@ -13,17 +11,6 @@ export default function WidgetRenderer({
 }: Props) {
 
   switch (widget.type) {
-
-    case "kpi":
-      return (
-        <KpiCard
-            title={widget.title}
-            value={widget.value ?? "-"}
-            change="+12.5%"
-            positive
-        />
-      );
-
     case "line-chart":
   return (
     <ChartCard

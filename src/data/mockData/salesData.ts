@@ -1,28 +1,8 @@
 export const salesKpiData = [
-  {
-    title: "Revenue",
-    value: "$120,000",
-    change: "+15%",
-    positive: true,
-  },
-  {
-    title: "Orders",
-    value: "356",
-    change: "+8%",
-    positive: true,
-  },
-  {
-    title: "Customers",
-    value: "820",
-    change: "+5%",
-    positive: true,
-  },
-  {
-    title: "Growth",
-    value: "18%",
-    change: "+2%",
-    positive: true,
-  },
+  { id: "revenue", title: "Revenue", value: "$120,000", change: "+15%", positive: true },
+  { id: "orders", title: "Orders", value: "356", change: "+8%", positive: true },
+  { id: "customers", title: "Customers", value: "820", change: "+5%", positive: true },
+  { id: "growth", title: "Growth", value: "18%", change: "+2%", positive: true },
 ];
 
 export const salesRevenueTrendData = [
@@ -51,33 +31,16 @@ export const salesByProductData = [
   { name: "Khác", value: 19000, color: "#F59E0B" },
 ];
 
+export const salesTopProducts = [
+  { name: "Điều hòa Nagakawa 1HP", revenue: 42000, growth: "+15%" },
+  { name: "Tủ lạnh 2 cánh 350L", revenue: 31000, growth: "+8%" },
+  { name: "Máy giặt 8kg", revenue: 28000, growth: "+12%" },
+  { name: "Nồi cơm điện 1.8L", revenue: 19000, growth: "+5%" },
+];
+
 export const salesKpiListData = [
-  {
-    id: "customers",
-    title: "New Customers",
-    value: "48",
-    target: "50",
-    percent: 96,
-  },
-  {
-    id: "growth",
-    title: "Revenue Growth",
-    value: "+15%",
-    target: "+20%",
-    percent: 75,
-  },
-  {
-    id: "avgorder",
-    title: "Avg Order Value",
-    value: "$267",
-    target: "$300",
-    percent: 89,
-  },
-  {
-    id: "margin",
-    title: "Profit Margin",
-    value: "29%",
-    target: "30%",
-    percent: 97,
-  },
+  { id: "customers", title: "New Customers", value: "48", target: "50", percent: 96 },
+  { id: "growth", title: "Revenue Growth", value: "+15%", target: "+20%", percent: 75 },
+  { id: "avgorder", title: "Avg Order Value", value: "$267", target: "$300", percent: 89 },
+  { id: "margin", title: "Profit Margin", value: "29%", target: "30%", percent: 97 },
 ];

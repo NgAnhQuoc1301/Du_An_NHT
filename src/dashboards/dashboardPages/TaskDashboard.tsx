@@ -1,72 +1,61 @@
+import Style1 from "../styles/Style1";
+import Style2 from "../styles/Style2";
+import Style3 from "../styles/Style3";
+import Style4 from "../styles/Style4";
+import Style5 from "../styles/Style5";
+import type { WidgetConfig } from "../../types/widget";
 import {
   taskKpiData,
+  taskTrendData,
+  taskStatusData,
   taskListData,
 } from "../../data/mockData/taskData";
-import DashboardHeader from "../../components/dashboard/DashboardHeader";
-import StyleKpiCard from "../../components/common/StyleKpiCard";
 
 type Props = { style: string };
 
-export default function TaskDashboard({ style }: Props) {
-  return (
-    <div className={`p-6 space-y-8 ${
-      style === "style4" ? "bg-slate-900 rounded-2xl" : ""
-    }`}>
-      <DashboardHeader
-    title="Sales Dashboard"
-    description="Monitor revenue, orders and sales performance."
-/>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        {taskKpiData.map((kpi) => (
-          <StyleKpiCard key={kpi.id} {...kpi} style={style} />
-        ))}
-      </div>
-      <div className={`rounded-2xl shadow p-6 ${
-        style === "style4" ? "bg-slate-800" : "bg-white"
-      }`}>
-        <h2 className={`text-xl font-bold mb-6 ${
-          style === "style4" ? "text-white" : ""
-        }`}>Task List</h2>
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b text-left text-slate-500">
-              <th className="pb-3">Task</th>
-              <th className="pb-3">Assignee</th>
-              <th className="pb-3">Priority</th>
-              <th className="pb-3">Deadline</th>
-              <th className="pb-3">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {taskListData.map((row) => (
-              <tr key={row.id} className="border-b hover:bg-slate-50">
-                <td className="py-3 font-medium">{row.title}</td>
-                <td className="py-3 text-slate-500">{row.assignee}</td>
-                <td className="py-3">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    row.priority === "high" ? "bg-red-100 text-red-600"
-                    : row.priority === "medium" ? "bg-orange-100 text-orange-600"
-                    : "bg-slate-100 text-slate-500"
-                  }`}>
-                    {row.priority}
-                  </span>
-                </td>
-                <td className="py-3 text-slate-500">{row.deadline}</td>
-                <td className="py-3">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    row.status === "completed" ? "bg-green-100 text-green-600"
-                    : row.status === "overdue" ? "bg-red-100 text-red-600"
-                    : "bg-blue-100 text-blue-600"
-                  }`}>
-                    {row.status}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+const taskWidgets: WidgetConfig[] = [
+  ...taskKpiData.map((kpi) => ({
+    id: `kpi-${kpi.id}`,
+    type: "kpi" as const,
+    title: kpi.title,
+    value: kpi.value,
+    description: kpi.change,
+    positive: kpi.positive,
+    width: 3 as const,
+  })),
+  {
+    id: "task-trend",
+    type: "line-chart" as const,
+    title: "Task Completion Trend",
+    width: 6 as const,
+    chartData: taskTrendData.map((i) => ({ name: i.month, completed: i.rate })),
+    chartKeys: [{ key: "completed", color: "#10B981" }],
+  },
+  {
+    id: "task-status",
+    type: "pie-chart" as const,
+    title: "Task Status",
+    width: 6 as const,
+    chartData: taskStatusData.map((i) => ({ name: i.name, value: i.value })),
+    chartKeys: [{ key: "value", color: "#3B82F6" }],
+  },
+  {
+    id: "task-list",
+    type: "table" as const,
+    title: "Task List",
+    width: 12 as const,
+    tableColumns: ["title", "assignee", "priority", "deadline", "status"],
+    tableRows: taskListData,
+  },
+];
 
-    </div>
-  );
+export default function TaskDashboard({ style }: Props) {
+  const props = { title: "Task Dashboard", widgets: taskWidgets };
+  switch (style) {
+    case "style2": return <Style2 {...props} />;
+    case "style3": return <Style3 {...props} />;
+    case "style4": return <Style4 {...props} />;
+    case "style5": return <Style5 {...props} />;
+    default:       return <Style1 {...props} />;
+  }
 }
