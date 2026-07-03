@@ -1,11 +1,8 @@
 import {
-  warehouseKpiData,
-  warehouseCategoryData,
   warehouseAlertData,
 } from "../../data/mockData/warehouseData";
 import DashboardHeader from "../../components/dashboard/DashboardHeader";
-import BarChartWidget from "../../components/charts/BarChartWidget";
-import StyleKpiCard from "../../components/common/StyleKpiCard";
+
 
 type Props = { style: string };
 
@@ -16,29 +13,8 @@ export default function WarehouseDashboard({ style }: Props) {
     }`}>
       <DashboardHeader
     title="Warehouse Dashboard"
-    description="Monitor inventory levels, categories and alerts."
+    description="Monitor revenue, orders and sales performance."
 />
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        {warehouseKpiData.map((kpi) => (
-          <StyleKpiCard key={kpi.id} {...kpi} style={style} />
-        ))}
-      </div>
-
-      <div className={`rounded-2xl shadow p-6 ${
-        style === "style4" ? "bg-slate-800" : "bg-white"
-      }`}>
-        <h2 className={`text-xl font-bold mb-6 ${
-          style === "style4" ? "text-white" : ""
-        }`}>Cơ cấu hàng tồn theo danh mục</h2>
-        <BarChartWidget
-          data={warehouseCategoryData.map((item) => ({
-            name: item.name,
-            revenue: item.value,
-            color: item.color,
-          }))}
-        />
-      </div>
-
       <div className={`rounded-2xl shadow p-6 ${
         style === "style4" ? "bg-slate-800" : "bg-white"
       }`}>

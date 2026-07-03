@@ -1,13 +1,8 @@
 import {
-  warrantyKpiData,
-  warrantyTrendData,
-  warrantyTypeData,
   warrantyRequestData,
 } from "../../data/mockData/warrantyData";
 import DashboardHeader from "../../components/dashboard/DashboardHeader";
-import ConversionChart from "../../components/charts/ConversionChart";
-import PieChartWidget from "../../components/charts/PieChartWidget";
-import StyleKpiCard from "../../components/common/StyleKpiCard";
+
 
 type Props = { style: string };
 
@@ -20,31 +15,6 @@ export default function WarrantyDashboard({ style }: Props) {
     title="Warranty Dashboard"
     description="Monitor warranty requests, trends and type performance."
 />
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        {warrantyKpiData.map((kpi) => (
-          <StyleKpiCard key={kpi.id} {...kpi} style={style} />
-        ))}
-      </div>
-
-      <div className="grid lg:grid-cols-2 gap-6">
-        <div className={`rounded-2xl shadow p-6 ${
-          style === "style4" ? "bg-slate-800" : "bg-white"
-        }`}>
-          <h2 className={`text-xl font-bold mb-6 ${
-            style === "style4" ? "text-white" : ""
-          }`}>Warranty Requests Trend</h2>
-          <ConversionChart data={warrantyTrendData} />
-        </div>
-
-        <div className={`rounded-2xl shadow p-6 ${
-          style === "style4" ? "bg-slate-800" : "bg-white"
-        }`}>
-          <h2 className={`text-xl font-bold mb-6 ${
-            style === "style4" ? "text-white" : ""
-          }`}>Warranty By Type</h2>
-          <PieChartWidget data={warrantyTypeData} />
-        </div>
-      </div>
 
       <div className={`rounded-2xl shadow p-6 ${
         style === "style4" ? "bg-slate-800" : "bg-white"

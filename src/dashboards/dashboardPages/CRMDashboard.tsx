@@ -1,16 +1,10 @@
 import {
   crmKpiData,
-  crmFunnelData,
-  crmLeadSourceData,
-  crmConversionData,
   crmOpportunityData,
 } from "../../data/mockData/crmData";
 
-import FunnelChart from "../../components/charts/FunnelChart";
-import PieChartWidget from "../../components/charts/PieChartWidget";
-import ConversionChart from "../../components/charts/ConversionChart";
-import StyleKpiCard from "../../components/common/StyleKpiCard";
 import DashboardHeader from "../../components/dashboard/DashboardHeader";
+import StyleKpiCard from "../../components/common/StyleKpiCard";
 type Props = { style: string };
 
 export default function CRMDashboard({ style }: Props) {
@@ -20,43 +14,13 @@ export default function CRMDashboard({ style }: Props) {
     }`}>
       <DashboardHeader
     title="CRM Dashboard"
-    description="Monitor customer metrics, trends and performance."
+    description="Monitor customer metrics, trends and sales performance."
 />
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        {crmKpiData.map((kpi) => (
-          <StyleKpiCard key={kpi.id} {...kpi} style={style} />
-        ))}
-      </div>
-
-      <div className="grid lg:grid-cols-2 gap-6">
-        <div className={`rounded-2xl shadow p-6 ${
-          style === "style4" ? "bg-slate-800" : "bg-white"
-        }`}>
-          <h2 className={`text-xl font-bold mb-6 ${
-            style === "style4" ? "text-white" : ""
-          }`}>Sales Funnel</h2>
-          <FunnelChart data={crmFunnelData} />
-        </div>
-
-        <div className={`rounded-2xl shadow p-6 ${
-          style === "style4" ? "bg-slate-800" : "bg-white"
-        }`}>
-          <h2 className={`text-xl font-bold mb-6 ${
-            style === "style4" ? "text-white" : ""
-          }`}>Lead Source</h2>
-          <PieChartWidget data={crmLeadSourceData} />
-        </div>
-      </div>
-
-      <div className={`rounded-2xl shadow p-6 ${
-        style === "style4" ? "bg-slate-800" : "bg-white"
-      }`}>
-        <h2 className={`text-xl font-bold mb-6 ${
-          style === "style4" ? "text-white" : ""
-        }`}>Conversion Rate</h2>
-        <ConversionChart data={crmConversionData} />
-      </div>
-
+              {crmKpiData.map((kpi) => (
+                <StyleKpiCard key={kpi.id} {...kpi} style={style} />
+              ))}
+            </div>
       <div className={`rounded-2xl shadow p-6 ${
         style === "style4" ? "bg-slate-800" : "bg-white"
       }`}>

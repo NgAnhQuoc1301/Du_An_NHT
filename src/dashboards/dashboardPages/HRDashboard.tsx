@@ -1,12 +1,7 @@
 import {
   hrKpiData,
-  hrHiringTrendData,
-  hrDepartmentData,
   hrEmployeeData,
 } from "../../data/mockData/hrData";
-
-import ConversionChart from "../../components/charts/ConversionChart";
-import PieChartWidget from "../../components/charts/PieChartWidget";
 import StyleKpiCard from "../../components/common/StyleKpiCard";
 import DashboardHeader from "../../components/dashboard/DashboardHeader";
 type Props = { style: string };
@@ -25,32 +20,6 @@ export default function HRDashboard({ style }: Props) {
           <StyleKpiCard key={kpi.id} {...kpi} style={style} />
         ))}
       </div>
-
-      <div className="grid lg:grid-cols-2 gap-6">
-        <div className={`rounded-2xl shadow p-6 ${
-          style === "style4" ? "bg-slate-800" : "bg-white"
-        }`}>
-          <h2 className={`text-xl font-bold mb-6 ${
-            style === "style4" ? "text-white" : ""
-          }`}>Hiring Trend</h2>
-          <ConversionChart
-            data={hrHiringTrendData.map((i) => ({
-              month: i.month,
-              rate: i.value,
-            }))}
-          />
-        </div>
-
-        <div className={`rounded-2xl shadow p-6 ${
-          style === "style4" ? "bg-slate-800" : "bg-white"
-        }`}>
-          <h2 className={`text-xl font-bold mb-6 ${
-            style === "style4" ? "text-white" : ""
-          }`}>Department Distribution</h2>
-          <PieChartWidget data={hrDepartmentData} />
-        </div>
-      </div>
-
       <div className={`rounded-2xl shadow p-6 ${
         style === "style4" ? "bg-slate-800" : "bg-white"
       }`}>

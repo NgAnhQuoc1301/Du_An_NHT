@@ -30,7 +30,7 @@ export interface WidgetConfig {
   type: WidgetType;
   title: string;
   width?: WidgetWidth;
-
+  dataSource?: string;
   // KPI
   value?: string;
   description?: string;

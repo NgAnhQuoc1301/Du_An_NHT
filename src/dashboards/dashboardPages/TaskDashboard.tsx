@@ -1,12 +1,8 @@
 import {
   taskKpiData,
-  taskStatusData,
-  taskTrendData,
   taskListData,
 } from "../../data/mockData/taskData";
 import DashboardHeader from "../../components/dashboard/DashboardHeader";
-import ConversionChart from "../../components/charts/ConversionChart";
-import PieChartWidget from "../../components/charts/PieChartWidget";
 import StyleKpiCard from "../../components/common/StyleKpiCard";
 
 type Props = { style: string };
@@ -17,35 +13,14 @@ export default function TaskDashboard({ style }: Props) {
       style === "style4" ? "bg-slate-900 rounded-2xl" : ""
     }`}>
       <DashboardHeader
-    title="Task Dashboard"
-    description="Monitor task completion, status and performance."
+    title="Sales Dashboard"
+    description="Monitor revenue, orders and sales performance."
 />
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {taskKpiData.map((kpi) => (
           <StyleKpiCard key={kpi.id} {...kpi} style={style} />
         ))}
       </div>
-
-      <div className="grid lg:grid-cols-2 gap-6">
-        <div className={`rounded-2xl shadow p-6 ${
-          style === "style4" ? "bg-slate-800" : "bg-white"
-        }`}>
-          <h2 className={`text-xl font-bold mb-6 ${
-            style === "style4" ? "text-white" : ""
-          }`}>Task Completion Trend</h2>
-          <ConversionChart data={taskTrendData} />
-        </div>
-
-        <div className={`rounded-2xl shadow p-6 ${
-          style === "style4" ? "bg-slate-800" : "bg-white"
-        }`}>
-          <h2 className={`text-xl font-bold mb-6 ${
-            style === "style4" ? "text-white" : ""
-          }`}>Task Status</h2>
-          <PieChartWidget data={taskStatusData} />
-        </div>
-      </div>
-
       <div className={`rounded-2xl shadow p-6 ${
         style === "style4" ? "bg-slate-800" : "bg-white"
       }`}>
