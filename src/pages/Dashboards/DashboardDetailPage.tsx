@@ -4,9 +4,6 @@ import { dashboardMetadata } from "../../data/dashboardMetadata";
 import { dashboardConfigs } from "../../data/dashboardConfigs";
 import DashboardRenderer from "../../dashboards/DashboardRenderer";
 import { getDashboardStyle } from "../../services/dashboardConfigService";
-import DashboardInfo from "../../components/dashboardDetail/DashboardInfo";
-import DashboardGallery from "../../components/dashboardDetail/DashboardGallery";
-import { dashboardGallery } from "../../data/dashboardGallery";
 import CRMDashboard from "../../dashboards/dashboardPages/CRMDashboard";
 import SalesDashboard from "../../dashboards/dashboardPages/SalesDashboard";
 import CEODashboard from "../../dashboards/dashboardPages/CEODashboard";
@@ -65,11 +62,6 @@ export default function DashboardDetailPage() {
   const metadata =
     dashboardMetadata[
       dashboard.id as keyof typeof dashboardMetadata
-    ];
-
-  const gallery =
-    dashboardGallery[
-      dashboard.id as keyof typeof dashboardGallery
     ];
 
   const renderDashboard = () => {
@@ -134,16 +126,6 @@ export default function DashboardDetailPage() {
         </Link>
 
       </div>
-
-      <DashboardInfo
-        solution={metadata.solution}
-        description={metadata.description}
-        businessValue={metadata.businessValue}
-        tags={metadata.tags}
-        currentStyle={selectedStyle}
-      />
-
-      <DashboardGallery images={gallery} />
 
       {renderDashboard()}
 
