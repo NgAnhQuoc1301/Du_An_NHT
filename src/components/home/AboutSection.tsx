@@ -50,22 +50,13 @@ export default function AboutSection() {
                 </p>
               </div>
 
-              <div className="bg-slate-50/60 border border-slate-100 p-6 rounded-2xl hover:border-green-600/30 hover:bg-white transition-all duration-300 group">
-                <h3 className="text-3xl font-bold text-green-600">
-                  ERP
-                </h3>
-                <p className="text-slate-600 text-sm mt-1 font-medium group-hover:text-slate-800 transition-colors">
-                  Enterprise Solutions
-                </p>
+              <div className="bg-slate-50/60 border border-slate-100 p-6 rounded-2xl ...">
+                <h3 className="text-3xl font-bold text-green-600">6+</h3>
+                <p className="text-slate-600 text-sm mt-1 font-medium">Enterprise Solutions</p>
               </div>
-
-              <div className="bg-slate-50/60 border border-slate-100 p-6 rounded-2xl hover:border-green-600/30 hover:bg-white transition-all duration-300 group">
-                <h3 className="text-3xl font-bold text-green-600">
-                  CRM
-                </h3>
-                <p className="text-slate-600 text-sm mt-1 font-medium group-hover:text-slate-800 transition-colors">
-                  Customer Management
-                </p>
+              <div className="bg-slate-50/60 border border-slate-100 p-6 rounded-2xl ...">
+                <h3 className="text-3xl font-bold text-green-600">50+</h3>
+                <p className="text-slate-600 text-sm mt-1 font-medium">Enterprise Clients</p>
               </div>
 
             </div>

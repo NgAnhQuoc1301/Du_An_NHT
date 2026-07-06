@@ -8,31 +8,11 @@ import type { DashboardStyle } from "../types/dashboard";
 import { Link } from "react-router-dom";
 
 const STYLES: { value: DashboardStyle; label: string; desc: string }[] = [
-  {
-    value: "style1",
-    label: "Style 1",
-    desc: "Clean white — KPI cards + Line chart",
-  },
-  {
-    value: "style2",
-    label: "Style 2",
-    desc: "Modern grid — Multi-column layout",
-  },
-  {
-    value: "style3",
-    label: "Style 3",
-    desc: "Dark sidebar — Compact view",
-  },
-  {
-    value: "style4",
-    label: "Style 4",
-    desc: "Card focus — Large KPI display",
-  },
-  {
-    value: "style5",
-    label: "Style 5",
-    desc: "Minimal — Clean data layout",
-  },
+  { value: "style1", label: "Style 1", desc: "Pie Chart — Phân bổ dữ liệu tròn" },
+  { value: "style2", label: "Style 2", desc: "Bar Chart — Biểu đồ cột so sánh" },
+  { value: "style3", label: "Style 3", desc: "Card Grid — Thẻ KPI gradient màu" },
+  { value: "style4", label: "Style 4", desc: "Line Chart — Xu hướng theo thời gian" },
+  { value: "style5", label: "Style 5", desc: "Table View — Danh sách dữ liệu chi tiết" },
 ];
 
 export default function DashboardSettingsPage() {

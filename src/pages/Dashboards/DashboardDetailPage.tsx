@@ -99,7 +99,14 @@ export default function DashboardDetailPage() {
 
   return (
     <div className="max-w-7xl mx-auto py-12 md:py-20 px-4 md:px-6">
-
+     {/* BREADCRUMB */}
+      <div className="flex items-center gap-2 text-sm text-slate-400 mb-6">
+        <Link to="/" className="hover:text-green-600 transition">Home</Link>
+        <span>/</span>
+        <Link to="/dashboards" className="hover:text-green-600 transition">Dashboards</Link>
+        <span>/</span>
+        <span className="text-slate-600 font-medium">{dashboard.name}</span>
+      </div>   
       {/* HEADER ROW */}
       <div className="flex items-center justify-between mb-6">
 
@@ -113,7 +120,7 @@ export default function DashboardDetailPage() {
             flex items-center gap-2
             px-5 py-2.5
             rounded-xl
-            bg-gradient-to-r from-cyan-500 to-blue-600
+            bg-green-600 hover:bg-green-700
             text-white
             text-sm
             font-semibold

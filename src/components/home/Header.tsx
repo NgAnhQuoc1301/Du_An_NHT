@@ -31,8 +31,24 @@ export default function Header() {
           className="text-xl font-bold text-green-600 tracking-tight flex items-center gap-1.5 hover:opacity-90 transition-opacity"
           onClick={() => setMenuOpen(false)} // Đóng luôn mobile menu nếu đang mở khi bấm logo
         >
-          <span className="inline-block w-2 h-5 bg-green-600 rounded-sm"></span>
-          NHT Solutions
+          <img
+            src="https://nagakawa.com.vn/wp-content/uploads/2023/09/logo-nht.png"
+            alt="NHT Solutions"
+            className="h-8 object-contain"
+            onError={(e) => {
+            e.currentTarget.style.display = "none";
+
+            const fallback =
+              e.currentTarget.nextElementSibling as HTMLElement | null;
+            if (fallback) {
+              fallback.style.display = "flex";
+            }
+          }}
+          />
+          <span className="hidden items-center gap-1.5">
+            <span className="inline-block w-2 h-5 bg-green-600 rounded-sm"></span>
+            NHT Solutions
+          </span>
         </Link>
 
         {/* NAV — desktop */}
