@@ -29,13 +29,11 @@ const SORT_OPTIONS = [
 ];
 
 export default function DashboardLibraryPage() {
-
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [sortBy, setSortBy] = useState("name-asc");
 
   const filtered = useMemo(() => {
-
     let result = dashboardConfigs.map((dashboard) => {
       const meta =
         dashboardMetadata[
@@ -82,51 +80,46 @@ export default function DashboardLibraryPage() {
     });
 
     return result;
-
   }, [search, activeCategory, sortBy]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-white">
+    <div className="min-h-screen bg-[#F8FAFC] py-8">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
 
         {/* HEADER */}
-    <div className="flex items-start justify-between mb-8">
+        <div className="flex items-center justify-between mb-8 gap-4">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-green-700">
+              Dashboard Library
+            </h1>
+            <p className="text-slate-600 text-sm md:text-base">
+              Explore business dashboards developed by NHT Solutions.
+            </p>
+          </div>
 
-      <div>
-        <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-green-400 text-transparent bg-clip-text">
-          Dashboard Library
-        </h1>
-        <p className="text-white-300 text-sm md:text-base">
-          Explore business dashboards developed by NHT Solutions.
-        </p>
-      </div>
-
-      <Link
-        to="/dashboard-settings"
-        className="
-          flex items-center gap-2
-          px-5 py-2.5
-          rounded-xl
-          bg-gradient-to-r from-green-500 to-green-600
-          text-white
-          text-sm
-          font-semibold
-          shadow-lg shadow-green-500/30
-          hover:from-green-400 hover:to-green-500
-          hover:shadow-green-400/40
-          transition-all
-          duration-300
-          whitespace-nowrap
-        "
-      >
-        ⚙ Dashboard Settings
-      </Link>
-
-    </div>
+          <Link
+            to="/dashboard-settings"
+            className="
+              flex items-center gap-2
+              px-5 py-2.5
+              rounded-lg
+              bg-green-600
+              text-white
+              text-sm
+              font-semibold
+              shadow-md shadow-green-600/10
+              hover:bg-green-700
+              transition-all
+              duration-300
+              whitespace-nowrap
+            "
+          >
+            ⚙ Dashboard Settings
+          </Link>
+        </div>
         
         {/* SEARCH + SORT */}
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
-
           {/* Search */}
           <div className="relative flex-1">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
@@ -139,15 +132,16 @@ export default function DashboardLibraryPage() {
               onChange={(e) => setSearch(e.target.value)}
               className="
                 w-full
-                pl-10 pr-4 py-3
-                rounded-xl
+                pl-10 pr-4 py-2.5
+                rounded-lg
                 bg-white
-                border border-green-400/20
-                text-white
+                border border-slate-200
+                text-slate-800
                 placeholder-slate-400
                 text-sm
                 focus:outline-none
-                focus:border-green-400/50
+                focus:border-green-600
+                focus:ring-1 focus:ring-green-600
                 transition
               "
             />
@@ -158,14 +152,14 @@ export default function DashboardLibraryPage() {
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
             className="
-              px-4 py-3
-              rounded-xl
-              bg-slate-900
-              border border-cyan-400/20
-              text-slate-300
+              px-4 py-2.5
+              rounded-lg
+              bg-white
+              border border-slate-200
+              text-slate-700
               text-sm
               focus:outline-none
-              focus:border-cyan-400/50
+              focus:border-green-600
               transition
               cursor-pointer
             "
@@ -174,23 +168,21 @@ export default function DashboardLibraryPage() {
               <option
                 key={opt.value}
                 value={opt.value}
-                className="bg-slate-900"
               >
                 {opt.label}
               </option>
             ))}
           </select>
-
         </div>
 
         {/* CATEGORY FILTER */}
-        <div className="flex flex-wrap gap-2 mb-10">
+        <div className="flex flex-wrap gap-2 mb-8">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
               className={`
-                px-4 py-2
+                px-4 py-1.5
                 rounded-full
                 text-xs
                 font-medium
@@ -198,8 +190,8 @@ export default function DashboardLibraryPage() {
                 transition-all
                 duration-200
                 ${activeCategory === cat
-                  ? "bg-cyan-500 border-cyan-500 text-white shadow-lg shadow-cyan-500/30"
-                  : "bg-white border-cyan-400/20 text-slate-300 hover:border-cyan-400/50 hover:text-cyan-300"
+                  ? "bg-green-600 border-green-600 text-white shadow-md shadow-green-600/20"
+                  : "bg-white border-slate-200 text-slate-600 hover:border-green-600 hover:text-green-600"
                 }
               `}
             >
@@ -209,9 +201,9 @@ export default function DashboardLibraryPage() {
         </div>
 
         {/* RESULT COUNT */}
-        <p className="text-slate-400 text-sm mb-6">
+        <p className="text-slate-500 text-sm mb-6">
           Hiển thị{" "}
-          <span className="text-cyan-300 font-semibold">
+          <span className="text-green-600 font-semibold">
             {filtered.length}
           </span>{" "}
           / {dashboardConfigs.length} dashboards
@@ -219,8 +211,8 @@ export default function DashboardLibraryPage() {
 
         {/* GRID */}
         {filtered.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-slate-400 text-lg">
+          <div className="text-center py-20 bg-white rounded-2xl border border-slate-200">
+            <p className="text-slate-500 text-lg">
               Không tìm thấy dashboard nào
             </p>
             <button
@@ -228,14 +220,13 @@ export default function DashboardLibraryPage() {
                 setSearch("");
                 setActiveCategory("All");
               }}
-              className="mt-4 text-cyan-400 hover:text-cyan-300 text-sm transition"
+              className="mt-4 text-green-600 hover:underline text-sm font-medium transition"
             >
               Xóa bộ lọc
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             {filtered.map(({ dashboard, meta, stats }) => (
               <Link
                 key={dashboard.id}
@@ -244,57 +235,55 @@ export default function DashboardLibraryPage() {
               >
                 <div className="
                   bg-white
-                  backdrop-blur-lg
-                  border border-cyan-400/20
-                  rounded-2xl
+                  border border-slate-200/80
+                  rounded-xl
                   p-4
-                  hover:border-cyan-400/50
-                  hover:shadow-[0_20px_50px_rgba(34,197,94,0.18)]
+                  hover:border-green-600/40
+                  hover:shadow-[0_10px_30px_rgba(22,163,74,0.06)]
                   transition-all
                   duration-300
                   h-full
+                  flex flex-col
                 ">
-
                   {/* IMAGE */}
-                  <img
-                    src={
-                      dashboardPreview[
-                        dashboard.id as keyof typeof dashboardPreview
-                      ]
-                    }
-                    alt={dashboard.name}
-                    className="
-                      h-28
-                      w-full
-                      object-cover
-                      rounded-xl
-                      mb-3
-                      group-hover:scale-105
-                      transition-transform
-                      duration-300
-                    "
-                  />
+                  <div className="overflow-hidden rounded-lg mb-3 h-32 w-full bg-slate-50">
+                    <img
+                      src={
+                        dashboardPreview[
+                          dashboard.id as keyof typeof dashboardPreview
+                        ]
+                      }
+                      alt={dashboard.name}
+                      className="
+                        h-full
+                        w-full
+                        object-cover
+                        group-hover:scale-105
+                        transition-transform
+                        duration-300
+                      "
+                    />
+                  </div>
 
                   {/* TITLE */}
-                  <h3 className="font-bold text-sm text-white">
+                  <h3 className="font-bold text-sm text-slate-800 line-clamp-1 group-hover:text-green-600 transition-colors">
                     {dashboard.name}
                   </h3>
 
                   {/* CATEGORY */}
-                  <p className="text-cyan-400 text-xs mt-1">
+                  <p className="text-green-600 font-semibold text-[11px] mt-0.5">
                     {meta?.category}
                   </p>
 
                   {/* DESCRIPTION */}
-                  <p className="text-slate-400 text-xs mt-1 line-clamp-2">
+                  <p className="text-slate-500 text-xs mt-1.5 line-clamp-2 flex-grow">
                     {meta?.description}
                   </p>
 
                   {/* STATS */}
-                  <div className="grid grid-cols-2 gap-2 mt-4 text-center">
-
-                    <div>
-                      <p className="text-sm font-bold text-white">
+                  <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-100 text-center">
+                    <div className="bg-slate-50 p-1.5 rounded">
+                      <p className="text-xs font-bold text-slate-700">
                         {stats.total}
                       </p>
                       <p className="text-[10px] text-slate-400">
@@ -302,8 +291,8 @@ export default function DashboardLibraryPage() {
                       </p>
                     </div>
 
-                    <div>
-                      <p className="text-sm font-bold text-white">
+                    <div className="bg-slate-50 p-1.5 rounded">
+                      <p className="text-xs font-bold text-slate-700">
                         {stats.kpi}
                       </p>
                       <p className="text-[10px] text-slate-400">
@@ -311,8 +300,8 @@ export default function DashboardLibraryPage() {
                       </p>
                     </div>
 
-                    <div>
-                      <p className="text-sm font-bold text-white">
+                    <div className="bg-slate-50 p-1.5 rounded">
+                      <p className="text-xs font-bold text-slate-700">
                         {stats.chart}
                       </p>
                       <p className="text-[10px] text-slate-400">
@@ -320,29 +309,26 @@ export default function DashboardLibraryPage() {
                       </p>
                     </div>
 
-                    <div>
-                      <p className="text-sm font-bold text-white">
+                    <div className="bg-slate-50 p-1.5 rounded">
+                      <p className="text-xs font-bold text-slate-700">
                         {stats.table}
                       </p>
                       <p className="text-[10px] text-slate-400">
                         Tables
                       </p>
                     </div>
-
                   </div>
 
                   {/* STYLE */}
-                  <p className="mt-3 text-[11px] text-slate-500">
+                  <p className="mt-3 text-[11px] text-slate-400">
                     Style:{" "}
-                    <span className="text-cyan-300">
+                    <span className="text-slate-600 font-medium">
                       {dashboard.style}
                     </span>
                   </p>
-
                 </div>
               </Link>
             ))}
-
           </div>
         )}
 

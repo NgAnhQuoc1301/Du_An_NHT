@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom"; // Thêm Link vào đây
 
 export default function Header() {
-
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
@@ -13,22 +12,31 @@ export default function Header() {
   ];
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
-  isActive
-    ? "text-green-600 font-semibold"
-    : "text-gray-700 hover:text-green-600 transition";
+    isActive
+      ? "text-green-600 font-semibold text-sm relative after:absolute after:bottom-[-21px] after:left-0 after:w-full after:h-[2px] after:bg-green-600 transition-colors"
+      : "text-slate-600 hover:text-green-600 text-sm font-medium transition-colors duration-200";
+
+  const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>
+    isActive
+      ? "text-green-600 font-semibold text-sm bg-green-50/50 px-3 py-2 rounded-lg"
+      : "text-slate-600 hover:text-green-600 text-sm font-medium px-3 py-2 rounded-lg hover:bg-slate-50 transition-all";
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-green-200 backdrop-blur-xl">            
+    <header className="sticky top-0 z-50 bg-white/90 border-b border-slate-100 backdrop-blur-md shadow-sm shadow-slate-100/40">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
 
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-
-        {/* LOGO */}
-        <div className="text-xl font-bold bg-gradient-to-r from-green-600 to-green-400 text-transparent bg-clip-text">
+        {/* LOGO - Đã được bọc thẻ Link về trang chủ và thêm hiệu ứng hover mượt */}
+        <Link 
+          to="/" 
+          className="text-xl font-bold text-green-600 tracking-tight flex items-center gap-1.5 hover:opacity-90 transition-opacity"
+          onClick={() => setMenuOpen(false)} // Đóng luôn mobile menu nếu đang mở khi bấm logo
+        >
+          <span className="inline-block w-2 h-5 bg-green-600 rounded-sm"></span>
           NHT Solutions
-        </div>
+        </Link>
 
         {/* NAV — desktop */}
-        <nav className="hidden md:flex gap-8 text-sm">
+        <nav className="hidden md:flex gap-8 items-center h-full">
           {navLinks.map((link) => (
             <NavLink
               key={link.to}
@@ -43,17 +51,18 @@ export default function Header() {
 
         {/* Hamburger — mobile */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="md:hidden flex flex-col gap-1.5 p-2 focus:outline-none rounded-lg hover:bg-slate-50 transition-colors"
           onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle Menu"
         >
-          <span className={`block w-6 h-0.5 bg-green-600 transition-all duration-300 ${
-            menuOpen ? "rotate-45 translate-y-2" : ""
+          <span className={`block w-5 h-0.5 bg-slate-700 transition-all duration-300 ${
+            menuOpen ? "rotate-45 translate-y-2 !bg-green-600" : ""
           }`} />
-          <span className={`block w-6 h-0.5 bg-green-600 transition-all duration-300 ${
+          <span className={`block w-5 h-0.5 bg-slate-700 transition-all duration-300 ${
             menuOpen ? "opacity-0" : ""
           }`} />
-          <span className={`block w-6 h-0.5 bg-green-600 transition-all duration-300 ${
-            menuOpen ? "-rotate-45 -translate-y-2" : ""
+          <span className={`block w-5 h-0.5 bg-slate-700 transition-all duration-300 ${
+            menuOpen ? "-rotate-45 -translate-y-2 !bg-green-600" : ""
           }`} />
         </button>
 
@@ -61,13 +70,13 @@ export default function Header() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white border-t border-green-200 px-6 py-4 flex flex-col gap-4">
+        <div className="md:hidden bg-white border-t border-slate-100 px-4 py-3 flex flex-col gap-1 shadow-inner animate-fadeIn">
           {navLinks.map((link) => (
             <NavLink
               key={link.to}
               to={link.to}
               end={link.end}
-              className={linkClass}
+              className={mobileLinkClass}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
@@ -75,7 +84,6 @@ export default function Header() {
           ))}
         </div>
       )}
-
     </header>
   );
 }
