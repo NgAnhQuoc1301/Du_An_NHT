@@ -7,7 +7,6 @@ import SolutionDetailPage from "../pages/SolutionDetail/SolutionDetailPage";
 import ContactPage from "../pages/Contact/ContactPage";
 import DashboardSettingsPage from "../pages/DashboardSettingsPage";
 import DashboardDetailPage from "../pages/Dashboards/DashboardDetailPage";
-import ExecutiveDashboard from "../pages/CEO/ExecutiveDashboard";
 
 export default function AppRoutes() {
   return (
@@ -20,7 +19,6 @@ export default function AppRoutes() {
         <Route path="/dashboards" element={<DashboardLibraryPage />} />
         <Route path="/dashboard-settings" element={<DashboardSettingsPage />}/>
         <Route path="/dashboards/:slug" element={<DashboardDetailPage />} />
-        <Route path="/ceo-dashboard" element={<ExecutiveDashboard />}/>
       </Route>
     </Routes>
   );

@@ -1,80 +1,105 @@
-export const financeKpiData = [
-  {
-    id: "revenue",
-    title: "Total Revenue",
-    value: "$1.8M",
-    change: "+12%",
-    positive: true,
-  },
-  {
-    id: "expenses",
-    title: "Total Expenses",
-    value: "$1.1M",
-    change: "+6%",
-    positive: false,
-  },
-  {
-    id: "profit",
-    title: "Net Profit",
-    value: "$700K",
-    change: "+15%",
-    positive: true,
-  },
-  {
-    id: "cashflow",
-    title: "Cash Flow",
-    value: "$520K",
-    change: "+9%",
-    positive: true,
-  },
-];
+export interface FinanceRecord {
+  id: string;
+  Year: number;
+  Quarter: string;
+  Month: string;
+  Department: string;
+  AccountType: string; // 'Revenue' | 'Expense' | 'Asset' | 'Liability'
+  Category: string;
+  Description: string;
+  Amount: number;
+  Budget: number;
+  Variance: number; // Budget - Amount or Amount - Budget
+  Currency: string;
+}
 
-export const financeProfitTrendData = [
-  { month: "Jan", value: 120 },
-  { month: "Feb", value: 140 },
-  { month: "Mar", value: 135 },
-  { month: "Apr", value: 160 },
-  { month: "May", value: 155 },
-  { month: "Jun", value: 180 },
-  { month: "Jul", value: 175 },
-  { month: "Aug", value: 190 },
-];
+const DEPARTMENTS = ['Corporate', 'Sales', 'Marketing', 'Engineering', 'HR', 'Operations', 'IT'];
+const ACCOUNT_TYPES = ['Revenue', 'Expense'];
+const CATEGORIES: Record<string, string[]> = {
+  Revenue: ['Product Sales', 'Service Fees', 'Subscriptions', 'Consulting', 'Licensing'],
+  Expense: ['Payroll', 'Marketing', 'Rent', 'Software', 'Travel', 'Utilities', 'Legal'],
+};
 
-export const financeExpenseData = [
-  { name: "Lương nhân viên", value: 420, color: "#3B82F6" },
-  { name: "Marketing", value: 260, color: "#10B981" },
-  { name: "Vận hành", value: 180, color: "#F59E0B" },
-  { name: "Thuê mặt bằng", value: 140, color: "#8B5CF6" },
-  { name: "Khác", value: 100, color: "#EF4444" },
-];
+const QUARTERS = ['Q1', 'Q2', 'Q3', 'Q4'];
+const MONTHS: Record<string, string[]> = {
+  Q1: ['Jan', 'Feb', 'Mar'],
+  Q2: ['Apr', 'May', 'Jun'],
+  Q3: ['Jul', 'Aug', 'Sep'],
+  Q4: ['Oct', 'Nov', 'Dec'],
+};
 
-export const financeKpiListData = [
-  {
-    id: "margin",
-    title: "Profit Margin",
-    value: "38%",
-    target: "40%",
-    percent: 95,
-  },
-  {
-    id: "roi",
-    title: "ROI",
-    value: "22%",
-    target: "25%",
-    percent: 88,
-  },
-  {
-    id: "liquidity",
-    title: "Liquidity Ratio",
-    value: "1.8",
-    target: "2.0",
-    percent: 90,
-  },
-  {
-    id: "debt",
-    title: "Debt Ratio",
-    value: "35%",
-    target: "30%",
-    percent: 70,
-  },
-];
+function generateFinanceData(): FinanceRecord[] {
+  const data: FinanceRecord[] = [];
+  let id = 1;
+
+  for (const year of [2025, 2026]) {
+    for (const quarter of QUARTERS) {
+      for (const month of MONTHS[quarter]) {
+        for (const dept of DEPARTMENTS) {
+          for (const accType of ACCOUNT_TYPES) {
+            // Not every department generates revenue
+            if (accType === 'Revenue' && !['Corporate', 'Sales', 'Operations'].includes(dept)) {
+              continue;
+            }
+
+            const categories = CATEGORIES[accType];
+            const numRecords = 2 + Math.floor(Math.random() * 3); // 2 to 4 records per dept per month per type
+
+            for (let i = 0; i < numRecords; i++) {
+              const category = categories[Math.floor(Math.random() * categories.length)];
+              
+              let baseAmount = 0;
+              if (accType === 'Revenue') {
+                baseAmount = 100_000_000 + Math.random() * 500_000_000;
+              } else {
+                if (category === 'Payroll') baseAmount = 200_000_000 + Math.random() * 100_000_000;
+                else if (category === 'Rent') baseAmount = 50_000_000;
+                else baseAmount = 10_000_000 + Math.random() * 80_000_000;
+              }
+              
+              const amount = Math.round(baseAmount);
+              // Budget varies by +/- 15%
+              const budget = Math.round(amount * (0.85 + Math.random() * 0.3));
+              const variance = accType === 'Revenue' ? amount - budget : budget - amount; // positive is favorable
+
+              data.push({
+                id: `FIN-${id++}`,
+                Year: year,
+                Quarter: quarter,
+                Month: month,
+                Department: dept,
+                AccountType: accType,
+                Category: category,
+                Description: `${category} - ${month} ${year}`,
+                Amount: amount,
+                Budget: budget,
+                Variance: variance,
+                Currency: 'VND',
+              });
+
+              if (id > 800) break;
+            }
+            if (id > 800) break;
+          }
+          if (id > 800) break;
+        }
+        if (id > 800) break;
+      }
+      if (id > 800) break;
+    }
+  }
+
+  return data;
+}
+
+export const FINANCE_DATA = generateFinanceData();
+
+export const FINANCE_EXPENSE_COLORS: Record<string, string> = {
+  Payroll: '#3b82f6',
+  Marketing: '#10b981',
+  Rent: '#f59e0b',
+  Software: '#8b5cf6',
+  Travel: '#ef4444',
+  Utilities: '#06b6d4',
+  Legal: '#ec4899',
+};

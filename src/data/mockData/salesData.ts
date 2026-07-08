@@ -1,46 +1,131 @@
-export const salesKpiData = [
-  { id: "revenue", title: "Revenue", value: "$120,000", change: "+15%", positive: true },
-  { id: "orders", title: "Orders", value: "356", change: "+8%", positive: true },
-  { id: "customers", title: "Customers", value: "820", change: "+5%", positive: true },
-  { id: "growth", title: "Growth", value: "18%", change: "+2%", positive: true },
-];
+// ── Sales Data Record ─────────────────────────────────────────────────────────
+export interface SalesRecord {
+  id: string;
+  Region: string;
+  Country: string;
+  SalesPerson: string;
+  Channel: string;     // 'Online' | 'Offline' | 'Partner'
+  Category: string;    // 'Electronics' | 'Home Appliance' | 'Accessories' | 'Other'
+  Product: string;
+  Year: number;
+  Quarter: string;
+  Month: string;
+  Revenue: number;
+  Cost: number;
+  Profit: number;
+  Orders: number;
+  Customers: number;
+  AvgOrderValue: number;
+  ReturnRate: number;   // %
+  SatisfactionScore: number; // /5.0
+  ConversionRate: number; // %
+  Target: number;
+  AchievementRate: number; // %
+}
 
-export const salesRevenueTrendData = [
-  { month: "Jan", revenue: 85000 },
-  { month: "Feb", revenue: 92000 },
-  { month: "Mar", revenue: 88000 },
-  { month: "Apr", revenue: 105000 },
-  { month: "May", revenue: 110000 },
-  { month: "Jun", revenue: 98000 },
-  { month: "Jul", revenue: 115000 },
-  { month: "Aug", revenue: 120000 },
+// ── Constants ─────────────────────────────────────────────────────────────────
+const REGIONS   = ['North', 'South', 'East', 'West', 'Central'];
+const COUNTRIES: Record<string, string[]> = {
+  North:   ['Ha Noi', 'Hai Phong', 'Thai Nguyen'],
+  South:   ['Ho Chi Minh', 'Can Tho', 'Vung Tau'],
+  East:    ['Da Nang', 'Quy Nhon', 'Nha Trang'],
+  West:    ['Hue', 'Da Lat', 'Phu Quoc'],
+  Central: ['Vinh', 'Thanh Hoa', 'Ha Tinh'],
+};
+const SALESPERSONS = [
+  'Nguyễn Văn An', 'Trần Thị Bình', 'Lê Văn Cường',
+  'Phạm Thị Dung', 'Hoàng Văn Em', 'Đỗ Thị Phúc',
+  'Vũ Văn Giang', 'Ngô Thị Hạnh',
 ];
+const CHANNELS   = ['Online', 'Offline', 'Partner'];
+const CATEGORIES: Record<string, string[]> = {
+  Electronics:     ['Điều hòa Nagakawa 1HP', 'Điều hòa 2HP Inverter', 'Tủ lạnh 350L', 'Tủ lạnh Side by Side'],
+  'Home Appliance': ['Máy giặt 8kg', 'Máy giặt 10kg', 'Nồi cơm điện 1.8L', 'Lò vi sóng'],
+  Accessories:     ['Remote thay thế', 'Bộ lọc không khí', 'Giá đỡ điều hòa', 'Cáp kết nối'],
+  Other:           ['Bảo hành mở rộng', 'Dịch vụ lắp đặt', 'Phụ kiện OEM'],
+};
+const QUARTERS = ['Q1', 'Q2', 'Q3', 'Q4'];
+const MONTHS: Record<string, string[]> = {
+  Q1: ['Jan', 'Feb', 'Mar'],
+  Q2: ['Apr', 'May', 'Jun'],
+  Q3: ['Jul', 'Aug', 'Sep'],
+  Q4: ['Oct', 'Nov', 'Dec'],
+};
 
-export const salesByEmployeeData = [
-  { name: "Nguyễn Văn A", revenue: 32000, color: "#3B82F6" },
-  { name: "Trần Thị B", revenue: 28000, color: "#10B981" },
-  { name: "Lê Văn C", revenue: 24000, color: "#8B5CF6" },
-  { name: "Phạm Thị D", revenue: 21000, color: "#F59E0B" },
-  { name: "Hoàng Văn E", revenue: 15000, color: "#EF4444" },
-];
+// ── Generator ─────────────────────────────────────────────────────────────────
+function generateSalesData(): SalesRecord[] {
+  const data: SalesRecord[] = [];
+  let id = 1;
 
-export const salesByProductData = [
-  { name: "Điện tử", value: 42000, color: "#3B82F6" },
-  { name: "Gia dụng", value: 31000, color: "#10B981" },
-  { name: "Phụ kiện", value: 28000, color: "#8B5CF6" },
-  { name: "Khác", value: 19000, color: "#F59E0B" },
-];
+  for (const region of REGIONS) {
+    for (const country of (COUNTRIES[region] || [])) {
+      for (const salesperson of SALESPERSONS.slice(0, 3)) {
+        for (const channel of CHANNELS) {
+          for (const [category, products] of Object.entries(CATEGORIES)) {
+            for (const quarter of QUARTERS) {
+              const year = 2025 + Math.floor(Math.random() * 2);
+              const month = MONTHS[quarter][Math.floor(Math.random() * 3)];
+              const product = products[Math.floor(Math.random() * products.length)];
+              const revenue = Math.round(5_000_000 + Math.random() * 45_000_000);
+              const costRatio = 0.55 + Math.random() * 0.15;
+              const cost = Math.round(revenue * costRatio);
+              const profit = revenue - cost;
+              const orders = Math.floor(20 + Math.random() * 180);
+              const customers = Math.floor(orders * (0.7 + Math.random() * 0.3));
+              const target = Math.round(revenue * (0.8 + Math.random() * 0.4));
 
-export const salesTopProducts = [
-  { name: "Điều hòa Nagakawa 1HP", revenue: 42000, growth: "+15%" },
-  { name: "Tủ lạnh 2 cánh 350L", revenue: 31000, growth: "+8%" },
-  { name: "Máy giặt 8kg", revenue: 28000, growth: "+12%" },
-  { name: "Nồi cơm điện 1.8L", revenue: 19000, growth: "+5%" },
-];
+              data.push({
+                id: String(id++),
+                Region: region,
+                Country: country,
+                SalesPerson: salesperson,
+                Channel: channel,
+                Category: category,
+                Product: product,
+                Year: year,
+                Quarter: quarter,
+                Month: month,
+                Revenue: revenue,
+                Cost: cost,
+                Profit: profit,
+                Orders: orders,
+                Customers: customers,
+                AvgOrderValue: Math.round(revenue / orders),
+                ReturnRate: Math.round((1 + Math.random() * 8) * 10) / 10,
+                SatisfactionScore: Math.round((3.5 + Math.random() * 1.5) * 10) / 10,
+                ConversionRate: Math.round((15 + Math.random() * 35) * 10) / 10,
+                Target: target,
+                AchievementRate: Math.round((revenue / target) * 100 * 10) / 10,
+              });
 
-export const salesKpiListData = [
-  { id: "customers", title: "New Customers", value: "48", target: "50", percent: 96 },
-  { id: "growth", title: "Revenue Growth", value: "+15%", target: "+20%", percent: 75 },
-  { id: "avgorder", title: "Avg Order Value", value: "$267", target: "$300", percent: 89 },
-  { id: "margin", title: "Profit Margin", value: "29%", target: "30%", percent: 97 },
-];
+              if (id > 600) break;
+            }
+            if (id > 600) break;
+          }
+          if (id > 600) break;
+        }
+        if (id > 600) break;
+      }
+      if (id > 600) break;
+    }
+    if (id > 600) break;
+  }
+
+  return data.slice(0, 600);
+}
+
+export const SALES_DATA = generateSalesData();
+
+// ── Pre-aggregated for chart seeds (fallback when no filter) ──────────────────
+export const SALES_CHANNEL_COLORS: Record<string, string> = {
+  Online:  '#3b82f6',
+  Offline: '#10b981',
+  Partner: '#8b5cf6',
+};
+
+export const SALES_CATEGORY_COLORS: Record<string, string> = {
+  Electronics:     '#f59e0b',
+  'Home Appliance': '#10b981',
+  Accessories:     '#3b82f6',
+  Other:           '#6b7280',
+};

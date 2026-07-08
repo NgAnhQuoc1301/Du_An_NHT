@@ -1,61 +1,211 @@
-import Style1 from "../styles/Style1";
-import Style2 from "../styles/Style2";
-import Style3 from "../styles/Style3";
-import Style4 from "../styles/Style4";
-import Style5 from "../styles/Style5";
-import type { WidgetConfig } from "../../types/widget";
-import {
-  warrantyKpiData,
-  warrantyTrendData,
-  warrantyTypeData,
-  warrantyRequestData,
-} from "../../data/mockData/warrantyData";
+import { useMemo, useState } from 'react';
+import { warrantyConfig } from '../../config/dashboards/warranty.config';
+import { WARRANTY_DATA, WARRANTY_STATUS_COLORS, WARRANTY_PRIORITY_COLORS } from '../../data/mockData/warrantyData';
+import type { WarrantyRecord } from '../../data/mockData/warrantyData';
 
-type Props = { style: string };
+import { DashboardHeader }   from '../../components/bi-platform/shell/DashboardHeader';
+import { GlobalFilterPanel } from '../../components/bi-platform/filters/GlobalFilterPanel';
+import { KpiEngine }         from '../../components/bi-platform/kpis/KpiEngine';
+import { ChartEngine }       from '../../components/bi-platform/charts/ChartEngine';
+import { TableEngine }       from '../../components/bi-platform/tables/TableEngine';
 
-const warrantyWidgets: WidgetConfig[] = [
-  ...warrantyKpiData.map((kpi) => ({
-    id: `kpi-${kpi.id}`,
-    type: "kpi" as const,
-    title: kpi.title,
-    value: kpi.value,
-    description: kpi.change,
-    positive: kpi.positive,
-    width: 3 as const,
-  })),
-  {
-    id: "warranty-trend",
-    type: "line-chart" as const,
-    title: "Warranty Requests Trend",
-    width: 6 as const,
-    chartData: warrantyTrendData.map((i) => ({ name: i.month, requests: i.rate })),
-    chartKeys: [{ key: "requests", color: "#F59E0B" }],
-  },
-  {
-    id: "warranty-type",
-    type: "pie-chart" as const,
-    title: "Warranty By Type",
-    width: 6 as const,
-    chartData: warrantyTypeData.map((i) => ({ name: i.name, value: i.value })),
-    chartKeys: [{ key: "value", color: "#EF4444" }],
-  },
-  {
-    id: "requests",
-    type: "table" as const,
-    title: "Warranty Requests",
-    width: 12 as const,
-    tableColumns: ["customer", "product", "issue", "status"],
-    tableRows: warrantyRequestData,
-  },
-];
+const fmtCurrency = (v: number) => {
+  if (Math.abs(v) >= 1_000_000_000) return `$${(v / 1_000_000_000).toFixed(1)}B`;
+  if (Math.abs(v) >= 1_000_000)     return `$${(v / 1_000_000).toFixed(1)}M`;
+  if (Math.abs(v) >= 1_000)         return `$${(v / 1_000).toFixed(0)}K`;
+  return `$${v}`;
+};
 
-export default function WarrantyDashboard({ style }: Props) {
-  const props = { title: "Warranty Dashboard", widgets: warrantyWidgets };
-  switch (style) {
-    case "style2": return <Style2 {...props} />;
-    case "style3": return <Style3 {...props} />;
-    case "style4": return <Style4 {...props} />;
-    case "style5": return <Style5 {...props} />;
-    default:       return <Style1 {...props} />;
-  }
+function downloadCSV(rows: WarrantyRecord[], filename = 'warranty_export.csv') {
+  if (!rows.length) return;
+  const keys = Object.keys(rows[0]) as (keyof WarrantyRecord)[];
+  const csv = [keys.join(','), ...rows.map(r => keys.map(k => `"${r[k]}"`).join(','))].join('\n');
+  const a = Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(new Blob([csv], { type: 'text/csv' })), download: filename,
+  });
+  a.click(); URL.revokeObjectURL(a.href);
+}
+
+const DEFAULT_FILTERS: Record<string, any> = {
+  startYear: 2024, endYear: 2026,
+  Category: 'All', Status: 'All', Priority: 'All',
+};
+
+const KPI_PREMIUM: Record<string, string> = {
+  'kpi-total-requests': 'from-slate-500 to-slate-700',
+  'kpi-pending':        'from-amber-500 to-orange-600',
+  'kpi-resolved':       'from-emerald-500 to-teal-600',
+  'kpi-avg-cost':       'from-blue-500 to-indigo-600',
+};
+
+export default function WarrantyDashboard() {
+  const [filters, setFilters] = useState<Record<string, any>>(DEFAULT_FILTERS);
+  const [drillDown, setDrillDown] = useState<WarrantyRecord | null>(null);
+
+  const handleChange = (key: string, value: any) => setFilters(p => ({ ...p, [key]: value }));
+  const handleReset  = () => setFilters(DEFAULT_FILTERS);
+
+  const filteredData = useMemo(() =>
+    WARRANTY_DATA.filter(d => {
+      const year = new Date(d.RequestDate).getFullYear();
+      if (year < filters.startYear || year > filters.endYear) return false;
+      if (filters.Category !== 'All' && d.Category !== filters.Category) return false;
+      if (filters.Status   !== 'All' && d.Status   !== filters.Status)   return false;
+      if (filters.Priority !== 'All' && d.Priority !== filters.Priority) return false;
+      return true;
+    }), [filters]);
+
+  const kpis = useMemo(() => {
+    if (!filteredData.length) return {} as Record<string, any>;
+    const n = filteredData.length;
+    
+    const pending  = filteredData.filter(d => d.Status === 'Pending' || d.Status === 'Processing').length;
+    const resolved = filteredData.filter(d => d.Status === 'Resolved').length;
+    const avgCost  = filteredData.reduce((s, d) => s + (d.Cost ?? 0), 0) / n;
+    
+    const highPri  = filteredData.filter(d => d.Priority === 'High' && d.Status !== 'Resolved').length;
+    const uniqProd = new Set(filteredData.map(d => d.Product)).size;
+
+    return {
+      'kpi-total-requests':  n,
+      'kpi-pending':         pending,
+      'kpi-resolved':        resolved,
+      'kpi-avg-cost':        Math.round(avgCost),
+      'kpi-resolution-time': '2.4 days',
+      'kpi-resolution-rate': Math.round((resolved / n) * 100),
+      'kpi-high-priority':   highPri,
+      'kpi-unique-products': uniqProd,
+    };
+  }, [filteredData]);
+
+  const chartData = useMemo(() => {
+    const statusMap = new Map<string, number>();
+    filteredData.forEach(d => {
+      statusMap.set(d.Status, (statusMap.get(d.Status) ?? 0) + 1);
+    });
+    const statusData = Array.from(statusMap, ([name, value]) => ({
+      name, value, fill: WARRANTY_STATUS_COLORS[name] ?? '#94a3b8'
+    }));
+
+    const priorityMap = new Map<string, number>();
+    filteredData.forEach(d => {
+      priorityMap.set(d.Priority, (priorityMap.get(d.Priority) ?? 0) + 1);
+    });
+    const priorityData = Array.from(priorityMap, ([name, value]) => ({
+      name, value, fill: WARRANTY_PRIORITY_COLORS[name] ?? '#94a3b8'
+    }));
+
+    // Request Trend
+    const trendMap = new Map<string, number>();
+    filteredData.forEach(d => {
+      const date = new Date(d.RequestDate);
+      const key = `${date.getFullYear()} ${('0' + (date.getMonth() + 1)).slice(-2)}`;
+      trendMap.set(key, (trendMap.get(key) ?? 0) + 1);
+    });
+    const trendData = Array.from(trendMap, ([name, count]) => ({
+      name, count
+    })).sort((a, b) => a.name.localeCompare(b.name));
+
+    return { statusData, priorityData, trendData };
+  }, [filteredData]);
+
+  const kpiDisplay = (id: string): string => {
+    const v = kpis[id] ?? 0;
+    if (id === 'kpi-avg-cost') return fmtCurrency(v);
+    if (id === 'kpi-resolution-rate') return `${v}%`;
+    return String(v);
+  };
+
+  const resolveChart = (src?: string): any[] => {
+    switch (src) {
+      case 'statusData':   return chartData.statusData;
+      case 'priorityData': return chartData.priorityData;
+      case 'trendData':    return chartData.trendData;
+      default: return [];
+    }
+  };
+
+  const getColSpanClass = (span?: number) => {
+    switch (span) {
+      case 1: return 'lg:col-span-1';
+      case 2: return 'lg:col-span-2';
+      case 3: return 'lg:col-span-3';
+      case 4: return 'lg:col-span-4';
+      default: return 'lg:col-span-2';
+    }
+  };
+
+  const { layout } = warrantyConfig;
+
+  return (
+    <div className="p-4 md:p-6 bg-slate-50 min-h-screen text-slate-800" style={{ fontFamily: 'Inter, sans-serif' }}>
+      <DashboardHeader config={warrantyConfig} onExport={() => downloadCSV(filteredData)} />
+      <GlobalFilterPanel config={warrantyConfig.filters} sourceData={WARRANTY_DATA} values={filters} onChange={handleChange} onReset={handleReset} />
+
+      {/* Primary KPIs */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        {layout.kpis.slice(0, 4).map(kpi => (
+          <KpiEngine key={kpi.id} config={kpi} value={kpiDisplay(kpi.id)} variant="premium" colorGradient={KPI_PREMIUM[kpi.id]} />
+        ))}
+      </div>
+      
+      {/* Secondary KPIs */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        {layout.kpis.slice(4).map(kpi => (
+          <KpiEngine key={kpi.id} config={kpi} value={kpiDisplay(kpi.id)} variant="default" />
+        ))}
+      </div>
+
+      {/* Charts Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
+        {layout.charts.map(chart => (
+          <div key={chart.id} className={getColSpanClass(chart.gridSpan)}>
+            <ChartEngine config={chart} data={resolveChart(chart.dataSource)} />
+          </div>
+        ))}
+      </div>
+
+      {/* Tables */}
+      {layout.tables.map(table => (
+        <TableEngine key={table.id} config={table} data={filteredData}
+          onRowClick={row => setDrillDown(row as WarrantyRecord)}
+          onExport={data => downloadCSV(data as WarrantyRecord[])} />
+      ))}
+
+      {/* Drill-down Modal */}
+      {drillDown && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setDrillDown(null)}>
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-4 pb-4 border-b border-slate-100">
+              <div>
+                <h4 className="text-lg font-bold text-slate-900">{drillDown.Product}</h4>
+                <p className="text-sm text-slate-500">{drillDown.id} · {drillDown.Customer}</p>
+              </div>
+              <button onClick={() => setDrillDown(null)} className="text-slate-400 hover:text-slate-600 text-2xl">&times;</button>
+            </div>
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              {([
+                ['Category',     drillDown.Category],
+                ['Issue',        drillDown.Issue],
+                ['Status',       drillDown.Status],
+                ['Priority',     drillDown.Priority],
+                ['Request Date', drillDown.RequestDate],
+                ['Resolve Date', drillDown.ResolutionDate ?? 'N/A'],
+                ['Cost',         fmtCurrency(drillDown.Cost)],
+              ] as [string, any][]).map(([label, val]) => (
+                <div key={label} className="bg-slate-50 rounded-xl p-3">
+                  <p className="text-[11px] font-semibold text-slate-400 mb-1">{label}</p>
+                  <p className="font-bold text-slate-800">{val}</p>
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-3 mt-5">
+              <button onClick={() => downloadCSV([drillDown], `${drillDown.id}.csv`)} className="flex-1 py-2 bg-indigo-500 hover:bg-indigo-400 text-white font-semibold rounded-xl text-sm transition-colors">📥 Export</button>
+              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Close</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

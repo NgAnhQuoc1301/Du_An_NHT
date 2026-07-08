@@ -1,90 +1,62 @@
-export const taskKpiData = [
-  {
-    id: "total",
-    title: "Total Tasks",
-    value: "128",
-    change: "+12",
-    positive: true,
-  },
-  {
-    id: "inprogress",
-    title: "In Progress",
-    value: "45",
-    change: "+5",
-    positive: true,
-  },
-  {
-    id: "overdue",
-    title: "Overdue",
-    value: "8",
-    change: "+2",
-    positive: false,
-  },
-  {
-    id: "completed",
-    title: "Completed",
-    value: "75",
-    change: "+8",
-    positive: true,
-  },
-];
+export interface TaskRecord {
+  id: string;
+  Title: string;
+  Assignee: string;
+  Status: string; // 'Todo', 'In Progress', 'Done', 'Blocked'
+  Priority: string; // 'High', 'Medium', 'Low'
+  DueDate: string; // YYYY-MM-DD
+  Project: string;
+  Progress: number; // 0-100
+  CreatedAt: string; // ISO date
+  UpdatedAt: string;
+}
 
-export const taskStatusData = [
-  { name: "Completed", value: 75, color: "#10B981" },
-  { name: "In Progress", value: 45, color: "#3B82F6" },
-  { name: "Overdue", value: 8, color: "#EF4444" },
-];
+const ASSIGNEES = ['Nguyễn Văn A', 'Trần Thị B', 'Lê Văn C', 'Phạm Thị D', 'Hoàng Văn E'];
+const PROJECTS = ['ERP Upgrade', 'CRM Mobile App', 'Dashboard Redesign', 'AI Integration', 'Warehouse System'];
+const STATUSES = ['Todo', 'In Progress', 'Done', 'Blocked'];
+const PRIORITIES = ['High', 'Medium', 'Low'];
 
-export const taskTrendData = [
-  { month: "Jan", rate: 40 },
-  { month: "Feb", rate: 48 },
-  { month: "Mar", rate: 52 },
-  { month: "Apr", rate: 58 },
-  { month: "May", rate: 62 },
-  { month: "Jun", rate: 68 },
-  { month: "Jul", rate: 72 },
-  { month: "Aug", rate: 75 },
-];
+function randomDate(start: Date, end: Date) {
+  const d = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+  return d.toISOString().split('T')[0];
+}
 
-export const taskListData = [
-  {
-    id: 1,
-    title: "Thiết kế UI Dashboard",
-    assignee: "Nguyễn Văn A",
-    priority: "high",
-    status: "in-progress",
-    deadline: "25/07/2025",
-  },
-  {
-    id: 2,
-    title: "Fix bug login page",
-    assignee: "Trần Thị B",
-    priority: "high",
-    status: "overdue",
-    deadline: "20/07/2025",
-  },
-  {
-    id: 3,
-    title: "Viết unit test API",
-    assignee: "Lê Văn C",
-    priority: "medium",
-    status: "completed",
-    deadline: "30/07/2025",
-  },
-  {
-    id: 4,
-    title: "Deploy staging server",
-    assignee: "Phạm Thị D",
-    priority: "low",
-    status: "in-progress",
-    deadline: "01/08/2025",
-  },
-  {
-    id: 5,
-    title: "Review code PR #42",
-    assignee: "Hoàng Văn E",
-    priority: "medium",
-    status: "completed",
-    deadline: "22/07/2025",
-  },
-];
+function generateTaskData(): TaskRecord[] {
+  const data: TaskRecord[] = [];
+  let id = 1;
+  const now = new Date();
+  for (let i = 0; i < 200; i++) {
+    const created = randomDate(new Date('2024-01-01'), now);
+    const due = randomDate(new Date(created), new Date('2026-12-31'));
+    const status = STATUSES[Math.floor(Math.random() * STATUSES.length)];
+    const progress = status === 'Done' ? 100 : status === 'Todo' ? 0 : Math.floor(10 + Math.random() * 80);
+    data.push({
+      id: `TASK-${1000 + id++}`,
+      Title: `${PROJECTS[Math.floor(Math.random() * PROJECTS.length)]} - ${['Design', 'Development', 'Testing', 'Deployment'][Math.floor(Math.random() * 4)]}`,
+      Assignee: ASSIGNEES[Math.floor(Math.random() * ASSIGNEES.length)],
+      Status: status,
+      Priority: PRIORITIES[Math.floor(Math.random() * PRIORITIES.length)],
+      DueDate: due,
+      Project: PROJECTS[Math.floor(Math.random() * PROJECTS.length)],
+      Progress: progress,
+      CreatedAt: created,
+      UpdatedAt: randomDate(new Date(created), now),
+    });
+  }
+  return data;
+}
+
+export const TASK_DATA = generateTaskData();
+
+export const TASK_STATUS_COLORS: Record<string, string> = {
+  'Todo': '#3b82f6',
+  'In Progress': '#f59e0b',
+  'Done': '#10b981',
+  'Blocked': '#ef4444',
+};
+
+export const TASK_PRIORITY_COLORS: Record<string, string> = {
+  'High': '#ef4444',
+  'Medium': '#f59e0b',
+  'Low': '#10b981',
+};

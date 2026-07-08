@@ -1,88 +1,100 @@
-export const productionKpiData = [
-  {
-    id: "output",
-    title: "Daily Output",
-    value: "2,400",
-    change: "+8%",
-    positive: true,
-  },
-  {
-    id: "efficiency",
-    title: "Efficiency",
-    value: "87%",
-    change: "+3%",
-    positive: true,
-  },
-  {
-    id: "defect",
-    title: "Defect Rate",
-    value: "1.2%",
-    change: "-0.3%",
-    positive: true,
-  },
-  {
-    id: "downtime",
-    title: "Downtime",
-    value: "4.5h",
-    change: "+1h",
-    positive: false,
-  },
-];
+export interface ProductionRecord {
+  id: string;
+  Year: number;
+  Month: string;
+  Date: string; // YYYY-MM-DD
+  Plant: string; // 'Plant A', 'Plant B', 'Plant C'
+  Line: string; // 'Line 1', 'Line 2', etc.
+  ProductType: string;
+  Shift: string; // 'Morning', 'Afternoon', 'Night'
+  OutputTarget: number;
+  OutputActual: number;
+  Defects: number;
+  DowntimeMinutes: number;
+  EnergyConsumed: number; // kWh
+  OEE: number; // Overall Equipment Effectiveness %
+  Supervisor: string;
+}
 
-export const productionTrendData = [
-  { month: "Jan", rate: 2100 },
-  { month: "Feb", rate: 2200 },
-  { month: "Mar", rate: 2150 },
-  { month: "Apr", rate: 2300 },
-  { month: "May", rate: 2280 },
-  { month: "Jun", rate: 2350 },
-  { month: "Jul", rate: 2380 },
-  { month: "Aug", rate: 2400 },
-];
+const PLANTS = ['Plant A - Hanoi', 'Plant B - HCM', 'Plant C - Da Nang'];
+const LINES = ['Line 1', 'Line 2', 'Line 3', 'Line 4'];
+const PRODUCTS = ['Điều hòa 1HP', 'Điều hòa 2HP', 'Tủ lạnh Side-by-Side', 'Máy giặt 8kg', 'Máy giặt 10kg'];
+const SHIFTS = ['Morning', 'Afternoon', 'Night'];
+const SUPERVISORS = ['Nguyễn Văn A', 'Trần Thị B', 'Lê Văn C', 'Phạm Thị D', 'Hoàng Văn E'];
 
-export const productionLineData = [
-  {
-    name: "Line A",
-    value: 820,
-    color: "#3B82F6",
-  },
-  {
-    name: "Line B",
-    value: 740,
-    color: "#10B981",
-  },
-  {
-    name: "Line C",
-    value: 680,
-    color: "#8B5CF6",
-  },
-  {
-    name: "Line D",
-    value: 580,
-    color: "#F59E0B",
-  },
-];
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-export const productionAlertData = [
-  {
-    id: 1,
-    line: "Line A",
-    issue: "Máy đóng gói chậm",
-    severity: "medium",
-    time: "08:30",
-  },
-  {
-    id: 2,
-    line: "Line C",
-    issue: "Thiếu nguyên liệu đầu vào",
-    severity: "high",
-    time: "09:15",
-  },
-  {
-    id: 3,
-    line: "Line B",
-    issue: "Bảo trì định kỳ",
-    severity: "low",
-    time: "10:00",
-  },
-];
+function generateProductionData(): ProductionRecord[] {
+  const data: ProductionRecord[] = [];
+  let id = 1;
+
+  for (const year of [2025, 2026]) {
+    for (let m = 0; m < MONTHS.length; m++) {
+      const monthStr = MONTHS[m];
+      const monthNum = String(m + 1).padStart(2, '0');
+      
+      // Generate 2 random days per month to keep record count manageable
+      for (const day of [5, 20]) {
+        const dateStr = `${year}-${monthNum}-${String(day).padStart(2, '0')}`;
+        
+        for (const plant of PLANTS) {
+          for (const line of LINES) {
+            for (const shift of SHIFTS) {
+              const target = 400 + Math.floor(Math.random() * 200);
+              // Actual is usually close to target, sometimes lower
+              const actual = Math.floor(target * (0.8 + Math.random() * 0.25));
+              const defects = Math.floor(actual * (0.005 + Math.random() * 0.03)); // 0.5% to 3.5%
+              const downtime = Math.floor(Math.random() * 60); // 0 to 60 mins per shift
+              
+              const availability = (480 - downtime) / 480; // 8 hours = 480 mins
+              const performance = actual / target;
+              const quality = (actual - defects) / actual;
+              const oee = availability * performance * quality * 100;
+
+              data.push({
+                id: `PRD-${10000 + id++}`,
+                Year: year,
+                Month: monthStr,
+                Date: dateStr,
+                Plant: plant,
+                Line: line,
+                ProductType: PRODUCTS[Math.floor(Math.random() * PRODUCTS.length)],
+                Shift: shift,
+                OutputTarget: target,
+                OutputActual: actual,
+                Defects: defects,
+                DowntimeMinutes: downtime,
+                EnergyConsumed: Math.round(actual * (15 + Math.random() * 5)),
+                OEE: Math.min(100, Math.max(0, Math.round(oee * 10) / 10)),
+                Supervisor: SUPERVISORS[Math.floor(Math.random() * SUPERVISORS.length)],
+              });
+
+              if (id > 800) break;
+            }
+            if (id > 800) break;
+          }
+          if (id > 800) break;
+        }
+        if (id > 800) break;
+      }
+      if (id > 800) break;
+    }
+  }
+
+  return data;
+}
+
+export const PRODUCTION_DATA = generateProductionData();
+
+export const PROD_PLANT_COLORS: Record<string, string> = {
+  'Plant A - Hanoi': '#3b82f6',
+  'Plant B - HCM': '#10b981',
+  'Plant C - Da Nang': '#f59e0b',
+};
+
+export const PROD_LINE_COLORS: Record<string, string> = {
+  'Line 1': '#3b82f6',
+  'Line 2': '#10b981',
+  'Line 3': '#8b5cf6',
+  'Line 4': '#f59e0b',
+};
