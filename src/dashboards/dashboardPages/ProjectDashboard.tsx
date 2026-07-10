@@ -28,7 +28,7 @@ function downloadCSV(rows: ProjectRecord[], filename = 'project_export.csv') {
 
 const DEFAULT_FILTERS: Record<string, any> = {
   startYear: 2025, endYear: 2026,
-  Department: 'All', Manager: 'All', Status: 'All', Priority: 'All',
+  Department: 'Tất cả', Manager: 'Tất cả', Status: 'Tất cả', Priority: 'Tất cả',
 };
 
 const KPI_PREMIUM: Record<string, string> = {
@@ -48,10 +48,10 @@ export default function ProjectDashboard() {
   const filteredData = useMemo(() =>
     PROJECT_DATA.filter(d => {
       if (d.Year < filters.startYear || d.Year > filters.endYear) return false;
-      if (filters.Department !== 'All' && d.Department !== filters.Department) return false;
-      if (filters.Manager    !== 'All' && d.Manager    !== filters.Manager)    return false;
-      if (filters.Status     !== 'All' && d.Status     !== filters.Status)     return false;
-      if (filters.Priority   !== 'All' && d.Priority   !== filters.Priority)   return false;
+      if (filters.Department !== 'Tất cả' && d.Department !== filters.Department) return false;
+      if (filters.Manager    !== 'Tất cả' && d.Manager    !== filters.Manager)    return false;
+      if (filters.Status     !== 'Tất cả' && d.Status     !== filters.Status)     return false;
+      if (filters.Priority   !== 'Tất cả' && d.Priority   !== filters.Priority)   return false;
       return true;
     }), [filters]);
 
@@ -61,9 +61,9 @@ export default function ProjectDashboard() {
     
     const sum = (fn: (d: ProjectRecord) => number) => filteredData.reduce((s, d) => s + fn(d), 0);
 
-    const onTrack   = filteredData.filter(d => d.Status === 'On Track').length;
-    const delayed   = filteredData.filter(d => d.Status === 'Delayed').length;
-    const completed = filteredData.filter(d => d.Status === 'Completed').length;
+    const onTrack   = filteredData.filter(d => d.Status === 'Đúng tiến độ').length;
+    const delayed   = filteredData.filter(d => d.Status === 'Chậm trễ').length;
+    const completed = filteredData.filter(d => d.Status === 'Đã Xong').length;
 
     const budget = sum(d => d.Budget);
     const spent  = sum(d => d.Spent);
@@ -186,11 +186,11 @@ export default function ProjectDashboard() {
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm">
               {([
-                ['Manager',      drillDown.Manager],
-                ['Status',       drillDown.Status],
-                ['Priority',     drillDown.Priority],
-                ['Progress',     `${drillDown.Progress}%`],
-                ['Budget',       fmtCurrency(drillDown.Budget)],
+                ['Quản lý',      drillDown.Manager],
+                ['Trạng thái',       drillDown.Status],
+                ['Ưu tiên',     drillDown.Priority],
+                ['Tiến độ',     `${drillDown.Progress}%`],
+                ['Ngân sách',       fmtCurrency(drillDown.Budget)],
                 ['Spent',        fmtCurrency(drillDown.Spent)],
                 ['Start Date',   drillDown.StartDate],
                 ['End Date',     drillDown.EndDate],
@@ -204,7 +204,7 @@ export default function ProjectDashboard() {
             </div>
             <div className="flex gap-3 mt-5">
               <button onClick={() => downloadCSV([drillDown], `${drillDown.id}.csv`)} className="flex-1 py-2 bg-cyan-500 hover:bg-cyan-400 text-white font-semibold rounded-xl text-sm transition-colors">📥 Export</button>
-              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Close</button>
+              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Đóng</button>
             </div>
           </div>
         </div>

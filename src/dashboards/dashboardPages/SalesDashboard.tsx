@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { salesConfig } from '../../config/dashboards/sales.config';
-import { SALES_DATA, SALES_CHANNEL_COLORS, SALES_CATEGORY_COLORS } from '../../data/mockData/salesData';
+import { SALES_DATA } from '../../data/mockData/salesData';
 import type { SalesRecord } from '../../data/mockData/salesData';
 
 // ── Engine imports ────────────────────────────────────────────────────────────
@@ -38,19 +38,13 @@ function downloadCSV(rows: SalesRecord[], filename = 'sales_export.csv') {
 const DEFAULT_FILTERS: Record<string, any> = {
   startYear:  2025,
   endYear:    2026,
-  Region:     'All',
-  Channel:    'All',
-  Category:   'All',
-  SalesPerson:'All',
+  Region:     'Tất cả',
+  Channel:    'Tất cả',
+  Category:   'Tất cả',
+  SalesPerson:'Tất cả',
 };
 
-// ── KPI gradient map ──────────────────────────────────────────────────────────
-const KPI_PREMIUM: Record<string, string> = {
-  'kpi-revenue':     'from-blue-500 to-indigo-600',
-  'kpi-profit':      'from-emerald-500 to-teal-600',
-  'kpi-orders':      'from-purple-500 to-violet-600',
-  'kpi-customers':   'from-amber-500 to-orange-600',
-};
+
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function SalesDashboard() {
@@ -66,10 +60,10 @@ export default function SalesDashboard() {
   const filteredData = useMemo(() =>
     SALES_DATA.filter(d => {
       if (d.Year < filters.startYear || d.Year > filters.endYear) return false;
-      if (filters.Region      !== 'All' && d.Region      !== filters.Region)      return false;
-      if (filters.Channel     !== 'All' && d.Channel     !== filters.Channel)     return false;
-      if (filters.Category    !== 'All' && d.Category    !== filters.Category)    return false;
-      if (filters.SalesPerson !== 'All' && d.SalesPerson !== filters.SalesPerson) return false;
+      if (filters.Region      !== 'Tất cả' && d.Region      !== filters.Region)      return false;
+      if (filters.Channel     !== 'Tất cả' && d.Channel     !== filters.Channel)     return false;
+      if (filters.Category    !== 'Tất cả' && d.Category    !== filters.Category)    return false;
+      if (filters.SalesPerson !== 'Tất cả' && d.SalesPerson !== filters.SalesPerson) return false;
       return true;
     }),
   [filters]);
@@ -116,16 +110,15 @@ export default function SalesDashboard() {
         return MONTH_ORDER.indexOf(aMonth) - MONTH_ORDER.indexOf(bMonth);
       });
 
-    // Channel mix (Donut)
-    const channelMap = new Map<string, number>();
-    filteredData.forEach(d => {
-      channelMap.set(d.Channel, (channelMap.get(d.Channel) ?? 0) + d.Revenue);
-    });
-    const channelMix = Array.from(channelMap, ([name, value]) => ({
-      name,
-      value,
-      fill: SALES_CHANNEL_COLORS[name] ?? '#64748b',
-    }));
+    // Sales Funnel
+    const totalCustomers = filteredData.reduce((s, d) => s + d.Customers, 0);
+    const totalOrders = filteredData.reduce((s, d) => s + d.Orders, 0);
+    const salesFunnel = [
+      { name: 'Leads', value: totalCustomers * 5, fill: '#3b82f6' },
+      { name: 'Prospects', value: totalCustomers * 3, fill: '#6366f1' },
+      { name: 'Proposals', value: totalCustomers * 2, fill: '#8b5cf6' },
+      { name: 'Deals', value: totalOrders, fill: '#10b981' },
+    ];
 
     // Category summary (Bar)
     const catMap = new Map<string, { revenue: number; profit: number }>();
@@ -143,7 +136,7 @@ export default function SalesDashboard() {
     });
     const regionSummary = Array.from(regionMap, ([name, v]) => ({ name, ...v }));
 
-    return { revenueTrend, channelMix, categorySummary, regionSummary };
+    return { revenueTrend, salesFunnel, categorySummary, regionSummary };
   }, [filteredData]);
 
   // ── KPI display value ─────────────────────────────────────────────────────
@@ -158,7 +151,7 @@ export default function SalesDashboard() {
   const resolveChart = (src?: string): any[] => {
     switch (src) {
       case 'revenueTrend':   return chartData.revenueTrend;
-      case 'channelMix':     return chartData.channelMix;
+      case 'salesFunnel':    return chartData.salesFunnel;
       case 'categorySummary':return chartData.categorySummary;
       case 'regionSummary':  return chartData.regionSummary;
       default:               return [];
@@ -182,39 +175,27 @@ export default function SalesDashboard() {
         onReset={handleReset}
       />
 
-      {/* ── Primary KPI Row (gradient cards) ─────────────────────────────── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        {layout.kpis.slice(0, 4).map(kpi => (
+      {/* ── Primary KPI Row ─────────────────────────────── */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        {layout.kpis.map(kpi => (
           <KpiEngine
             key={kpi.id}
             config={kpi}
             value={kpiDisplay(kpi.id)}
-            variant="premium"
-            colorGradient={KPI_PREMIUM[kpi.id]}
-          />
-        ))}
-      </div>
-
-      {/* ── Secondary KPI Row (compact cards) ────────────────────────────── */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        {layout.kpis.slice(4).map(kpi => (
-          <KpiEngine
-            key={kpi.id}
-            config={kpi}
-            value={kpiDisplay(kpi.id)}
-            variant="default"
+            variant="default" // Using default white card style
           />
         ))}
       </div>
 
       {/* ── Charts Grid ─────────────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
         {layout.charts.map(chart => (
-          <ChartEngine
-            key={chart.id}
-            config={chart}
-            data={resolveChart(chart.dataSource)}
-          />
+          <div key={chart.id} className={chart.gridSpan === 2 ? "lg:col-span-2" : "lg:col-span-1"}>
+            <ChartEngine
+              config={chart}
+              data={resolveChart(chart.dataSource)}
+            />
+          </div>
         ))}
       </div>
 
@@ -248,13 +229,13 @@ export default function SalesDashboard() {
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm">
               {([
-                ['Region',       drillDownRow.Region],
+                ['Khu vực',       drillDownRow.Region],
                 ['Country',      drillDownRow.Country],
                 ['Sales Rep',    drillDownRow.SalesPerson],
                 ['Channel',      drillDownRow.Channel],
-                ['Category',     drillDownRow.Category],
-                ['Product',      drillDownRow.Product],
-                ['Revenue',      fmt(drillDownRow.Revenue)],
+                ['Danh mục',     drillDownRow.Category],
+                ['Sản phẩm',      drillDownRow.Product],
+                ['Doanh thu',      fmt(drillDownRow.Revenue)],
                 ['Profit',       fmt(drillDownRow.Profit)],
                 ['Orders',       drillDownRow.Orders],
                 ['Customers',    drillDownRow.Customers],

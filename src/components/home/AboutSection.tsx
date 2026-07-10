@@ -13,17 +13,15 @@ export default function AboutSection() {
           {/* LEFT CONTENT */}
           <div>
             <span className="text-green-600 font-bold tracking-widest text-xs uppercase">
-              ABOUT NHT SOLUTIONS
+              VỀ NAGAKAWA HIGH TECH (NHT)
             </span>
 
             <h2 className="text-3xl md:text-5xl font-bold mt-4 leading-tight bg-gradient-to-r from-green-700 via-green-600 to-emerald-600 text-transparent bg-clip-text">
-              Empowering Businesses Through<br />Digital Transformation
+              Thúc đẩy Doanh nghiệp <br />qua Chuyển đổi số toàn diện
             </h2>
 
             <p className="mt-6 text-slate-600 leading-relaxed text-sm md:text-base">
-              NHT Solutions delivers enterprise-grade ERP, CRM, Dashboard Analytics, 
-              Mobile Applications and Digital Transformation Platforms helping 
-              organizations optimize operations and accelerate growth.
+              NHT cung cấp các giải pháp công nghệ cấp doanh nghiệp mạnh mẽ, bao gồm Hệ thống Quản trị Doanh nghiệp (Naga ERP), Quản lý quan hệ khách hàng (CRM), Hệ thống Dashboard điều hành, Mobile App (My Naga), và các giải pháp AI, IoT tiên tiến.
             </p>
           </div>
 
@@ -34,29 +32,29 @@ export default function AboutSection() {
 
               <div className="bg-slate-50/60 border border-slate-100 p-6 rounded-2xl hover:border-green-600/30 hover:bg-white transition-all duration-300 group">
                 <h3 className="text-3xl font-bold text-green-600">
-                  100+
+                  ERP
                 </h3>
                 <p className="text-slate-600 text-sm mt-1 font-medium group-hover:text-slate-800 transition-colors">
-                  Projects Delivered
+                  Quản trị toàn diện
                 </p>
               </div>
 
               <div className="bg-slate-50/60 border border-slate-100 p-6 rounded-2xl hover:border-green-600/30 hover:bg-white transition-all duration-300 group">
                 <h3 className="text-3xl font-bold text-green-600">
-                  12
+                  12+
                 </h3>
                 <p className="text-slate-600 text-sm mt-1 font-medium group-hover:text-slate-800 transition-colors">
-                  Business Dashboards
+                  Dashboard Điều hành
                 </p>
               </div>
 
-              <div className="bg-slate-50/60 border border-slate-100 p-6 rounded-2xl ...">
-                <h3 className="text-3xl font-bold text-green-600">6+</h3>
-                <p className="text-slate-600 text-sm mt-1 font-medium">Enterprise Solutions</p>
+              <div className="bg-slate-50/60 border border-slate-100 p-6 rounded-2xl hover:border-green-600/30 hover:bg-white transition-all duration-300 group">
+                <h3 className="text-3xl font-bold text-green-600">App</h3>
+                <p className="text-slate-600 text-sm mt-1 font-medium group-hover:text-slate-800 transition-colors">My Naga Mobile</p>
               </div>
-              <div className="bg-slate-50/60 border border-slate-100 p-6 rounded-2xl ...">
-                <h3 className="text-3xl font-bold text-green-600">50+</h3>
-                <p className="text-slate-600 text-sm mt-1 font-medium">Enterprise Clients</p>
+              <div className="bg-slate-50/60 border border-slate-100 p-6 rounded-2xl hover:border-green-600/30 hover:bg-white transition-all duration-300 group">
+                <h3 className="text-3xl font-bold text-green-600">AI & IoT</h3>
+                <p className="text-slate-600 text-sm mt-1 font-medium group-hover:text-slate-800 transition-colors">Công nghệ dẫn đầu</p>
               </div>
 
             </div>

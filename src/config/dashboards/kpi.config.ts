@@ -7,11 +7,11 @@ export const kpiConfig: BIDashboardConfig = {
   theme: 'amber',
 
   filters: [
-    { id: 'startYear',   label: 'Start Year',    type: 'date-range', defaultValue: 2025 },
-    { id: 'endYear',     label: 'End Year',      type: 'date-range', defaultValue: 2026 },
-    { id: 'Department',  label: 'Department',    type: 'select' },
-    { id: 'Category',    label: 'Category',      type: 'select' },
-    { id: 'Status',      label: 'Status',        type: 'select', options: ['All', 'On Track', 'At Risk', 'Behind'] },
+    { id: 'startYear',   label: 'Năm bắt đầu',    type: 'date-range', defaultValue: 2025 },
+    { id: 'endYear',     label: 'Năm kết thúc',      type: 'date-range', defaultValue: 2026 },
+    { id: 'Phòng ban',  label: 'Phòng ban',    type: 'select' },
+    { id: 'Danh mục',    label: 'Danh mục',      type: 'select' },
+    { id: 'Trạng thái',      label: 'Trạng thái',        type: 'select', options: ['Tất cả', 'Đúng tiến độ', 'Rủi ro', 'Behind'] },
   ],
 
   layout: {
@@ -68,12 +68,12 @@ export const kpiConfig: BIDashboardConfig = {
         dataSource: 'filteredData',
         columns: [
           { header: 'Period',      accessor: 'Month',       type: 'text',     align: 'left'   },
-          { header: 'Department',  accessor: 'Department',  type: 'text',     align: 'left'   },
-          { header: 'Metric',      accessor: 'MetricName',  type: 'text',     align: 'left'   },
+          { header: 'Phòng ban',  accessor: 'Department',  type: 'text',     align: 'left'   },
+          { header: 'Chỉ số',      accessor: 'MetricName',  type: 'text',     align: 'left'   },
           { header: 'Actual',      accessor: 'Actual',      type: 'number',   align: 'right'  },
-          { header: 'Target',      accessor: 'Target',      type: 'number',   align: 'right'  },
+          { header: 'Mục tiêu',      accessor: 'Target',      type: 'number',   align: 'right'  },
           { header: 'Achievement', accessor: 'Achievement', type: 'badge',    align: 'center' },
-          { header: 'Status',      accessor: 'Status',      type: 'text',     align: 'center' },
+          { header: 'Trạng thái',      accessor: 'Status',      type: 'text',     align: 'center' },
         ],
       },
     ],

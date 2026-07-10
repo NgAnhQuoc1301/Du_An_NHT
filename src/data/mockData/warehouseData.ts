@@ -2,18 +2,18 @@ export interface WarehouseRecord {
   id: string;
   SKU: string;
   ProductName: string;
-  Category: string; // 'Electronics', 'Appliances', 'Food', 'Clothing', 'Other'
+  Category: string; // 'Điện tử', 'Gia dụng', 'Food', 'Clothing', 'Khác'
   Location: string; // 'Zone A', 'Zone B', 'Zone C', 'Zone D'
   Stock: number;
   MinStock: number;
   MaxStock: number;
   UnitCost: number;
-  Status: string; // 'In Stock', 'Low Stock', 'Out of Stock', 'Overstock'
+  Status: string; // 'Còn hàng', 'Sắp hết', 'Hết hàng', 'Overstock'
   LastRestocked: string; // YYYY-MM-DD
   Supplier: string;
 }
 
-const CATEGORIES = ['Electronics', 'Appliances', 'Food', 'Clothing', 'Other'];
+const CATEGORIES = ['Điện tử', 'Gia dụng', 'Food', 'Clothing', 'Khác'];
 const LOCATIONS = ['Zone A', 'Zone B', 'Zone C', 'Zone D'];
 const SUPPLIERS = ['TechCorp', 'GlobalGoods', 'PrimeSupplies', 'MegaMart', 'QualityVendors'];
 
@@ -30,9 +30,9 @@ function generateWarehouseData(): WarehouseRecord[] {
     const minStock = Math.floor(Math.random() * 50) + 10;
     const maxStock = minStock + Math.floor(Math.random() * 300) + 100;
     
-    let status = 'In Stock';
-    if (stock === 0) status = 'Out of Stock';
-    else if (stock < minStock) status = 'Low Stock';
+    let status = 'Còn hàng';
+    if (stock === 0) status = 'Hết hàng';
+    else if (stock < minStock) status = 'Sắp hết';
     else if (stock > maxStock) status = 'Overstock';
 
     data.push({
@@ -56,16 +56,16 @@ function generateWarehouseData(): WarehouseRecord[] {
 export const WAREHOUSE_DATA = generateWarehouseData();
 
 export const WAREHOUSE_STATUS_COLORS: Record<string, string> = {
-  'In Stock': '#10b981',
-  'Low Stock': '#f59e0b',
-  'Out of Stock': '#ef4444',
+  'Còn hàng': '#10b981',
+  'Sắp hết': '#f59e0b',
+  'Hết hàng': '#ef4444',
   'Overstock': '#3b82f6',
 };
 
 export const WAREHOUSE_CATEGORY_COLORS: Record<string, string> = {
-  'Electronics': '#3b82f6',
-  'Appliances': '#10b981',
+  'Điện tử': '#3b82f6',
+  'Gia dụng': '#10b981',
   'Food': '#f59e0b',
   'Clothing': '#8b5cf6',
-  'Other': '#94a3b8',
+  'Khác': '#94a3b8',
 };

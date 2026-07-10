@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <h3 className="text-xl font-bold text-green-600 mb-3">
-              NHT Solutions
+              Nagakawa
             </h3>
             <p className="text-slate-600 text-sm leading-relaxed">
               Hệ thống giải pháp chuyển đổi số toàn diện dành cho doanh nghiệp hiện đại.
@@ -66,7 +66,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="border-t border-green-100 pt-6 text-center text-slate-500 text-sm">
-          © {new Date().getFullYear()} NHT Solutions. All rights reserved.
+          © {new Date().getFullYear()} Nagakawa. All rights reserved.
         </div>
 
       </div>

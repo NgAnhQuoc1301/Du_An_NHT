@@ -4,7 +4,7 @@ export interface HRRecord {
   Department: string;
   Position: string;
   Region: string;
-  EmploymentType: string; // 'Full-time' | 'Part-time' | 'Contract'
+  EmploymentType: string; // 'Full-time' | 'Part-time' | 'Hợp đồng'
   Status: string;         // 'Active' | 'On Leave' | 'Resigned'
   Gender: string;         // 'Male' | 'Female'
   Year: number;
@@ -21,19 +21,19 @@ export interface HRRecord {
   Resigned: number;      // 0 or 1
 }
 
-const DEPARTMENTS = ['Engineering', 'Sales', 'Marketing', 'Finance', 'HR', 'Operations', 'IT', 'Customer Service'];
+const DEPARTMENTS = ['Engineering', 'Bán hàng', 'Marketing', 'Tài chính', 'HR', 'Vận hành', 'CNTT', 'Customer Service'];
 const POSITIONS: Record<string, string[]> = {
   Engineering:        ['Frontend Dev', 'Backend Dev', 'DevOps', 'QA Engineer', 'Tech Lead'],
-  Sales:              ['Sales Executive', 'Sales Manager', 'Account Manager', 'BDM'],
+  'Bán hàng':         ['Sales Executive', 'Sales Manager', 'Account Manager', 'BDM'],
   Marketing:          ['Marketing Specialist', 'Content Creator', 'Brand Manager', 'SEO Analyst'],
-  Finance:            ['Accountant', 'Financial Analyst', 'Controller', 'Auditor'],
+  'Tài chính':        ['Accountant', 'Financial Analyst', 'Controller', 'Auditor'],
   HR:                 ['HR Specialist', 'Recruiter', 'Compensation Analyst', 'HR Manager'],
-  Operations:         ['Operations Manager', 'Process Analyst', 'Supply Chain Lead'],
-  IT:                 ['IT Support', 'System Admin', 'Network Engineer', 'Security Analyst'],
+  'Vận hành':         ['Operations Manager', 'Process Analyst', 'Supply Chain Lead'],
+  'CNTT':             ['IT Support', 'System Admin', 'Network Engineer', 'Security Analyst'],
   'Customer Service': ['CS Agent', 'CS Lead', 'Technical Support', 'CS Manager'],
 };
-const REGIONS        = ['North', 'South', 'East', 'West', 'Central'];
-const EMP_TYPES      = ['Full-time', 'Part-time', 'Contract'];
+const REGIONS        = ['Miền Bắc', 'Miền Nam', 'Miền Đông', 'Miền Tây', 'Miền Trung'];
+const EMP_TYPES      = ['Full-time', 'Part-time', 'Hợp đồng'];
 const STATUSES       = ['Active', 'Active', 'Active', 'On Leave', 'Resigned']; // weighted
 const GENDERS        = ['Male', 'Female'];
 const QUARTERS       = ['Q1', 'Q2', 'Q3', 'Q4'];
@@ -93,11 +93,11 @@ export const HR_DATA = generateHRData();
 
 export const DEPT_COLORS: Record<string, string> = {
   Engineering:        '#3b82f6',
-  Sales:              '#10b981',
+  'Bán hàng':         '#10b981',
   Marketing:          '#8b5cf6',
-  Finance:            '#f59e0b',
+  'Tài chính':        '#f59e0b',
   HR:                 '#ef4444',
-  Operations:         '#06b6d4',
-  IT:                 '#6366f1',
+  'Vận hành':         '#06b6d4',
+  'CNTT':             '#6366f1',
   'Customer Service': '#ec4899',
 };

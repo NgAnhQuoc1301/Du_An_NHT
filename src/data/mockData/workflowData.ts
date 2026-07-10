@@ -3,8 +3,8 @@ export interface WorkflowRecord {
   ProcessName: string;
   Department: string;
   Initiator: string;
-  Status: string; // 'Draft', 'In Review', 'Approved', 'Rejected', 'Completed'
-  Priority: string; // 'High', 'Medium', 'Low'
+  Status: string; // 'Draft', 'In Review', 'Approved', 'Đã từ chối', 'Đã Xong'
+  Priority: string; // 'Cao', 'Trung bình', 'Thấp'
   StartDate: string; // YYYY-MM-DD
   DueDate: string; // YYYY-MM-DD
   CompletionDate: string | null;
@@ -12,10 +12,10 @@ export interface WorkflowRecord {
   StepsCompleted: number;
 }
 
-const DEPARTMENTS = ['HR', 'Finance', 'Operations', 'IT', 'Sales'];
-const STATUSES = ['Draft', 'In Review', 'Approved', 'Rejected', 'Completed'];
-const PRIORITIES = ['High', 'Medium', 'Low'];
-const PROCESSES = ['Onboarding', 'Purchase Request', 'Leave Request', 'Budget Approval', 'Contract Review'];
+const DEPARTMENTS = ['HR', 'Tài chính', 'Vận hành', 'CNTT', 'Bán hàng'];
+const STATUSES = ['Draft', 'In Review', 'Approved', 'Đã từ chối', 'Đã Xong'];
+const PRIORITIES = ['Cao', 'Trung bình', 'Thấp'];
+const PROCESSES = ['Tiếp nhận', 'Purchase Request', 'Leave Request', 'Budget Approval', 'Contract Review'];
 
 function randomDate(start: Date, end: Date) {
   const d = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
@@ -29,7 +29,7 @@ function generateWorkflowData(): WorkflowRecord[] {
     const startDate = randomDate(new Date('2024-01-01'), now);
     const dueDate = randomDate(new Date(startDate), new Date('2026-12-31'));
     const status = STATUSES[Math.floor(Math.random() * STATUSES.length)];
-    const isDone = status === 'Completed' || status === 'Rejected';
+    const isDone = status === 'Đã Xong' || status === 'Đã từ chối';
     const compDate = isDone ? randomDate(new Date(startDate), now) : null;
     
     const stepsTotal = Math.floor(3 + Math.random() * 5); // 3 to 7
@@ -60,12 +60,12 @@ export const WORKFLOW_STATUS_COLORS: Record<string, string> = {
   'Draft': '#94a3b8',
   'In Review': '#f59e0b',
   'Approved': '#3b82f6',
-  'Rejected': '#ef4444',
-  'Completed': '#10b981',
+  'Đã từ chối': '#ef4444',
+  'Đã Xong': '#10b981',
 };
 
 export const WORKFLOW_PRIORITY_COLORS: Record<string, string> = {
-  'High': '#ef4444',
-  'Medium': '#f59e0b',
-  'Low': '#10b981',
+  'Cao': '#ef4444',
+  'Trung bình': '#f59e0b',
+  'Thấp': '#10b981',
 };

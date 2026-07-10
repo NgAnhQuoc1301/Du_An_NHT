@@ -33,7 +33,7 @@ export default function Header() {
         >
           <img
             src="https://nagakawa.com.vn/wp-content/uploads/2023/09/logo-nht.png"
-            alt="NHT Solutions"
+            alt="Nagakawa"
             className="h-8 object-contain"
             onError={(e) => {
             e.currentTarget.style.display = "none";
@@ -47,7 +47,7 @@ export default function Header() {
           />
           <span className="hidden items-center gap-1.5">
             <span className="inline-block w-2 h-5 bg-green-600 rounded-sm"></span>
-            NHT Solutions
+            Nagakawa
           </span>
         </Link>
 
@@ -71,13 +71,13 @@ export default function Header() {
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle Menu"
         >
-          <span className={`block w-5 h-0.5 bg-slate-700 transition-all duration-300 ${
+          <span className={`block w-5 h-0.5 bg-green-600 transition-all duration-300 ${
             menuOpen ? "rotate-45 translate-y-2 !bg-green-600" : ""
           }`} />
-          <span className={`block w-5 h-0.5 bg-slate-700 transition-all duration-300 ${
+          <span className={`block w-5 h-0.5 bg-green-600 transition-all duration-300 ${
             menuOpen ? "opacity-0" : ""
           }`} />
-          <span className={`block w-5 h-0.5 bg-slate-700 transition-all duration-300 ${
+          <span className={`block w-5 h-0.5 bg-green-600 transition-all duration-300 ${
             menuOpen ? "-rotate-45 -translate-y-2 !bg-green-600" : ""
           }`} />
         </button>

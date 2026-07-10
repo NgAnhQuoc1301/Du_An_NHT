@@ -28,7 +28,7 @@ function downloadCSV(rows: CRMRecord[], filename = 'crm_export.csv') {
 
 const DEFAULT_FILTERS: Record<string, any> = {
   startYear: 2025, endYear: 2026,
-  Region: 'All', Source: 'All', Industry: 'All', SalesPerson: 'All',
+  Region: 'Tất cả', Source: 'Tất cả', Industry: 'Tất cả', SalesPerson: 'Tất cả',
 };
 
 const KPI_PREMIUM: Record<string, string> = {
@@ -48,19 +48,19 @@ export default function CRMDashboard() {
   const filteredData = useMemo(() =>
     CRM_DATA.filter(d => {
       if (d.Year < filters.startYear || d.Year > filters.endYear) return false;
-      if (filters.Region      !== 'All' && d.Region      !== filters.Region)      return false;
-      if (filters.Source      !== 'All' && d.Source      !== filters.Source)      return false;
-      if (filters.Industry    !== 'All' && d.Industry    !== filters.Industry)    return false;
-      if (filters.SalesPerson !== 'All' && d.SalesPerson !== filters.SalesPerson) return false;
+      if (filters.Region      !== 'Tất cả' && d.Region      !== filters.Region)      return false;
+      if (filters.Source      !== 'Tất cả' && d.Source      !== filters.Source)      return false;
+      if (filters.Industry    !== 'Tất cả' && d.Industry    !== filters.Industry)    return false;
+      if (filters.SalesPerson !== 'Tất cả' && d.SalesPerson !== filters.SalesPerson) return false;
       return true;
     }), [filters]);
 
   const kpis = useMemo(() => {
     if (!filteredData.length) return {} as Record<string, any>;
     const totalLeads = filteredData.length;
-    const wonDeals = filteredData.filter(d => d.Stage === 'Won');
-    const lostDeals = filteredData.filter(d => d.Stage === 'Lost');
-    const activeOpps = filteredData.filter(d => !['Won', 'Lost'].includes(d.Stage));
+    const wonDeals = filteredData.filter(d => d.Stage === 'Thắng');
+    const lostDeals = filteredData.filter(d => d.Stage === 'Thua');
+    const activeOpps = filteredData.filter(d => !['Thắng', 'Thua'].includes(d.Stage));
 
     const totalValue = filteredData.reduce((s, d) => s + d.Value, 0);
     const avgDealSize = wonDeals.length ? wonDeals.reduce((s, d) => s + d.Value, 0) / wonDeals.length : 0;
@@ -79,7 +79,7 @@ export default function CRMDashboard() {
 
   const chartData = useMemo(() => {
     // Funnel by Stage
-    const stageOrder = ['Lead', 'Qualified', 'Proposal', 'Negotiation', 'Won', 'Lost'];
+    const stageOrder = ['Cơ hội', 'Đủ ĐK', 'Đề xuất', 'Đàm phán', 'Thắng', 'Thua'];
     const funnelMap = new Map<string, number>();
     filteredData.forEach(d => {
       funnelMap.set(d.Stage, (funnelMap.get(d.Stage) ?? 0) + 1);
@@ -101,7 +101,7 @@ export default function CRMDashboard() {
     // Pipeline Trend (Value of Active Opps by ExpectedCloseDate)
     const trendMap = new Map<string, number>();
     filteredData.forEach(d => {
-      if (!['Won', 'Lost'].includes(d.Stage)) {
+      if (!['Thắng', 'Thua'].includes(d.Stage)) {
         trendMap.set(d.ExpectedCloseDate, (trendMap.get(d.ExpectedCloseDate) ?? 0) + d.Value);
       }
     });
@@ -188,14 +188,14 @@ export default function CRMDashboard() {
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm">
               {([
-                ['Industry',     drillDown.Industry],
-                ['Region',       drillDown.Region],
-                ['Source',       drillDown.Source],
+                ['Ngành nghề',     drillDown.Industry],
+                ['Khu vực',       drillDown.Region],
+                ['Nguồn',       drillDown.Source],
                 ['Sales Rep',    drillDown.SalesPerson],
-                ['Stage',        drillDown.Stage],
-                ['Status',       drillDown.Status],
-                ['Value',        fmtCurrency(drillDown.Value)],
-                ['Probability',  `${drillDown.Probability}%`],
+                ['Giai đoạn',        drillDown.Stage],
+                ['Trạng thái',       drillDown.Status],
+                ['Giá trị',        fmtCurrency(drillDown.Value)],
+                ['Xác suất',  `${drillDown.Probability}%`],
                 ['Exp Close',    drillDown.ExpectedCloseDate],
               ] as [string, any][]).map(([label, val]) => (
                 <div key={label} className="bg-slate-50 rounded-xl p-3">
@@ -206,7 +206,7 @@ export default function CRMDashboard() {
             </div>
             <div className="flex gap-3 mt-5">
               <button onClick={() => downloadCSV([drillDown], `${drillDown.id}.csv`)} className="flex-1 py-2 bg-violet-500 hover:bg-violet-400 text-white font-semibold rounded-xl text-sm transition-colors">📥 Export</button>
-              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Close</button>
+              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Đóng</button>
             </div>
           </div>
         </div>

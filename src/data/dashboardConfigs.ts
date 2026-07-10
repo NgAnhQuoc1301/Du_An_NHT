@@ -16,7 +16,7 @@ import {
 export const dashboardConfigs: DashboardConfig[] = [
   {
     id: "sales",
-    name: "Sales Dashboard",
+    name: "Dashboard Bán hàng",
     style: "style1",
 
     widgets: salesWidgets,
@@ -24,76 +24,76 @@ export const dashboardConfigs: DashboardConfig[] = [
 
   {
     id: "crm",
-    name: "CRM Dashboard",
+    name: "Dashboard CRM",
     style: "style2",
 
     widgets: crmWidgets,
   },
   {
   id: "hr",
-  name: "HR Dashboard",
+  name: "Dashboard Nhân sự",
   style: "style3",
 
   widgets: hrWidgets,
 },
 {
   id: "ceo",
-  name: "CEO Dashboard",
+  name: "Dashboard CEO",
   style: "style1",
   widgets: ceoWidgets,
 },
 
 {
   id: "finance",
-  name: "Finance Dashboard",
+  name: "Dashboard Tài chính",
   style: "style4",
   widgets: financeWidgets,
 },
 
 {
   id: "project",
-  name: "Project Dashboard",
+  name: "Dashboard Dự án",
   style: "style5",
   widgets: projectWidgets,
 },
 {
   id: "kpi",
-  name: "KPI Dashboard",
+  name: "Dashboard KPI",
   style: "style2",
   widgets: kpiWidgets,
 },
 
 {
   id: "warehouse",
-  name: "Warehouse Dashboard",
+  name: "Dashboard Kho hàng",
   style: "style1",
   widgets: warehouseWidgets,
 },
 
 {
   id: "warranty",
-  name: "Warranty Dashboard",
+  name: "Dashboard Bảo hành",
   style: "style3",
   widgets: warrantyWidgets,
 },
 
 {
   id: "production",
-  name: "Production Dashboard",
+  name: "Dashboard Sản xuất",
   style: "style4",
   widgets: productionWidgets,
 },
 
 {
   id: "workflow",
-  name: "Workflow Dashboard",
+  name: "Dashboard Quy trình",
   style: "style5",
   widgets: workflowWidgets,
 },
 
 {
   id: "task",
-  name: "Task Dashboard",
+  name: "Dashboard Công việc",
   style: "style2",
   widgets: taskWidgets,
 },

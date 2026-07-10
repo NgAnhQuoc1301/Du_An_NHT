@@ -3,26 +3,25 @@ export interface KPIRecord {
   Year: number;
   Quarter: string;
   Month: string;
-  Department: string; // 'Sales', 'Finance', 'HR', 'Operations', 'IT'
-  Category: string; // e.g. 'Revenue', 'Customer', 'Efficiency', 'Quality'
+  Department: string; // 'Bán hàng', 'Tài chính', 'HR', 'Vận hành', 'CNTT'
+  Category: string; // e.g. 'Doanh thu', 'Khách hàng', 'Efficiency', 'Quality'
   MetricName: string; 
   MetricType: string; // 'currency', 'percent', 'number'
   Actual: number;
   Target: number;
   Achievement: number; // % (Actual / Target)
-  Status: string; // 'On Track', 'At Risk', 'Behind'
+  Status: string; // 'Đúng tiến độ', 'Rủi ro', 'Behind'
 }
 
-const DEPARTMENTS = ['Sales', 'Finance', 'HR', 'Operations', 'IT'];
-const CATEGORIES = ['Financial', 'Customer', 'Process', 'People'];
+const DEPARTMENTS = ['Bán hàng', 'Tài chính', 'HR', 'Vận hành', 'CNTT'];
 
 const METRICS: Record<string, { name: string, type: string, min: number, max: number }[]> = {
-  Sales: [
-    { name: 'Revenue', type: 'currency', min: 100000000, max: 500000000 },
+  'Bán hàng': [
+    { name: 'Doanh thu', type: 'currency', min: 100000000, max: 500000000 },
     { name: 'Win Rate', type: 'percent', min: 15, max: 40 },
     { name: 'New Customers', type: 'number', min: 20, max: 100 },
   ],
-  Finance: [
+  'Tài chính': [
     { name: 'Net Profit Margin', type: 'percent', min: 10, max: 35 },
     { name: 'Operating Cash Flow', type: 'currency', min: 50000000, max: 200000000 },
   ],
@@ -30,11 +29,11 @@ const METRICS: Record<string, { name: string, type: string, min: number, max: nu
     { name: 'Employee Turnover', type: 'percent', min: 2, max: 15 },
     { name: 'Training Hours', type: 'number', min: 100, max: 500 },
   ],
-  Operations: [
+  'Vận hành': [
     { name: 'Order Fulfillment Rate', type: 'percent', min: 85, max: 100 },
-    { name: 'Defect Rate', type: 'percent', min: 0.5, max: 5 },
+    { name: 'Tỷ lệ Lỗi', type: 'percent', min: 0.5, max: 5 },
   ],
-  IT: [
+  'CNTT': [
     { name: 'System Uptime', type: 'percent', min: 98, max: 100 },
     { name: 'Helpdesk SLA', type: 'percent', min: 80, max: 98 },
   ],
@@ -58,9 +57,9 @@ function generateKPIData(): KPIRecord[] {
         for (const dept of DEPARTMENTS) {
           const metrics = METRICS[dept];
           for (const metric of metrics) {
-            let category = 'Process';
-            if (dept === 'Sales' || dept === 'Finance') category = 'Financial';
-            if (metric.name.includes('Customer')) category = 'Customer';
+            let category = 'Quy trình';
+            if (dept === 'Bán hàng' || dept === 'Tài chính') category = 'Financial';
+            if (metric.name.includes('Khách hàng')) category = 'Khách hàng';
             if (dept === 'HR') category = 'People';
 
             const actual = metric.min + Math.random() * (metric.max - metric.min);
@@ -76,9 +75,9 @@ function generateKPIData(): KPIRecord[] {
                achievement = (actual / target) * 100;
             }
 
-            let status = 'On Track';
+            let status = 'Đúng tiến độ';
             if (achievement < 85) status = 'Behind';
-            else if (achievement < 95) status = 'At Risk';
+            else if (achievement < 95) status = 'Rủi ro';
 
             data.push({
               id: `KPI-${id++}`,
@@ -106,15 +105,15 @@ function generateKPIData(): KPIRecord[] {
 export const KPI_DATA = generateKPIData();
 
 export const KPI_STATUS_COLORS: Record<string, string> = {
-  'On Track': '#10b981', // Green
-  'At Risk': '#f59e0b',  // Yellow
+  'Đúng tiến độ': '#10b981', // Green
+  'Rủi ro': '#f59e0b',  // Yellow
   'Behind': '#ef4444',   // Red
 };
 
 export const KPI_DEPT_COLORS: Record<string, string> = {
-  Sales: '#3b82f6',
-  Finance: '#10b981',
+  'Bán hàng': '#3b82f6',
+  'Tài chính': '#10b981',
   HR: '#f59e0b',
-  Operations: '#8b5cf6',
-  IT: '#64748b',
+  'Vận hành': '#8b5cf6',
+  'CNTT': '#64748b',
 };

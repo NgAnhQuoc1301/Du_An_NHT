@@ -7,24 +7,20 @@ export const hrConfig: BIDashboardConfig = {
   theme: 'indigo',
 
   filters: [
-    { id: 'startYear',      label: 'Start Year',    type: 'date-range', defaultValue: 2025 },
-    { id: 'endYear',        label: 'End Year',      type: 'date-range', defaultValue: 2026 },
-    { id: 'Department',     label: 'Department',    type: 'select' },
-    { id: 'Region',         label: 'Region',        type: 'select' },
-    { id: 'EmploymentType', label: 'Emp. Type',     type: 'select', options: ['All', 'Full-time', 'Part-time', 'Contract'] },
-    { id: 'Status',         label: 'Status',        type: 'select', options: ['All', 'Active', 'On Leave', 'Resigned'] },
+    { id: 'startYear',      label: 'Năm bắt đầu',    type: 'date-range', defaultValue: 2025 },
+    { id: 'endYear',        label: 'Năm kết thúc',      type: 'date-range', defaultValue: 2026 },
+    { id: 'Phòng ban',     label: 'Phòng ban',    type: 'select' },
+    { id: 'Khu vực',         label: 'Khu vực',        type: 'select' },
+    { id: 'EmploymentType', label: 'Emp. Type',     type: 'select', options: ['Tất cả', 'Full-time', 'Part-time', 'Hợp đồng'] },
+    { id: 'Trạng thái',         label: 'Trạng thái',        type: 'select', options: ['Tất cả', 'Active', 'On Leave', 'Resigned'] },
   ],
 
   layout: {
     kpis: [
-      { id: 'kpi-headcount',    title: 'Total Headcount',   type: 'kpi' },
-      { id: 'kpi-hired',        title: 'New Hires',         type: 'kpi' },
-      { id: 'kpi-resigned',     title: 'Resignations',      type: 'kpi' },
-      { id: 'kpi-turnover',     title: 'Turnover Rate',     type: 'kpi' },
-      { id: 'kpi-salary',       title: 'Total Salary Cost', type: 'kpi' },
-      { id: 'kpi-bonus',        title: 'Total Bonus',       type: 'kpi' },
-      { id: 'kpi-performance',  title: 'Avg Performance',   type: 'kpi' },
-      { id: 'kpi-satisfaction', title: 'Avg Satisfaction',  type: 'kpi' },
+      { id: 'kpi-headcount',    title: 'Total Headcount',   type: 'kpi', gridSpan: 1 },
+      { id: 'kpi-hired',        title: 'New Hires',         type: 'kpi', gridSpan: 1 },
+      { id: 'kpi-turnover',     title: 'Turnover Rate',     type: 'kpi', gridSpan: 1 },
+      { id: 'kpi-performance',  title: 'Avg Performance',   type: 'kpi', gridSpan: 1 },
     ],
 
     charts: [
@@ -34,7 +30,7 @@ export const hrConfig: BIDashboardConfig = {
         chartType: 'bar', gridSpan: 2, dataSource: 'deptHeadcount',
         metrics: [
           { label: 'Headcount',   dataKey: 'headcount',  color: '#6366f1', type: 'number' },
-          { label: 'Avg Salary',  dataKey: 'avgSalary',  color: '#10b981', type: 'currency' },
+          { label: 'Lương TB',  dataKey: 'avgSalary',  color: '#10b981', type: 'currency' },
         ],
       },
       {
@@ -66,14 +62,14 @@ export const hrConfig: BIDashboardConfig = {
         type: 'table', title: 'Employee Records',
         dataSource: 'filteredData',
         columns: [
-          { header: 'Name',        accessor: 'FullName',         type: 'text',    align: 'left'   },
-          { header: 'Department',  accessor: 'Department',       type: 'text',    align: 'left'   },
+          { header: 'Tên',        accessor: 'FullName',         type: 'text',    align: 'left'   },
+          { header: 'Phòng ban',  accessor: 'Department',       type: 'text',    align: 'left'   },
           { header: 'Position',    accessor: 'Position',         type: 'text',    align: 'left'   },
-          { header: 'Region',      accessor: 'Region',           type: 'text',    align: 'left'   },
-          { header: 'Type',        accessor: 'EmploymentType',   type: 'text',    align: 'center' },
-          { header: 'Salary',      accessor: 'Salary',           type: 'currency',align: 'right'  },
+          { header: 'Khu vực',      accessor: 'Region',           type: 'text',    align: 'left'   },
+          { header: 'Loại',        accessor: 'EmploymentType',   type: 'text',    align: 'center' },
+          { header: 'Lương',      accessor: 'Salary',           type: 'currency',align: 'right'  },
           { header: 'Performance', accessor: 'PerformanceScore', type: 'badge',   align: 'center' },
-          { header: 'Status',      accessor: 'Status',           type: 'text',    align: 'center' },
+          { header: 'Trạng thái',      accessor: 'Status',           type: 'text',    align: 'center' },
         ],
       },
     ],

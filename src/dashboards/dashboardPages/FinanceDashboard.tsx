@@ -28,7 +28,7 @@ function downloadCSV(rows: FinanceRecord[], filename = 'finance_export.csv') {
 
 const DEFAULT_FILTERS: Record<string, any> = {
   startYear: 2025, endYear: 2026,
-  Department: 'All', AccountType: 'All', Category: 'All',
+  Department: 'Tất cả', AccountType: 'Tất cả', Category: 'Tất cả',
 };
 
 const KPI_PREMIUM: Record<string, string> = {
@@ -48,16 +48,16 @@ export default function FinanceDashboard() {
   const filteredData = useMemo(() =>
     FINANCE_DATA.filter(d => {
       if (d.Year < filters.startYear || d.Year > filters.endYear) return false;
-      if (filters.Department  !== 'All' && d.Department  !== filters.Department)  return false;
-      if (filters.AccountType !== 'All' && d.AccountType !== filters.AccountType) return false;
-      if (filters.Category    !== 'All' && d.Category    !== filters.Category)    return false;
+      if (filters.Department  !== 'Tất cả' && d.Department  !== filters.Department)  return false;
+      if (filters.AccountType !== 'Tất cả' && d.AccountType !== filters.AccountType) return false;
+      if (filters.Category    !== 'Tất cả' && d.Category    !== filters.Category)    return false;
       return true;
     }), [filters]);
 
   const kpis = useMemo(() => {
     if (!filteredData.length) return {} as Record<string, any>;
-    const revData = filteredData.filter(d => d.AccountType === 'Revenue');
-    const expData = filteredData.filter(d => d.AccountType === 'Expense');
+    const revData = filteredData.filter(d => d.AccountType === 'Doanh thu');
+    const expData = filteredData.filter(d => d.AccountType === 'Chi phí');
     
     const sum = (arr: FinanceRecord[], fn: (d: FinanceRecord) => number) => arr.reduce((s, d) => s + fn(d), 0);
     
@@ -88,7 +88,7 @@ export default function FinanceDashboard() {
     filteredData.forEach(d => {
       const key = `${d.Year} ${d.Month}`;
       const ex = trendMap.get(key) ?? { revenue: 0, expense: 0 };
-      if (d.AccountType === 'Revenue') ex.revenue += d.Amount;
+      if (d.AccountType === 'Doanh thu') ex.revenue += d.Amount;
       else ex.expense += d.Amount;
       trendMap.set(key, ex);
     });
@@ -105,7 +105,7 @@ export default function FinanceDashboard() {
 
     // Expense Breakdown
     const expMap = new Map<string, number>();
-    filteredData.filter(d => d.AccountType === 'Expense').forEach(d => {
+    filteredData.filter(d => d.AccountType === 'Chi phí').forEach(d => {
       expMap.set(d.Category, (expMap.get(d.Category) ?? 0) + d.Amount);
     });
     const expenseBreakdown = Array.from(expMap, ([name, value]) => ({
@@ -198,12 +198,12 @@ export default function FinanceDashboard() {
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm">
               {([
-                ['Department',   drillDown.Department],
+                ['Phòng ban',   drillDown.Department],
                 ['Account Type', drillDown.AccountType],
-                ['Category',     drillDown.Category],
+                ['Danh mục',     drillDown.Category],
                 ['Description',  drillDown.Description],
-                ['Amount',       fmtCurrency(drillDown.Amount)],
-                ['Budget',       fmtCurrency(drillDown.Budget)],
+                ['Số tiền',       fmtCurrency(drillDown.Amount)],
+                ['Ngân sách',       fmtCurrency(drillDown.Budget)],
                 ['Variance',     fmtCurrency(drillDown.Variance)],
                 ['Currency',     drillDown.Currency],
               ] as [string, any][]).map(([label, val]) => (
@@ -215,7 +215,7 @@ export default function FinanceDashboard() {
             </div>
             <div className="flex gap-3 mt-5">
               <button onClick={() => downloadCSV([drillDown], `${drillDown.id}.csv`)} className="flex-1 py-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold rounded-xl text-sm transition-colors">📥 Export</button>
-              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Close</button>
+              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Đóng</button>
             </div>
           </div>
         </div>

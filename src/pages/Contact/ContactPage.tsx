@@ -10,7 +10,7 @@ import WhyChooseNHT from "../../components/contact/WhyChooseNHT";
 
 import FAQ from "../../components/contact/FAQ";
 
-import ContactInfo from "../../components/contact/ContactInfo";
+
 
 import ContactCTA from "../../components/contact/ContactCTA";
 export default function ContactPage() {
@@ -31,7 +31,7 @@ export default function ContactPage() {
 
             <FAQ/>
 
-            <ContactInfo/>
+
 
             <ContactCTA/>
 

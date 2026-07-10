@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { warehouseConfig } from '../../config/dashboards/warehouse.config';
-import { WAREHOUSE_DATA, WAREHOUSE_STATUS_COLORS, WAREHOUSE_CATEGORY_COLORS } from '../../data/mockData/warehouseData';
+import { WAREHOUSE_DATA } from '../../data/mockData/warehouseData';
 import type { WarehouseRecord } from '../../data/mockData/warehouseData';
 
 import { DashboardHeader }   from '../../components/bi-platform/shell/DashboardHeader';
@@ -28,7 +28,7 @@ function downloadCSV(rows: WarehouseRecord[], filename = 'warehouse_export.csv')
 
 const DEFAULT_FILTERS: Record<string, any> = {
   startYear: 2024, endYear: 2026,
-  Category: 'All', Location: 'All', Status: 'All', Supplier: 'All',
+  Category: 'Tất cả', Location: 'Tất cả', Status: 'Tất cả', Supplier: 'Tất cả',
 };
 
 const KPI_PREMIUM: Record<string, string> = {
@@ -49,10 +49,10 @@ export default function WarehouseDashboard() {
     WAREHOUSE_DATA.filter(d => {
       const year = new Date(d.LastRestocked).getFullYear();
       if (year < filters.startYear || year > filters.endYear) return false;
-      if (filters.Category !== 'All' && d.Category !== filters.Category) return false;
-      if (filters.Location !== 'All' && d.Location !== filters.Location) return false;
-      if (filters.Status   !== 'All' && d.Status   !== filters.Status)   return false;
-      if (filters.Supplier !== 'All' && d.Supplier !== filters.Supplier) return false;
+      if (filters.Category !== 'Tất cả' && d.Category !== filters.Category) return false;
+      if (filters.Location !== 'Tất cả' && d.Location !== filters.Location) return false;
+      if (filters.Status   !== 'Tất cả' && d.Status   !== filters.Status)   return false;
+      if (filters.Supplier !== 'Tất cả' && d.Supplier !== filters.Supplier) return false;
       return true;
     }), [filters]);
 
@@ -79,36 +79,21 @@ export default function WarehouseDashboard() {
   }, [filteredData]);
 
   const chartData = useMemo(() => {
-    // Status Distribution
-    const statusMap = new Map<string, number>();
-    filteredData.forEach(d => {
-      statusMap.set(d.Status, (statusMap.get(d.Status) ?? 0) + 1);
-    });
-    const statusData = Array.from(statusMap, ([name, value]) => ({
-      name, value, fill: WAREHOUSE_STATUS_COLORS[name] ?? '#94a3b8'
+    // Stock Levels (Composed)
+    const stockLevels = filteredData.slice(0, 15).map(d => ({
+      name: d.ProductName.slice(0, 10),
+      stock: d.Stock,
+      minStock: d.MinStock,
     }));
 
-    // Stock by Category
-    const catMap = new Map<string, number>();
-    filteredData.forEach(d => {
-      catMap.set(d.Category, (catMap.get(d.Category) ?? 0) + d.Stock);
-    });
-    const categoryData = Array.from(catMap, ([name, value]) => ({
-      name, value, fill: WAREHOUSE_CATEGORY_COLORS[name] ?? '#94a3b8'
+    // Turnover Data (Scatter)
+    const turnoverData = filteredData.map(d => ({
+      name: d.ProductName,
+      turnover: Math.round((d.Stock / (d.MinStock || 1)) * 10) / 10,
+      stockValue: d.Stock * d.UnitCost,
     }));
 
-    // Restock Trend (Monthly)
-    const trendMap = new Map<string, number>();
-    filteredData.forEach(d => {
-      const date = new Date(d.LastRestocked);
-      const key = `${date.getFullYear()} ${('0' + (date.getMonth() + 1)).slice(-2)}`;
-      trendMap.set(key, (trendMap.get(key) ?? 0) + d.Stock);
-    });
-    const trendData = Array.from(trendMap, ([name, restock]) => ({
-      name, restock
-    })).sort((a, b) => a.name.localeCompare(b.name));
-
-    return { statusData, categoryData, trendData };
+    return { stockLevels, turnoverData };
   }, [filteredData]);
 
   const kpiDisplay = (id: string): string => {
@@ -121,9 +106,8 @@ export default function WarehouseDashboard() {
 
   const resolveChart = (src?: string): any[] => {
     switch (src) {
-      case 'statusData':   return chartData.statusData;
-      case 'categoryData': return chartData.categoryData;
-      case 'trendData':    return chartData.trendData;
+      case 'stockLevels':  return chartData.stockLevels;
+      case 'turnoverData': return chartData.turnoverData;
       default: return [];
     }
   };
@@ -146,16 +130,9 @@ export default function WarehouseDashboard() {
       <GlobalFilterPanel config={warehouseConfig.filters} sourceData={WAREHOUSE_DATA} values={filters} onChange={handleChange} onReset={handleReset} />
 
       {/* Primary KPIs */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        {layout.kpis.slice(0, 4).map(kpi => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {layout.kpis.map(kpi => (
           <KpiEngine key={kpi.id} config={kpi} value={kpiDisplay(kpi.id)} variant="premium" colorGradient={KPI_PREMIUM[kpi.id]} />
-        ))}
-      </div>
-      
-      {/* Secondary KPIs */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        {layout.kpis.slice(4).map(kpi => (
-          <KpiEngine key={kpi.id} config={kpi} value={kpiDisplay(kpi.id)} variant="default" />
         ))}
       </div>
 
@@ -189,7 +166,7 @@ export default function WarehouseDashboard() {
             <div className="grid grid-cols-2 gap-3 text-sm">
               {([
                 ['Location',     drillDown.Location],
-                ['Status',       drillDown.Status],
+                ['Trạng thái',       drillDown.Status],
                 ['Stock Qty',    drillDown.Stock],
                 ['Min Stock',    drillDown.MinStock],
                 ['Max Stock',    drillDown.MaxStock],
@@ -205,7 +182,7 @@ export default function WarehouseDashboard() {
             </div>
             <div className="flex gap-3 mt-5">
               <button onClick={() => downloadCSV([drillDown], `${drillDown.SKU}.csv`)} className="flex-1 py-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold rounded-xl text-sm transition-colors">📥 Export</button>
-              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Close</button>
+              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Đóng</button>
             </div>
           </div>
         </div>

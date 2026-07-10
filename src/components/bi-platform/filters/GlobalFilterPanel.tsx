@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import type { BIFilterConfig } from '../../../types/bi.types';
 
 interface GlobalFilterPanelProps {
@@ -26,7 +26,7 @@ export const GlobalFilterPanel: React.FC<GlobalFilterPanelProps> = ({
         } else {
           // Auto-derive from data source field matching filter id
           const uniq = Array.from(new Set(sourceData.map((d: any) => d[f.id]).filter(Boolean)));
-          opts[f.id] = ['All', ...uniq.sort()];
+          opts[f.id] = ['Tất cả', ...uniq.sort()];
         }
       }
     });
@@ -44,7 +44,7 @@ export const GlobalFilterPanel: React.FC<GlobalFilterPanelProps> = ({
               </label>
               {filter.type === 'select' && (
                 <select
-                  value={values[filter.id] ?? filter.defaultValue ?? 'All'}
+                  value={values[filter.id] ?? filter.defaultValue ?? 'Tất cả'}
                   onChange={e => onChange(filter.id, e.target.value)}
                   className="w-full px-3 py-2 text-sm text-slate-700 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 transition-all cursor-pointer"
                 >
@@ -70,7 +70,7 @@ export const GlobalFilterPanel: React.FC<GlobalFilterPanelProps> = ({
           onClick={onReset}
           className="flex-shrink-0 flex items-center gap-2 px-4 py-2 text-sm font-semibold text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg transition-colors"
         >
-          ↺ Reset
+          ↺ Đặt lại
         </button>
       </div>
     </div>

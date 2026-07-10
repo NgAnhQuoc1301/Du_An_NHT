@@ -4,7 +4,7 @@ export interface FinanceRecord {
   Quarter: string;
   Month: string;
   Department: string;
-  AccountType: string; // 'Revenue' | 'Expense' | 'Asset' | 'Liability'
+  AccountType: string; // 'Doanh thu' | 'Chi phí' | 'Asset' | 'Liability'
   Category: string;
   Description: string;
   Amount: number;
@@ -13,11 +13,11 @@ export interface FinanceRecord {
   Currency: string;
 }
 
-const DEPARTMENTS = ['Corporate', 'Sales', 'Marketing', 'Engineering', 'HR', 'Operations', 'IT'];
-const ACCOUNT_TYPES = ['Revenue', 'Expense'];
+const DEPARTMENTS = ['Corporate', 'Bán hàng', 'Marketing', 'Engineering', 'HR', 'Vận hành', 'CNTT'];
+const ACCOUNT_TYPES = ['Doanh thu', 'Chi phí'];
 const CATEGORIES: Record<string, string[]> = {
-  Revenue: ['Product Sales', 'Service Fees', 'Subscriptions', 'Consulting', 'Licensing'],
-  Expense: ['Payroll', 'Marketing', 'Rent', 'Software', 'Travel', 'Utilities', 'Legal'],
+  'Doanh thu': ['Product Sales', 'Service Fees', 'Subscriptions', 'Consulting', 'Licensing'],
+  'Chi phí': ['Lương', 'Marketing', 'Rent', 'Phần mềm', 'Travel', 'Utilities', 'Legal'],
 };
 
 const QUARTERS = ['Q1', 'Q2', 'Q3', 'Q4'];
@@ -38,7 +38,7 @@ function generateFinanceData(): FinanceRecord[] {
         for (const dept of DEPARTMENTS) {
           for (const accType of ACCOUNT_TYPES) {
             // Not every department generates revenue
-            if (accType === 'Revenue' && !['Corporate', 'Sales', 'Operations'].includes(dept)) {
+            if (accType === 'Doanh thu' && !['Corporate', 'Bán hàng', 'Vận hành'].includes(dept)) {
               continue;
             }
 
@@ -49,10 +49,10 @@ function generateFinanceData(): FinanceRecord[] {
               const category = categories[Math.floor(Math.random() * categories.length)];
               
               let baseAmount = 0;
-              if (accType === 'Revenue') {
+              if (accType === 'Doanh thu') {
                 baseAmount = 100_000_000 + Math.random() * 500_000_000;
               } else {
-                if (category === 'Payroll') baseAmount = 200_000_000 + Math.random() * 100_000_000;
+                if (category === 'Lương') baseAmount = 200_000_000 + Math.random() * 100_000_000;
                 else if (category === 'Rent') baseAmount = 50_000_000;
                 else baseAmount = 10_000_000 + Math.random() * 80_000_000;
               }
@@ -60,7 +60,7 @@ function generateFinanceData(): FinanceRecord[] {
               const amount = Math.round(baseAmount);
               // Budget varies by +/- 15%
               const budget = Math.round(amount * (0.85 + Math.random() * 0.3));
-              const variance = accType === 'Revenue' ? amount - budget : budget - amount; // positive is favorable
+              const variance = accType === 'Doanh thu' ? amount - budget : budget - amount; // positive is favorable
 
               data.push({
                 id: `FIN-${id++}`,
@@ -95,10 +95,10 @@ function generateFinanceData(): FinanceRecord[] {
 export const FINANCE_DATA = generateFinanceData();
 
 export const FINANCE_EXPENSE_COLORS: Record<string, string> = {
-  Payroll: '#3b82f6',
+  'Lương': '#3b82f6',
   Marketing: '#10b981',
   Rent: '#f59e0b',
-  Software: '#8b5cf6',
+  'Phần mềm': '#8b5cf6',
   Travel: '#ef4444',
   Utilities: '#06b6d4',
   Legal: '#ec4899',

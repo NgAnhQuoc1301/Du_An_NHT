@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { hrConfig } from '../../config/dashboards/hr.config';
-import { HR_DATA, DEPT_COLORS } from '../../data/mockData/hrData';
+import { HR_DATA } from '../../data/mockData/hrData';
 import type { HRRecord } from '../../data/mockData/hrData';
 import { DashboardHeader }   from '../../components/bi-platform/shell/DashboardHeader';
 import { GlobalFilterPanel } from '../../components/bi-platform/filters/GlobalFilterPanel';
@@ -27,7 +27,7 @@ function downloadCSV(rows: HRRecord[], filename = 'hr_export.csv') {
 
 const DEFAULT_FILTERS: Record<string, any> = {
   startYear: 2025, endYear: 2026,
-  Department: 'All', Region: 'All', EmploymentType: 'All', Status: 'All',
+  Department: 'Tất cả', Region: 'Tất cả', EmploymentType: 'Tất cả', Status: 'Tất cả',
 };
 
 const KPI_PREMIUM: Record<string, string> = {
@@ -47,10 +47,10 @@ export default function HRDashboard() {
   const filteredData = useMemo(() =>
     HR_DATA.filter(d => {
       if (d.Year < filters.startYear || d.Year > filters.endYear) return false;
-      if (filters.Department     !== 'All' && d.Department     !== filters.Department)     return false;
-      if (filters.Region         !== 'All' && d.Region         !== filters.Region)         return false;
-      if (filters.EmploymentType !== 'All' && d.EmploymentType !== filters.EmploymentType) return false;
-      if (filters.Status         !== 'All' && d.Status         !== filters.Status)         return false;
+      if (filters.Department     !== 'Tất cả' && d.Department     !== filters.Department)     return false;
+      if (filters.Region         !== 'Tất cả' && d.Region         !== filters.Region)         return false;
+      if (filters.EmploymentType !== 'Tất cả' && d.EmploymentType !== filters.EmploymentType) return false;
+      if (filters.Status         !== 'Tất cả' && d.Status         !== filters.Status)         return false;
       return true;
     }), [filters]);
 
@@ -138,22 +138,18 @@ export default function HRDashboard() {
       <GlobalFilterPanel config={hrConfig.filters} sourceData={HR_DATA} values={filters} onChange={handleChange} onReset={handleReset} />
 
       {/* Primary KPIs */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        {layout.kpis.slice(0, 4).map(kpi => (
-          <KpiEngine key={kpi.id} config={kpi} value={kpiDisplay(kpi.id)} variant="premium" colorGradient={KPI_PREMIUM[kpi.id]} />
-        ))}
-      </div>
-      {/* Secondary KPIs */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        {layout.kpis.slice(4).map(kpi => (
-          <KpiEngine key={kpi.id} config={kpi} value={kpiDisplay(kpi.id)} variant="default" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {layout.kpis.map(kpi => (
+          <KpiEngine key={kpi.id} config={kpi} value={kpiDisplay(kpi.id)} variant="premium" colorGradient={KPI_PREMIUM[kpi.id] || 'from-indigo-500 to-violet-600'} />
         ))}
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
         {layout.charts.map(chart => (
-          <ChartEngine key={chart.id} config={chart} data={resolveChart(chart.dataSource)} />
+          <div key={chart.id} className={chart.gridSpan === 2 ? "lg:col-span-2" : "lg:col-span-1"}>
+            <ChartEngine config={chart} data={resolveChart(chart.dataSource)} />
+          </div>
         ))}
       </div>
 
@@ -177,13 +173,13 @@ export default function HRDashboard() {
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm">
               {([
-                ['Department',   drillDown.Department],
+                ['Phòng ban',   drillDown.Department],
                 ['Position',     drillDown.Position],
-                ['Region',       drillDown.Region],
-                ['Type',         drillDown.EmploymentType],
-                ['Status',       drillDown.Status],
+                ['Khu vực',       drillDown.Region],
+                ['Loại',         drillDown.EmploymentType],
+                ['Trạng thái',       drillDown.Status],
                 ['Gender',       drillDown.Gender],
-                ['Salary',       fmtCurrency(drillDown.Salary)],
+                ['Lương',       fmtCurrency(drillDown.Salary)],
                 ['Bonus',        fmtCurrency(drillDown.Bonus)],
                 ['Performance',  `${drillDown.PerformanceScore}/100`],
                 ['Satisfaction', `${drillDown.SatisfactionScore}/100`],
@@ -199,7 +195,7 @@ export default function HRDashboard() {
             </div>
             <div className="flex gap-3 mt-5">
               <button onClick={() => downloadCSV([drillDown], `employee_${drillDown.id}.csv`)} className="flex-1 py-2 bg-indigo-500 hover:bg-indigo-400 text-white font-semibold rounded-xl text-sm transition-colors">📥 Export</button>
-              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Close</button>
+              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Đóng</button>
             </div>
           </div>
         </div>

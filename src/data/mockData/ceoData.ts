@@ -19,7 +19,7 @@ export interface ExecutiveDataRecord {
   Failed_Projects: number;
   Completion_Rate: number;
   Health_Score: number;
-  Risk_Level: 'Low' | 'Medium' | 'High';
+  Risk_Level: 'Thấp' | 'Trung bình' | 'Cao';
   Report_Date: string;
 }
 
@@ -42,7 +42,7 @@ export interface DeptData {
   Score: number;
 }
 
-const REGIONS = ['North', 'South', 'East', 'West', 'Central'];
+const REGIONS = ['Miền Bắc', 'Miền Nam', 'Miền Đông', 'Miền Tây', 'Miền Trung'];
 const COUNTRIES: Record<string, string[]> = {
   North: ['Ha Noi', 'Hai Phong', 'Thai Nguyen'],
   South: ['Ho Chi Minh', 'Can Tho', 'Vung Tau'],
@@ -51,9 +51,9 @@ const COUNTRIES: Record<string, string[]> = {
   Central: ['Vinh', 'Thanh Hoa', 'Ha Tinh']
 };
 const COMPANIES = ['NHT Solutions', 'Tech Corp', 'Biz Pro', 'Innovation Hub', 'Global Services'];
-const DEPARTMENTS = ['Sales', 'Marketing', 'IT', 'Finance', 'HR', 'Operations'];
+const DEPARTMENTS = ['Bán hàng', 'Marketing', 'CNTT', 'Tài chính', 'HR', 'Vận hành'];
 const QUARTERS = ['Q1', 'Q2', 'Q3', 'Q4'];
-const RISK_LEVELS = ['Low', 'Medium', 'High'] as const;
+const RISK_LEVELS = ['Thấp', 'Trung bình', 'Cao'] as const;
 
 function generateDetailedData(): ExecutiveDataRecord[] {
   const data: ExecutiveDataRecord[] = [];
@@ -113,20 +113,20 @@ function generateDetailedData(): ExecutiveDataRecord[] {
 export const DETAILED_DATA = generateDetailedData();
 
 export const RAW_EXCEL_DATA: RegionData[] = [
-  { Region: 'North', Revenue: 15857901, Cost: 8775362, Profit: 7082539, Projects: 2584, Employees: 251, CSAT: 4.1 },
-  { Region: 'South', Revenue: 18217985, Cost: 9739852, Profit: 8478133, Projects: 2934, Employees: 278, CSAT: 4.3 },
-  { Region: 'East', Revenue: 17321636, Cost: 8960013, Profit: 8361623, Projects: 2572, Employees: 245, CSAT: 3.9 },
-  { Region: 'West', Revenue: 16873855, Cost: 10245203, Profit: 6628652, Projects: 2826, Employees: 264, CSAT: 4.2 },
-  { Region: 'Central', Revenue: 19196912, Cost: 11320215, Profit: 7876697, Projects: 2787, Employees: 283, CSAT: 4.4 }
+  { Region: 'Miền Bắc', Revenue: 15857901, Cost: 8775362, Profit: 7082539, Projects: 2584, Employees: 251, CSAT: 4.1 },
+  { Region: 'Miền Nam', Revenue: 18217985, Cost: 9739852, Profit: 8478133, Projects: 2934, Employees: 278, CSAT: 4.3 },
+  { Region: 'Miền Đông', Revenue: 17321636, Cost: 8960013, Profit: 8361623, Projects: 2572, Employees: 245, CSAT: 3.9 },
+  { Region: 'Miền Tây', Revenue: 16873855, Cost: 10245203, Profit: 6628652, Projects: 2826, Employees: 264, CSAT: 4.2 },
+  { Region: 'Miền Trung', Revenue: 19196912, Cost: 11320215, Profit: 7876697, Projects: 2787, Employees: 283, CSAT: 4.4 }
 ];
 
 export const DEPT_DATA: DeptData[] = [
-  { name: 'Sales', Revenue: 17010667, Cost: 9855782, Employees: 245, Projects: 2642, Score: 91 },
+  { name: 'Bán hàng', Revenue: 17010667, Cost: 9855782, Employees: 245, Projects: 2642, Score: 91 },
   { name: 'Marketing', Revenue: 13102120, Cost: 7877514, Employees: 277, Projects: 2133, Score: 88 },
-  { name: 'IT', Revenue: 14216982, Cost: 6742118, Employees: 246, Projects: 2041, Score: 95 },
-  { name: 'Finance', Revenue: 13196903, Cost: 7849463, Employees: 247, Projects: 2117, Score: 85 },
+  { name: 'CNTT', Revenue: 14216982, Cost: 6742118, Employees: 246, Projects: 2041, Score: 95 },
+  { name: 'Tài chính', Revenue: 13196903, Cost: 7849463, Employees: 247, Projects: 2117, Score: 85 },
   { name: 'HR', Revenue: 15068487, Cost: 8032030, Employees: 283, Projects: 2300, Score: 90 },
-  { name: 'Operations', Revenue: 14873130, Cost: 8683738, Employees: 264, Projects: 2470, Score: 82 }
+  { name: 'Vận hành', Revenue: 14873130, Cost: 8683738, Employees: 264, Projects: 2470, Score: 82 }
 ];
 
 export const COLORS = ['#1b4332', '#2d6a4f', '#40916c', '#52b788', '#74c69d', '#95d5b2'];
@@ -141,8 +141,8 @@ export const QUARTERLY_TREND = [
 ];
 
 export const PROJECT_STATUS_DATA = [
-  { name: 'Completed', value: 245 },
+  { name: 'Đã Xong', value: 245 },
   { name: 'In Progress', value: 178 },
-  { name: 'At Risk', value: 45 },
+  { name: 'Rủi ro', value: 45 },
   { name: 'On Hold', value: 32 }
 ];

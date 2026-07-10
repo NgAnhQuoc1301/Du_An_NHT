@@ -4,7 +4,7 @@ export interface ProductionRecord {
   Month: string;
   Date: string; // YYYY-MM-DD
   Plant: string; // 'Plant A', 'Plant B', 'Plant C'
-  Line: string; // 'Line 1', 'Line 2', etc.
+  Line: string; // 'Dây chuyền 1', 'Dây chuyền 2', etc.
   ProductType: string;
   Shift: string; // 'Morning', 'Afternoon', 'Night'
   OutputTarget: number;
@@ -17,7 +17,7 @@ export interface ProductionRecord {
 }
 
 const PLANTS = ['Plant A - Hanoi', 'Plant B - HCM', 'Plant C - Da Nang'];
-const LINES = ['Line 1', 'Line 2', 'Line 3', 'Line 4'];
+const LINES = ['Dây chuyền 1', 'Dây chuyền 2', 'Dây chuyền 3', 'Dây chuyền 4'];
 const PRODUCTS = ['Điều hòa 1HP', 'Điều hòa 2HP', 'Tủ lạnh Side-by-Side', 'Máy giặt 8kg', 'Máy giặt 10kg'];
 const SHIFTS = ['Morning', 'Afternoon', 'Night'];
 const SUPERVISORS = ['Nguyễn Văn A', 'Trần Thị B', 'Lê Văn C', 'Phạm Thị D', 'Hoàng Văn E'];
@@ -93,8 +93,8 @@ export const PROD_PLANT_COLORS: Record<string, string> = {
 };
 
 export const PROD_LINE_COLORS: Record<string, string> = {
-  'Line 1': '#3b82f6',
-  'Line 2': '#10b981',
-  'Line 3': '#8b5cf6',
-  'Line 4': '#f59e0b',
+  'Dây chuyền 1': '#3b82f6',
+  'Dây chuyền 2': '#10b981',
+  'Dây chuyền 3': '#8b5cf6',
+  'Dây chuyền 4': '#f59e0b',
 };

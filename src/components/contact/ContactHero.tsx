@@ -1,81 +1,68 @@
-import { ArrowRight, MonitorSmartphone } from "lucide-react";
+import { ArrowRight, MonitorSmartphone, BarChart2, PieChart, Activity } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function ContactHero() {
-  // Chuyển mảng tag thành mảng các Object có định tuyến rõ ràng
   const solutions = [
-    { label: "ERP", path: "/solutions/erp" },
-    { label: "CRM", path: "/solutions/crm" },
-    { label: "Dashboard", path: "/dashboards" },
-    { label: "AI", path: "/solutions/ai" },
-    { label: "IoT", path: "/solutions/iot" },
-    { label: "Mobile App", path: "/solutions/mobile-app" },
+    { label: "Naga ERP", path: "/solutions/naga-erp" },
+    { label: "Naga CRM", path: "/solutions/naga-crm" },
+    { label: "Dashboards", path: "/dashboards" },
+    { label: "Naga AI", path: "/solutions/naga-ai" },
+    { label: "Naga IoT", path: "/solutions/naga-iot" },
+    { label: "My Naga", path: "/solutions/my-naga" },
   ];
 
   return (
-    <section className="relative bg-gradient-to-br from-white via-slate-50 to-green-50/20 overflow-hidden">
+    <section className="relative bg-slate-50 overflow-hidden font-sans pt-20 pb-28">
       
-      {/* Glow background */}
-      <div className="absolute top-[-100px] left-[-100px] w-[400px] h-[400px] bg-green-200/10 blur-[130px] rounded-full pointer-events-none" />
+      {/* Background Glows */}
+      <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-green-200/40 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-emerald-200/30 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-24">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 md:px-6 z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-          {/* LEFT */}
+          {/* LEFT: Content */}
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-50 border border-green-200/60 text-green-700 font-semibold text-xs md:text-sm tracking-wide">
-              Digital Transformation Partner
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-green-200 shadow-sm text-green-700 font-bold text-xs tracking-wide uppercase mb-6">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+              Đối Tác Chuyển Đổi Số
             </div>
 
             {/* TITLE */}
-            <Link
-              to="/"
-              className="
-                block
-                mt-6
-                text-4xl
-                md:text-5xl
-                font-extrabold
-                leading-tight
-                text-slate-900
-                hover:text-green-600
-                transition-colors
-                duration-300
-                tracking-tight
-              "
-            >
-              NHT Solution Showcase
-            </Link>
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.1] text-slate-900 tracking-tight">
+              Hệ Sinh Thái Giải Pháp <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-500">
+                Nagakawa
+              </span>
+            </h1>
       
-            <p className="mt-6 text-base md:text-lg text-slate-600 leading-relaxed">
-              Explore enterprise management solutions including ERP,
-              CRM, Executive Dashboard, Mobile Applications,
-              AI Assistant and IoT Platform developed by
-              Nagakawa High Technology.
+            <p className="mt-6 text-lg md:text-xl text-slate-600 leading-relaxed font-light max-w-lg">
+              Khám phá bộ giải pháp quản trị doanh nghiệp toàn diện bao gồm ERP, CRM, Dashboard Điều hành, App Mobile, Trợ lý AI và Nền tảng IoT được phát triển bởi <strong className="font-semibold text-slate-800">Nagakawa High Technology</strong>.
             </p>
 
-            {/* TAGS LINKS (Các nhãn trong hình image_a59b9e.png đã thành link) */}
-            <div className="flex flex-wrap gap-2.5 mt-8">
+            {/* TAGS */}
+            <div className="flex flex-wrap gap-3 mt-8">
               {solutions.map((item) => (
                 <Link
                   key={item.label}
                   to={item.path}
                   className="
-                    px-3.5
-                    py-1.5
-                    rounded-full
-                    bg-slate-50
+                    px-4
+                    py-2
+                    rounded-xl
+                    bg-white
                     border
                     border-slate-200/80
                     text-slate-700
-                    text-xs
-                    font-medium
-                    hover:border-green-600/40
+                    text-sm
+                    font-semibold
+                    hover:border-green-400
                     hover:text-green-600
-                    hover:bg-white
-                    hover:shadow-sm
+                    hover:shadow-md
+                    hover:shadow-green-900/5
+                    hover:-translate-y-0.5
                     transition-all
-                    duration-200
+                    duration-300
                   "
                 >
                   {item.label}
@@ -83,85 +70,104 @@ export default function ContactHero() {
               ))}
             </div>
 
-            {/* CALL TO ACTIONS (Hai nút lớn trong hình image_a59b9e.png) */}
-            <div className="flex flex-col sm:flex-row gap-4 mt-10">
-              
-              {/* Nút Request Demo dẫn tới trang liên hệ / đặt lịch */}
-              <Link
-                to="/contact"
+            {/* CALL TO ACTIONS */}
+            <div className="flex flex-col sm:flex-row gap-4 mt-12">
+              <button
+                onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
                 className="
                   flex
                   items-center
                   justify-center
                   gap-2
-                  px-7
-                  py-3.5
-                  rounded-xl
+                  px-8
+                  py-4
+                  rounded-2xl
                   bg-green-600
                   text-white
-                  text-sm
-                  font-semibold
-                  shadow-lg shadow-green-600/15
+                  text-base
+                  font-bold
+                  shadow-xl shadow-green-600/20
                   hover:bg-green-700
-                  hover:shadow-xl hover:shadow-green-700/20
+                  hover:-translate-y-1
                   transition-all
                   duration-300
                 "
               >
-                Request Demo
-                <ArrowRight size={16} />
-              </Link>
+                Yêu cầu Tư Vấn
+                <ArrowRight size={18} />
+              </button>
 
-              {/* Nút Dashboard Library dẫn tới kho Dashboard tổng hợp */}
               <Link
                 to="/dashboards"
                 className="
                   flex
                   items-center
                   justify-center
-                  px-7
-                  py-3.5
-                  rounded-xl
+                  px-8
+                  py-4
+                  rounded-2xl
                   bg-white
-                  border
-                  border-slate-200
+                  border-2
+                  border-slate-100
                   text-slate-700
-                  text-sm
-                  font-semibold
+                  text-base
+                  font-bold
                   shadow-sm
                   hover:bg-slate-50
                   hover:border-green-600
                   hover:text-green-600
+                  hover:-translate-y-1
                   transition-all
                   duration-300
                 "
               >
-                Dashboard Library
+                Thư viện Dashboard
               </Link>
-              
             </div>
           </div>
 
-          {/* RIGHT */}
-          <div>
-            <div className="rounded-3xl bg-white border border-slate-200/80 shadow-[0_15px_40px_rgba(0,0,0,0.03)] p-8 md:p-10">
-              <div className="flex justify-center">
-                <div className="w-20 h-20 rounded-2xl bg-green-50 border border-green-100 flex items-center justify-center shadow-inner">
-                  <MonitorSmartphone
-                    size={38}
-                    className="text-green-600"
-                  />
+          {/* RIGHT: Visual Card */}
+          <div className="relative group">
+            {/* Background glowing frame */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-green-400 to-emerald-300 rounded-[40px] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-700"></div>
+            
+            <div className="relative bg-white/80 backdrop-blur-xl border border-white/60 shadow-2xl shadow-slate-200/50 rounded-[40px] p-10 transform group-hover:-translate-y-2 transition-transform duration-500">
+              
+              <div className="flex items-center justify-between mb-10">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-green-600/30 text-white">
+                  <MonitorSmartphone size={32} />
+                </div>
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-slate-200"></div>
+                  <div className="w-3 h-3 rounded-full bg-slate-200"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
                 </div>
               </div>
 
-              <h2 className="mt-8 text-2xl font-bold text-center text-slate-800">
-                Business Dashboard Demo
+              <h2 className="text-3xl font-extrabold text-slate-800 mb-4">
+                Hệ thống Báo cáo <br/> Điều hành
               </h2>
 
-              <p className="mt-4 text-center text-slate-500 text-sm md:text-base leading-relaxed">
-                Interactive dashboards for CEO, Sales,
-                Warehouse, CRM, HR, Finance and Production.
+              <p className="text-slate-500 text-lg font-light leading-relaxed mb-10">
+                Cung cấp hệ thống Dashboard tương tác trực quan đa chiều dành cho Ban lãnh đạo: CEO, Tài chính, Nhân sự, Bán hàng và Sản xuất.
               </p>
+
+              {/* Decorative mini-charts */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                  <BarChart2 className="w-8 h-8 text-green-500" />
+                  <div className="w-12 h-1.5 bg-slate-200 rounded-full"></div>
+                </div>
+                <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                  <PieChart className="w-8 h-8 text-emerald-500" />
+                  <div className="w-12 h-1.5 bg-slate-200 rounded-full"></div>
+                </div>
+                <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                  <Activity className="w-8 h-8 text-green-600" />
+                  <div className="w-12 h-1.5 bg-slate-200 rounded-full"></div>
+                </div>
+              </div>
+
             </div>
           </div>
 

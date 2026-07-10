@@ -4,7 +4,7 @@ export interface BIWidgetConfig {
   title?: string;
   gridSpan?: number; // Tailwind col-span, e.g. 1, 2, 4
   dataSource?: string; // e.g. "revenueTrend", "projectStatus"
-  chartType?: 'line' | 'bar' | 'pie' | 'radar' | 'area';
+  chartType?: 'line' | 'bar' | 'pie' | 'radar' | 'area' | 'composed' | 'scatter' | 'funnel' | 'radialBar';
   // Additional config for specific widgets
   metrics?: { label: string; dataKey: string; color?: string; type?: 'currency' | 'number' | 'percent' }[];
   columns?: { header: string; accessor: string; type?: 'currency' | 'number' | 'text' | 'badge'; align?: 'left' | 'center' | 'right' }[];

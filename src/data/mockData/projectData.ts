@@ -3,8 +3,8 @@ export interface ProjectRecord {
   ProjectName: string;
   Department: string;
   Manager: string;
-  Status: string; // 'On Track', 'At Risk', 'Delayed', 'Completed'
-  Priority: string; // 'High', 'Medium', 'Low'
+  Status: string; // 'Đúng tiến độ', 'Rủi ro', 'Chậm trễ', 'Đã Xong'
+  Priority: string; // 'Cao', 'Trung bình', 'Thấp'
   Budget: number;
   Spent: number;
   Progress: number; // 0-100%
@@ -15,10 +15,10 @@ export interface ProjectRecord {
   TeamSize: number;
 }
 
-const DEPARTMENTS = ['IT', 'Engineering', 'Marketing', 'Operations', 'Finance', 'HR'];
+const DEPARTMENTS = ['CNTT', 'Engineering', 'Marketing', 'Vận hành', 'Tài chính', 'HR'];
 const MANAGERS = ['Nguyễn Văn A', 'Trần Thị B', 'Lê Văn C', 'Phạm Thị D', 'Hoàng Văn E'];
-const STATUSES = ['On Track', 'At Risk', 'Delayed', 'Completed'];
-const PRIORITIES = ['High', 'Medium', 'Low'];
+// Removed STATUSES
+const PRIORITIES = ['Cao', 'Trung bình', 'Thấp'];
 const PROJECT_NAMES = ['ERP Upgrade', 'CRM Mobile App', 'Dashboard Redesign', 'AI Integration', 'Warehouse System', 'Cloud Migration', 'Security Audit', 'New Website Launch', 'Employee Portal', 'Supply Chain Optimization'];
 
 const QUARTERS = ['Q1', 'Q2', 'Q3', 'Q4'];
@@ -37,10 +37,10 @@ function generateProjectData(): ProjectRecord[] {
           const isCompleted = Math.random() > 0.8;
           let progress = isCompleted ? 100 : Math.floor(10 + Math.random() * 85);
           
-          let status = 'On Track';
-          if (isCompleted) status = 'Completed';
-          else if (progress < 40 && Math.random() > 0.5) status = 'Delayed';
-          else if (progress < 70 && Math.random() > 0.7) status = 'At Risk';
+          let status = 'Đúng tiến độ';
+          if (isCompleted) status = 'Đã Xong';
+          else if (progress < 40 && Math.random() > 0.5) status = 'Chậm trễ';
+          else if (progress < 70 && Math.random() > 0.7) status = 'Rủi ro';
 
           // Spent is usually related to progress, but can be overbudget
           const spentRatio = (progress / 100) * (0.8 + Math.random() * 0.4); 
@@ -87,14 +87,14 @@ function generateProjectData(): ProjectRecord[] {
 export const PROJECT_DATA = generateProjectData();
 
 export const PROJECT_STATUS_COLORS: Record<string, string> = {
-  'On Track': '#10b981', // green
-  'At Risk': '#f59e0b',  // amber
-  'Delayed': '#ef4444',  // red
-  'Completed': '#3b82f6',// blue
+  'Đúng tiến độ': '#10b981', // green
+  'Rủi ro': '#f59e0b',  // amber
+  'Chậm trễ': '#ef4444',  // red
+  'Đã Xong': '#3b82f6',// blue
 };
 
 export const PROJECT_PRIORITY_COLORS: Record<string, string> = {
-  'High': '#ef4444',
-  'Medium': '#f59e0b',
-  'Low': '#10b981',
+  'Cao': '#ef4444',
+  'Trung bình': '#f59e0b',
+  'Thấp': '#10b981',
 };

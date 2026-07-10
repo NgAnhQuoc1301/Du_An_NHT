@@ -7,7 +7,7 @@ interface DashboardShellProps {
   data?: any[]; // Inject data for the dashboard
 }
 
-export const DashboardShell: React.FC<DashboardShellProps> = ({ config, data }) => {
+export const DashboardShell: React.FC<DashboardShellProps> = ({ config }) => {
   const handleExport = () => {
     console.log("Export triggered for", config.name);
     // TODO: Connect to ExportEngine

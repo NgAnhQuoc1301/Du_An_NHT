@@ -1,254 +1,110 @@
 export const dashboardMetadata = {
-
-  sales: {
-  category: "Sales",
-
-  solution: "ERP",
-
-  description:
-    "Monitor sales performance and revenue growth.",
-
-  businessValue:
-    "Help managers monitor revenue, orders and sales performance in real time.",
-
-  preview: "/previews/sales.png",
-
-  tags: [
-    "Revenue",
-    "Orders",
-    "Profit",
-    "Growth",
-  ],
-},
-
-  crm: {
-  category: "CRM",
-
-  solution: "CRM",
-
-  description:
-    "Manage leads and customer relationships.",
-
-  businessValue:
-    "Increase customer conversion and improve sales efficiency.",
-
-  preview: "/previews/crm.png",
-
-  tags: [
-    "Lead",
-    "Customer",
-    "Pipeline",
-    "Opportunity",
-  ],
-},
-
-  hr: {
-  category: "HR",
-
-  solution: "ERP",
-
-  description:
-    "Track employees and attendance.",
-
-  businessValue:
-    "Provide workforce insights for HR managers.",
-
-  preview: "/previews/hr.png",
-
-  tags: [
-    "Employee",
-    "Attendance",
-    "Leave",
-    "Recruitment",
-  ],
-},
-
   ceo: {
-  category: "Executive",
-
-  solution: "BI",
-
-  description:
-    "Enterprise executive overview.",
-
-  businessValue:
-    "Provide high-level KPIs for business leaders.",
-
-  preview: "/previews/ceo.png",
-
-  tags: [
-    "Executive",
-    "Revenue",
-    "Profit",
-    "KPI",
-  ],
-},
-
+    category: "Ban Giám đốc",
+    solution: "Naga Analytics",
+    description: "Bức tranh toàn cảnh về sức khỏe doanh nghiệp, tích hợp dữ liệu từ mọi phòng ban.",
+    businessValue: "Cung cấp cái nhìn tổng quan, hỗ trợ ra quyết định chiến lược nhanh chóng và chính xác.",
+    targetAudience: "Tổng Giám đốc (CEO), Hội đồng Quản trị",
+    preview: "/previews/ceo.png",
+    tags: ["Tổng quan", "Doanh thu", "Lợi nhuận", "Chiến lược"],
+  },
   finance: {
-  category: "Finance",
-
-  solution: "ERP",
-
-  description:
-    "Cashflow and financial monitoring.",
-
-  businessValue:
-    "Monitor company financial health.",
-
-  preview: "/previews/finance.png",
-
-  tags: [
-    "Cashflow",
-    "Budget",
-    "Expense",
-    "Income",
-  ],
-},
-
-  project: {
-  category: "Project",
-
-  solution: "Project Management",
-
-  description:
-    "Project tracking and progress.",
-
-  businessValue:
-    "Monitor project execution and delivery status.",
-
-  preview: "/previews/project.png",
-
-  tags: [
-    "Task",
-    "Sprint",
-    "Timeline",
-    "Progress",
-  ],
-},
-
-  kpi: {
-  category: "KPI",
-
-  solution: "Business Intelligence",
-
-  description:
-    "Enterprise KPI monitoring.",
-
-  businessValue:
-    "Provide KPI visibility for all departments.",
-
-  preview: "/previews/kpi.png",
-
-  tags: [
-    "KPI",
-    "Performance",
-    "Target",
-    "Score",
-  ],
-},
-
+    category: "Tài chính",
+    solution: "Naga ERP",
+    description: "Giám sát dòng tiền, doanh thu, chi phí và các chỉ số tài chính cốt lõi.",
+    businessValue: "Đảm bảo tính thanh khoản, minh bạch tài chính và kiểm soát ngân sách hiệu quả.",
+    targetAudience: "Giám đốc Tài chính (CFO), Kế toán trưởng",
+    preview: "/previews/finance.png",
+    tags: ["Dòng tiền", "Ngân sách", "Chi phí", "Doanh thu"],
+  },
+  sales: {
+    category: "Bán hàng",
+    solution: "Naga ERP",
+    description: "Theo dõi doanh số, hiệu suất đội ngũ sales và tình hình hoàn thành chỉ tiêu.",
+    businessValue: "Giúp tối ưu hóa phễu bán hàng, thúc đẩy tăng trưởng và phát hiện cơ hội kịp thời.",
+    targetAudience: "Giám đốc Kinh doanh (CSO), Trưởng phòng Sales",
+    preview: "/previews/sales.png",
+    tags: ["Doanh thu", "Đơn hàng", "Lợi nhuận", "Tăng trưởng"],
+  },
+  crm: {
+    category: "Khách hàng",
+    solution: "Naga CRM",
+    description: "Quản lý dữ liệu khách hàng, tỷ lệ chuyển đổi và các chiến dịch marketing.",
+    businessValue: "Tăng cường tỷ lệ chuyển đổi khách hàng tiềm năng và cải thiện chất lượng dịch vụ.",
+    targetAudience: "Giám đốc Marketing (CMO), Trưởng phòng CSKH",
+    preview: "/previews/crm.png",
+    tags: ["Khách hàng", "Lead", "Chiến dịch", "Chăm sóc"],
+  },
+  hr: {
+    category: "Nhân sự",
+    solution: "Naga ERP",
+    description: "Quản lý biến động nhân sự, chấm công, quỹ lương và hiệu suất nhân viên.",
+    businessValue: "Tối ưu nguồn nhân lực, giữ chân nhân tài và kiểm soát chi phí nhân sự.",
+    targetAudience: "Giám đốc Nhân sự (CHRO), Trưởng phòng Hành chính - Nhân sự",
+    preview: "/previews/hr.png",
+    tags: ["Nhân sự", "Chấm công", "Tuyển dụng", "Lương"],
+  },
   warehouse: {
-  category: "Warehouse",
-
-  solution: "ERP",
-
-  description:
-    "Inventory management dashboard.",
-
-  businessValue:
-    "Track inventory levels and warehouse operations.",
-
-  preview: "/previews/warehouse.png",
-
-  tags: [
-    "Inventory",
-    "Stock",
-    "Inbound",
-    "Outbound",
-  ],
-},
-
-  warranty: {
-  category: "Warranty",
-
-  solution: "After Sales",
-
-  description:
-    "Warranty service monitoring.",
-
-  businessValue:
-    "Monitor warranty requests and service quality.",
-
-  preview: "/previews/warranty.png",
-
-  tags: [
-    "Warranty",
-    "Service",
-    "Customer",
-    "Repair",
-  ],
-},
-
+    category: "Kho vận",
+    solution: "Naga ERP",
+    description: "Kiểm soát hàng tồn kho, giá trị kho và tình trạng xuất - nhập hàng hóa.",
+    businessValue: "Giảm thiểu hàng tồn đọng, tối ưu không gian lưu trữ và đảm bảo cung ứng kịp thời.",
+    targetAudience: "Giám đốc Chuỗi cung ứng, Quản lý Kho",
+    preview: "/previews/warehouse.png",
+    tags: ["Tồn kho", "Xuất nhập", "Vật tư", "Cảnh báo"],
+  },
   production: {
-  category: "Production",
-
-  solution: "Manufacturing",
-
-  description:
-    "Production performance dashboard.",
-
-  businessValue:
-    "Track production efficiency and manufacturing KPIs.",
-
-  preview: "/previews/production.png",
-
-  tags: [
-    "Production",
-    "Factory",
-    "Efficiency",
-    "Output",
-  ],
-},
-
+    category: "Sản xuất",
+    solution: "Naga ERP",
+    description: "Theo dõi tiến độ sản xuất, hiệu suất máy móc và tỷ lệ hàng lỗi.",
+    businessValue: "Đảm bảo tiến độ giao hàng, nâng cao năng suất và quản lý chất lượng nghiêm ngặt.",
+    targetAudience: "Giám đốc Sản xuất, Quản đốc Nhà máy",
+    preview: "/previews/production.png",
+    tags: ["Sản xuất", "Nhà máy", "Năng suất", "Chất lượng"],
+  },
+  warranty: {
+    category: "Bảo hành",
+    solution: "Naga Warranty",
+    description: "Quản lý yêu cầu bảo hành, tiến độ sửa chữa và vật tư tiêu hao.",
+    businessValue: "Nâng cao uy tín thương hiệu thông qua dịch vụ hậu mãi chuyên nghiệp, nhanh chóng.",
+    targetAudience: "Trưởng bộ phận Bảo hành, Trạm trưởng Trạm dịch vụ",
+    preview: "/previews/warranty.png",
+    tags: ["Bảo hành", "Dịch vụ", "Khách hàng", "Sửa chữa"],
+  },
+  kpi: {
+    category: "Đánh giá",
+    solution: "Naga Analytics",
+    description: "Hệ thống theo dõi các Chỉ số Đo lường Hiệu suất (KPI) đa phòng ban.",
+    businessValue: "Thúc đẩy hiệu suất làm việc, minh bạch trong đánh giá khen thưởng nhân sự.",
+    targetAudience: "Ban Lãnh đạo, Trưởng các phòng ban",
+    preview: "/previews/kpi.png",
+    tags: ["KPI", "Hiệu suất", "Mục tiêu", "Đánh giá"],
+  },
+  project: {
+    category: "Dự án",
+    solution: "My Naga",
+    description: "Bảng điều khiển theo dõi tiến độ, chi phí và rủi ro của các dự án trọng điểm.",
+    businessValue: "Kiểm soát rủi ro, đảm bảo dự án hoàn thành đúng hạn và trong phạm vi ngân sách.",
+    targetAudience: "Giám đốc Dự án, Project Manager (PM)",
+    preview: "/previews/project.png",
+    tags: ["Dự án", "Tiến độ", "Chi phí", "Rủi ro"],
+  },
   workflow: {
-  category: "Workflow",
-
-  solution: "Workflow",
-
-  description:
-    "Workflow process monitoring.",
-
-  businessValue:
-    "Visualize business processes and approval flows.",
-
-  preview: "/previews/workflow.png",
-
-  tags: [
-    "Workflow",
-    "Approval",
-    "Process",
-    "Automation",
-  ],
-},
-
+    category: "Quy trình",
+    solution: "My Naga",
+    description: "Theo dõi luồng công việc, các điểm nghẽn và thời gian xử lý hồ sơ.",
+    businessValue: "Phát hiện điểm nghẽn, tự động hóa quy trình và tăng tốc độ phê duyệt nội bộ.",
+    targetAudience: "Trưởng phòng Vận hành, Quản trị viên Hệ thống",
+    preview: "/previews/workflow.png",
+    tags: ["Quy trình", "Phê duyệt", "Điểm nghẽn", "Tự động hóa"],
+  },
   task: {
-  category: "Task",
-
-  solution: "Project Management",
-
-  description:
-    "Task management dashboard.",
-
-  businessValue:
-    "Track task completion and team productivity.",
-
-  preview: "/previews/task.png",
-
-  tags: [
-    "Task",
-    "Assignment",
-    "Deadline",
-    "Progress",
-  ],
-},
+    category: "Công việc",
+    solution: "My Naga",
+    description: "Giám sát công việc cá nhân và phòng ban, tỷ lệ hoàn thành và các công việc quá hạn.",
+    businessValue: "Tăng cường tính kỷ luật, năng suất làm việc và phân bổ nguồn lực hợp lý.",
+    targetAudience: "Tất cả Cấp quản lý, Team Leader",
+    preview: "/previews/task.png",
+    tags: ["Công việc", "Tiến độ", "Giao việc", "Đúng hạn"],
+  }
 };

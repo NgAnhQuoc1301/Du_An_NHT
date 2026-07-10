@@ -11,7 +11,7 @@ export default function WhyChooseSection() {
         {/* TITLE */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-green-700 via-green-600 to-emerald-600 text-transparent bg-clip-text">
-            Why Choose NHT
+            Tại sao chọn NHT?
           </h2>
           <p className="text-slate-500 text-sm md:text-base mt-3 max-w-xl mx-auto">
             Những thế mạnh vượt trội giúp NHT Solutions đồng hành bền vững cùng sự phát triển của doanh nghiệp.
@@ -42,11 +42,11 @@ export default function WhyChooseSection() {
               <div className="w-2.5 h-2.5 bg-green-600 rounded-full mb-5 shadow-[0_0_12px_rgba(22,163,74,0.6)] transition-transform duration-300 group-hover:scale-125" />
 
               <h3 className="font-bold text-lg mb-2 text-slate-800 group-hover:text-green-600 transition-colors duration-200">
-                Enterprise Solutions
+                Giải pháp Cấp Doanh nghiệp
               </h3>
 
               <p className="text-slate-600 text-sm leading-relaxed">
-                Scalable architecture for business growth.
+                Kiến trúc mở rộng linh hoạt, đáp ứng mọi quy mô tăng trưởng của tổ chức.
               </p>
             </div>
 
@@ -74,11 +74,11 @@ export default function WhyChooseSection() {
               <div className="w-2.5 h-2.5 bg-green-600 rounded-full mb-5 shadow-[0_0_12px_rgba(22,163,74,0.6)] transition-transform duration-300 group-hover:scale-125" />
 
               <h3 className="font-bold text-lg mb-2 text-slate-800 group-hover:text-green-600 transition-colors duration-200">
-                Real-Time Analytics
+                Phân tích Dữ liệu Real-Time
               </h3>
 
               <p className="text-slate-600 text-sm leading-relaxed">
-                Monitor KPIs and performance instantly.
+                Giám sát KPI và hiệu suất kinh doanh trực quan ngay lập tức.
               </p>
             </div>
 
@@ -106,11 +106,11 @@ export default function WhyChooseSection() {
               <div className="w-2.5 h-2.5 bg-green-600 rounded-full mb-5 shadow-[0_0_12px_rgba(22,163,74,0.6)] transition-transform duration-300 group-hover:scale-125" />
 
               <h3 className="font-bold text-lg mb-2 text-slate-800 group-hover:text-green-600 transition-colors duration-200">
-                Responsive Design
+                Trải nghiệm Đa nền tảng
               </h3>
 
               <p className="text-slate-600 text-sm leading-relaxed">
-                Works across desktop, tablet and mobile.
+                Hoạt động hoàn hảo trên mọi thiết bị: máy tính, máy tính bảng và di động.
               </p>
             </div>
 

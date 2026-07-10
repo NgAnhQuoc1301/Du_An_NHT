@@ -38,19 +38,12 @@ function downloadCSV(rows: ExecutiveDataRecord[], filename = 'ceo_export.csv') {
 const DEFAULT_FILTERS: Record<string, any> = {
   startYear:  2025,
   endYear:    2026,
-  Region:     'All',
-  Country:    'All',
-  Company:    'All',
-  Department: 'All',
+  Region:     'Tất cả',
+  Country:    'Tất cả',
+  Company:    'Tất cả',
+  Department: 'Tất cả',
 };
 
-// ── KPI gradient map ─────────────────────────────────────────────────────────
-const KPI_PREMIUM: Record<string, { gradient: string }> = {
-  'kpi-revenue': { gradient: 'from-emerald-500 to-teal-600'   },
-  'kpi-cost':    { gradient: 'from-amber-500 to-orange-600'   },
-  'kpi-profit':  { gradient: 'from-blue-500 to-indigo-600'    },
-  'kpi-margin':  { gradient: 'from-purple-500 to-pink-600'    },
-};
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function CEODashboard() {
@@ -61,8 +54,8 @@ export default function CEODashboard() {
     setFilters(prev => {
       const next = { ...prev, [key]: value };
       // Cascade: reset Country when Region changes, reset Company when Country changes
-      if (key === 'Region')  { next.Country = 'All'; next.Company = 'All'; }
-      if (key === 'Country') { next.Company = 'All'; }
+      if (key === 'Khu vực')  { next.Country = 'Tất cả'; next.Company = 'Tất cả'; }
+      if (key === 'Country') { next.Company = 'Tất cả'; }
       return next;
     });
   };
@@ -73,10 +66,10 @@ export default function CEODashboard() {
   const filteredData = useMemo(() =>
     DETAILED_DATA.filter(d => {
       if (d.Year < filters.startYear || d.Year > filters.endYear) return false;
-      if (filters.Region     !== 'All' && d.Region     !== filters.Region)     return false;
-      if (filters.Country    !== 'All' && d.Country    !== filters.Country)    return false;
-      if (filters.Company    !== 'All' && d.Company    !== filters.Company)    return false;
-      if (filters.Department !== 'All' && d.Department !== filters.Department) return false;
+      if (filters.Region     !== 'Tất cả' && d.Region     !== filters.Region)     return false;
+      if (filters.Country    !== 'Tất cả' && d.Country    !== filters.Country)    return false;
+      if (filters.Company    !== 'Tất cả' && d.Company    !== filters.Company)    return false;
+      if (filters.Department !== 'Tất cả' && d.Department !== filters.Department) return false;
       return true;
     }),
   [filters]);
@@ -130,9 +123,9 @@ export default function CEODashboard() {
     const atRisk     = Math.floor(active * 0.15);
     const onHold     = Math.floor(active * 0.10);
     const projectStatus = [
-      { name: 'Completed',   value: completed,               fill: '#1b4332' },
+      { name: 'Đã Xong',   value: completed,               fill: '#1b4332' },
       { name: 'In Progress', value: active - atRisk - onHold, fill: '#40916c' },
-      { name: 'At Risk',     value: atRisk,                  fill: '#f59e0b' },
+      { name: 'Rủi ro',     value: atRisk,                  fill: '#f59e0b' },
       { name: 'On Hold',     value: onHold,                  fill: '#ef4444' },
     ];
 
@@ -186,39 +179,27 @@ export default function CEODashboard() {
         onReset={handleReset}
       />
 
-      {/* ── Primary KPI Row (premium gradient cards) ────────────────────────── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        {layout.kpis.slice(0, 4).map(kpi => (
+      {/* ── Primary KPI Row (premium cards) ────────────────────────── */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
+        {layout.kpis.map(kpi => (
           <KpiEngine
             key={kpi.id}
             config={kpi}
             value={kpiDisplayValue(kpi.id)}
-            variant="premium"
-            colorGradient={KPI_PREMIUM[kpi.id]?.gradient}
-          />
-        ))}
-      </div>
-
-      {/* ── Secondary KPI Row (compact cards) ─────────────────────────────── */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 mb-6">
-        {layout.kpis.slice(4).map(kpi => (
-          <KpiEngine
-            key={kpi.id}
-            config={kpi}
-            value={kpiDisplayValue(kpi.id)}
-            variant="default"
+            variant="default" // Using default white card style to match the clean TV dashboard look
           />
         ))}
       </div>
 
       {/* ── Charts Grid ─────────────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
         {layout.charts.map(chart => (
-          <ChartEngine
-            key={chart.id}
-            config={chart}
-            data={resolveChartData(chart.dataSource)}
-          />
+          <div key={chart.id} className={chart.gridSpan === 2 ? "lg:col-span-2" : "lg:col-span-1"}>
+            <ChartEngine
+              config={chart}
+              data={resolveChartData(chart.dataSource)}
+            />
+          </div>
         ))}
       </div>
 
@@ -252,11 +233,11 @@ export default function CEODashboard() {
             </div>
             <div className="grid grid-cols-2 gap-4 text-sm">
               {[
-                ['Region',    drillDownRow.Region],
+                ['Khu vực',    drillDownRow.Region],
                 ['Country',   drillDownRow.Country],
-                ['Company',   drillDownRow.Company],
-                ['Department',drillDownRow.Department],
-                ['Revenue',   fmt(drillDownRow.Revenue)],
+                ['Công ty',   drillDownRow.Company],
+                ['Phòng ban',drillDownRow.Department],
+                ['Doanh thu',   fmt(drillDownRow.Revenue)],
                 ['Profit',    fmt(drillDownRow.Profit)],
                 ['EBITDA',    fmt(drillDownRow.EBITDA)],
                 ['Margin',    `${drillDownRow.Margin}%`],

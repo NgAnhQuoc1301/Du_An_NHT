@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { workflowConfig } from '../../config/dashboards/workflow.config';
-import { WORKFLOW_DATA, WORKFLOW_STATUS_COLORS, WORKFLOW_PRIORITY_COLORS } from '../../data/mockData/workflowData';
+import { WORKFLOW_DATA, WORKFLOW_STATUS_COLORS } from '../../data/mockData/workflowData';
 import type { WorkflowRecord } from '../../data/mockData/workflowData';
 
 import { DashboardHeader }   from '../../components/bi-platform/shell/DashboardHeader';
@@ -9,12 +9,7 @@ import { KpiEngine }         from '../../components/bi-platform/kpis/KpiEngine';
 import { ChartEngine }       from '../../components/bi-platform/charts/ChartEngine';
 import { TableEngine }       from '../../components/bi-platform/tables/TableEngine';
 
-const fmtCurrency = (v: number) => {
-  if (Math.abs(v) >= 1_000_000_000) return `$${(v / 1_000_000_000).toFixed(1)}B`;
-  if (Math.abs(v) >= 1_000_000)     return `$${(v / 1_000_000).toFixed(1)}M`;
-  if (Math.abs(v) >= 1_000)         return `$${(v / 1_000).toFixed(0)}K`;
-  return `$${v}`;
-};
+// Removed unused fmtCurrency
 
 function downloadCSV(rows: WorkflowRecord[], filename = 'workflow_export.csv') {
   if (!rows.length) return;
@@ -28,7 +23,7 @@ function downloadCSV(rows: WorkflowRecord[], filename = 'workflow_export.csv') {
 
 const DEFAULT_FILTERS: Record<string, any> = {
   startYear: 2024, endYear: 2026,
-  Department: 'All', ProcessName: 'All', Status: 'All', Priority: 'All',
+  Department: 'Tất cả', ProcessName: 'Tất cả', Status: 'Tất cả', Priority: 'Tất cả',
 };
 
 const KPI_PREMIUM: Record<string, string> = {
@@ -49,10 +44,10 @@ export default function WorkflowDashboard() {
     WORKFLOW_DATA.filter(d => {
       const year = new Date(d.StartDate).getFullYear();
       if (year < filters.startYear || year > filters.endYear) return false;
-      if (filters.Department  !== 'All' && d.Department  !== filters.Department)  return false;
-      if (filters.ProcessName !== 'All' && d.ProcessName !== filters.ProcessName) return false;
-      if (filters.Status      !== 'All' && d.Status      !== filters.Status)      return false;
-      if (filters.Priority    !== 'All' && d.Priority    !== filters.Priority)    return false;
+      if (filters.Department  !== 'Tất cả' && d.Department  !== filters.Department)  return false;
+      if (filters.ProcessName !== 'Tất cả' && d.ProcessName !== filters.ProcessName) return false;
+      if (filters.Status      !== 'Tất cả' && d.Status      !== filters.Status)      return false;
+      if (filters.Priority    !== 'Tất cả' && d.Priority    !== filters.Priority)    return false;
       return true;
     }), [filters]);
 
@@ -61,11 +56,11 @@ export default function WorkflowDashboard() {
     const n = filteredData.length;
     
     const active     = filteredData.filter(d => d.Status === 'In Review').length;
-    const completed  = filteredData.filter(d => d.Status === 'Completed').length;
-    const bottleneck = filteredData.filter(d => d.Status === 'In Review' && d.Priority === 'High').length;
+    const completed  = filteredData.filter(d => d.Status === 'Đã Xong').length;
+    const bottleneck = filteredData.filter(d => d.Status === 'In Review' && d.Priority === 'Cao').length;
     const avgSteps   = filteredData.reduce((s, d) => s + d.StepsTotal, 0) / n;
     
-    const delayed    = filteredData.filter(d => d.Status !== 'Completed' && d.Priority === 'Low').length; // Mock delay logic
+    const delayed    = filteredData.filter(d => d.Status !== 'Đã Xong' && d.Priority === 'Thấp').length; // Mock delay logic
     const avgProg    = filteredData.reduce((s, d) => s + (d.StepsCompleted / d.StepsTotal), 0) / n * 100;
 
     return {
@@ -95,7 +90,7 @@ export default function WorkflowDashboard() {
     });
     // Assign simple colors to departments
     const DEPT_COLORS: Record<string, string> = {
-      'HR': '#ec4899', 'Finance': '#10b981', 'Operations': '#3b82f6', 'IT': '#8b5cf6', 'Sales': '#f59e0b'
+      'HR': '#ec4899', 'Tài chính': '#10b981', 'Vận hành': '#3b82f6', 'CNTT': '#8b5cf6', 'Bán hàng': '#f59e0b'
     };
     const deptData = Array.from(deptMap, ([name, value]) => ({
       name, value, fill: DEPT_COLORS[name] ?? '#94a3b8'
@@ -196,9 +191,9 @@ export default function WorkflowDashboard() {
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm">
               {([
-                ['Department',   drillDown.Department],
-                ['Status',       drillDown.Status],
-                ['Priority',     drillDown.Priority],
+                ['Phòng ban',   drillDown.Department],
+                ['Trạng thái',       drillDown.Status],
+                ['Ưu tiên',     drillDown.Priority],
                 ['Steps Done',   `${drillDown.StepsCompleted} / ${drillDown.StepsTotal}`],
                 ['Start Date',   drillDown.StartDate],
                 ['Due Date',     drillDown.DueDate],
@@ -212,7 +207,7 @@ export default function WorkflowDashboard() {
             </div>
             <div className="flex gap-3 mt-5">
               <button onClick={() => downloadCSV([drillDown], `${drillDown.id}.csv`)} className="flex-1 py-2 bg-indigo-500 hover:bg-indigo-400 text-white font-semibold rounded-xl text-sm transition-colors">📥 Export</button>
-              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Close</button>
+              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Đóng</button>
             </div>
           </div>
         </div>

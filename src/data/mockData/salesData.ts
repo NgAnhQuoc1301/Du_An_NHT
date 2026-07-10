@@ -5,7 +5,7 @@ export interface SalesRecord {
   Country: string;
   SalesPerson: string;
   Channel: string;     // 'Online' | 'Offline' | 'Partner'
-  Category: string;    // 'Electronics' | 'Home Appliance' | 'Accessories' | 'Other'
+  Category: string;    // 'Điện tử' | 'Home Appliance' | 'Phụ kiện' | 'Khác'
   Product: string;
   Year: number;
   Quarter: string;
@@ -24,13 +24,13 @@ export interface SalesRecord {
 }
 
 // ── Constants ─────────────────────────────────────────────────────────────────
-const REGIONS   = ['North', 'South', 'East', 'West', 'Central'];
+const REGIONS   = ['Miền Bắc', 'Miền Nam', 'Miền Đông', 'Miền Tây', 'Miền Trung'];
 const COUNTRIES: Record<string, string[]> = {
-  North:   ['Ha Noi', 'Hai Phong', 'Thai Nguyen'],
-  South:   ['Ho Chi Minh', 'Can Tho', 'Vung Tau'],
-  East:    ['Da Nang', 'Quy Nhon', 'Nha Trang'],
-  West:    ['Hue', 'Da Lat', 'Phu Quoc'],
-  Central: ['Vinh', 'Thanh Hoa', 'Ha Tinh'],
+  'Miền Bắc':   ['Ha Noi', 'Hai Phong', 'Thai Nguyen'],
+  'Miền Nam':   ['Ho Chi Minh', 'Can Tho', 'Vung Tau'],
+  'Miền Đông':    ['Da Nang', 'Quy Nhon', 'Nha Trang'],
+  'Miền Tây':    ['Hue', 'Da Lat', 'Phu Quoc'],
+  'Miền Trung': ['Vinh', 'Thanh Hoa', 'Ha Tinh'],
 };
 const SALESPERSONS = [
   'Nguyễn Văn An', 'Trần Thị Bình', 'Lê Văn Cường',
@@ -39,10 +39,10 @@ const SALESPERSONS = [
 ];
 const CHANNELS   = ['Online', 'Offline', 'Partner'];
 const CATEGORIES: Record<string, string[]> = {
-  Electronics:     ['Điều hòa Nagakawa 1HP', 'Điều hòa 2HP Inverter', 'Tủ lạnh 350L', 'Tủ lạnh Side by Side'],
-  'Home Appliance': ['Máy giặt 8kg', 'Máy giặt 10kg', 'Nồi cơm điện 1.8L', 'Lò vi sóng'],
-  Accessories:     ['Remote thay thế', 'Bộ lọc không khí', 'Giá đỡ điều hòa', 'Cáp kết nối'],
-  Other:           ['Bảo hành mở rộng', 'Dịch vụ lắp đặt', 'Phụ kiện OEM'],
+  'Điện tử':     ['Điều hòa Nagakawa 1HP', 'Điều hòa 2HP Inverter', 'Tủ lạnh 350L', 'Tủ lạnh Side by Side'],
+  'Gia dụng': ['Máy giặt 8kg', 'Máy giặt 10kg', 'Nồi cơm điện 1.8L', 'Lò vi sóng'],
+  'Phụ kiện':     ['Remote thay thế', 'Bộ lọc không khí', 'Giá đỡ điều hòa', 'Cáp kết nối'],
+  'Khác':           ['Bảo hành mở rộng', 'Dịch vụ lắp đặt', 'Phụ kiện OEM'],
 };
 const QUARTERS = ['Q1', 'Q2', 'Q3', 'Q4'];
 const MONTHS: Record<string, string[]> = {
@@ -124,8 +124,8 @@ export const SALES_CHANNEL_COLORS: Record<string, string> = {
 };
 
 export const SALES_CATEGORY_COLORS: Record<string, string> = {
-  Electronics:     '#f59e0b',
-  'Home Appliance': '#10b981',
-  Accessories:     '#3b82f6',
-  Other:           '#6b7280',
+  'Điện tử':     '#f59e0b',
+  'Gia dụng': '#10b981',
+  'Phụ kiện':     '#3b82f6',
+  'Khác':           '#6b7280',
 };

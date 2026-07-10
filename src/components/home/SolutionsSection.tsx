@@ -13,7 +13,7 @@ export default function SolutionsSection() {
         {/* TITLE */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-green-700 via-green-600 to-emerald-600 text-transparent bg-clip-text">
-            Our Solutions
+            Giải pháp của chúng tôi
           </h2>
           <p className="text-slate-500 text-sm md:text-base mt-3 max-w-xl mx-auto">
             Hệ sinh thái công nghệ toàn diện giúp tối ưu hóa hiệu suất vận hành doanh nghiệp.

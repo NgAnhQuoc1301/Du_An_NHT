@@ -21,7 +21,7 @@ function downloadCSV(rows: KPIRecord[], filename = 'kpi_export.csv') {
 
 const DEFAULT_FILTERS: Record<string, any> = {
   startYear: 2025, endYear: 2026,
-  Department: 'All', Category: 'All', Status: 'All',
+  Department: 'Tất cả', Category: 'Tất cả', Status: 'Tất cả',
 };
 
 const KPI_PREMIUM: Record<string, string> = {
@@ -41,9 +41,9 @@ export default function KPIDashboard() {
   const filteredData = useMemo(() =>
     KPI_DATA.filter(d => {
       if (d.Year < filters.startYear || d.Year > filters.endYear) return false;
-      if (filters.Department !== 'All' && d.Department !== filters.Department) return false;
-      if (filters.Category   !== 'All' && d.Category   !== filters.Category)   return false;
-      if (filters.Status     !== 'All' && d.Status     !== filters.Status)     return false;
+      if (filters.Department !== 'Tất cả' && d.Department !== filters.Department) return false;
+      if (filters.Category   !== 'Tất cả' && d.Category   !== filters.Category)   return false;
+      if (filters.Status     !== 'Tất cả' && d.Status     !== filters.Status)     return false;
       return true;
     }), [filters]);
 
@@ -51,8 +51,8 @@ export default function KPIDashboard() {
     if (!filteredData.length) return {} as Record<string, any>;
     const n = filteredData.length;
     
-    const onTrack = filteredData.filter(d => d.Status === 'On Track').length;
-    const atRisk  = filteredData.filter(d => d.Status === 'At Risk').length;
+    const onTrack = filteredData.filter(d => d.Status === 'Đúng tiến độ').length;
+    const atRisk  = filteredData.filter(d => d.Status === 'Rủi ro').length;
     const behind  = filteredData.filter(d => d.Status === 'Behind').length;
 
     const avgAchv = filteredData.reduce((sum, d) => sum + d.Achievement, 0) / n;
@@ -69,9 +69,9 @@ export default function KPIDashboard() {
       'kpi-at-risk':  atRisk,
       'kpi-behind':   behind,
       'kpi-avg-achv': Math.round(avgAchv * 10) / 10,
-      'kpi-sales':    Math.round(deptAchv('Sales') * 10) / 10,
-      'kpi-finance':  Math.round(deptAchv('Finance') * 10) / 10,
-      'kpi-ops':      Math.round(deptAchv('Operations') * 10) / 10,
+      'kpi-sales':    Math.round(deptAchv('Bán hàng') * 10) / 10,
+      'kpi-finance':  Math.round(deptAchv('Tài chính') * 10) / 10,
+      'kpi-ops':      Math.round(deptAchv('Vận hành') * 10) / 10,
     };
   }, [filteredData]);
 
@@ -193,9 +193,9 @@ export default function KPIDashboard() {
               {([
                 ['Period',       `${drillDown.Month} ${drillDown.Year}`],
                 ['Metric Type',  drillDown.MetricType],
-                ['Status',       drillDown.Status],
+                ['Trạng thái',       drillDown.Status],
                 ['Achievement',  `${drillDown.Achievement}%`],
-                ['Target',       drillDown.Target],
+                ['Mục tiêu',       drillDown.Target],
                 ['Actual',       drillDown.Actual],
               ] as [string, any][]).map(([label, val]) => (
                 <div key={label} className="bg-slate-50 rounded-xl p-3">
@@ -206,7 +206,7 @@ export default function KPIDashboard() {
             </div>
             <div className="flex gap-3 mt-5">
               <button onClick={() => downloadCSV([drillDown], `${drillDown.id}.csv`)} className="flex-1 py-2 bg-amber-500 hover:bg-amber-400 text-white font-semibold rounded-xl text-sm transition-colors">📥 Export</button>
-              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Close</button>
+              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Đóng</button>
             </div>
           </div>
         </div>

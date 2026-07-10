@@ -21,7 +21,7 @@ function downloadCSV(rows: TaskRecord[], filename = 'task_export.csv') {
 
 const DEFAULT_FILTERS: Record<string, any> = {
   startYear: 2025, endYear: 2026,
-  Assignee: 'All', Project: 'All', Status: 'All', Priority: 'All',
+  Assignee: 'Tất cả', Project: 'Tất cả', Status: 'Tất cả', Priority: 'Tất cả',
 };
 
 const KPI_PREMIUM: Record<string, string> = {
@@ -43,24 +43,25 @@ export default function TaskDashboard() {
   TASK_DATA.filter(d => {
     const year = new Date(d.DueDate).getFullYear();
     if (year < filters.startYear || year > filters.endYear) return false;
-    if (filters.Assignee !== 'All' && d.Assignee !== filters.Assignee) return false;
-    if (filters.Project  !== 'All' && d.Project  !== filters.Project)  return false;
-    if (filters.Status   !== 'All' && d.Status   !== filters.Status)   return false;
-    if (filters.Priority !== 'All' && d.Priority !== filters.Priority) return false;
+    if (filters.Assignee !== 'Tất cả' && d.Assignee !== filters.Assignee) return false;
+    if (filters.Project  !== 'Tất cả' && d.Project  !== filters.Project)  return false;
+    if (filters.Status   !== 'Tất cả' && d.Status   !== filters.Status)   return false;
+    if (filters.Priority !== 'Tất cả' && d.Priority !== filters.Priority) return false;
     return true;
   }), [filters]);
 
   const kpis = useMemo(() => {
     if (!filteredData.length) return {} as Record<string, any>;
     const n = filteredData.length;
-    const todo    = filteredData.filter(d => d.Status === 'Todo').length;
-    const inprog  = filteredData.filter(d => d.Status === 'In Progress').length;
-    const done    = filteredData.filter(d => d.Status === 'Done').length;
-    const blocked = filteredData.filter(d => d.Status === 'Blocked').length;
+    const todo    = filteredData.filter(d => d.Status === 'Chưa làm').length;
+    const inprog  = filteredData.filter(d => d.Status === 'Đang làm').length;
+    const done    = filteredData.filter(d => d.Status === 'Hoàn thành').length;
+    const blocked = filteredData.filter(d => d.Status === 'Bị chặn').length;
     const avgProg = filteredData.reduce((s, d) => s + d.Progress, 0) / n;
     
-    const highPri = filteredData.filter(d => d.Priority === 'High' && d.Status !== 'Done').length;
-    const overdue = filteredData.filter(d => d.Status !== 'Done' && new Date(d.DueDate).getTime() < Date.now()).length;
+    const highPri = filteredData.filter(d => d.Priority === 'Cao' && d.Status !== 'Hoàn thành').length;
+    // eslint-disable-next-line react-hooks/purity
+    const overdue = filteredData.filter(d => d.Status !== 'Hoàn thành' && new Date(d.DueDate).getTime() < Date.now()).length;
 
     return {
       'kpi-total':    n,
@@ -192,14 +193,13 @@ export default function TaskDashboard() {
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm">
               {([
-                ['Assignee',    drillDown.Assignee],
-                ['Status',      drillDown.Status],
-                ['Priority',    drillDown.Priority],
-                ['Progress',    `${drillDown.Progress}%`],
-                ['Start Date',  drillDown.StartDate],
-                ['End Date',    drillDown.EndDate],
-                ['Due Date',    drillDown.DueDate],
-                ['Team Size',   `${drillDown.TeamSize} members`],
+                ['Người phụ trách',drillDown.Assignee],
+                ['Trạng thái',     drillDown.Status],
+                ['Ưu tiên',        drillDown.Priority],
+                ['Tiến độ',        `${drillDown.Progress}%`],
+                ['Ngày tạo',       drillDown.CreatedAt],
+                ['Ngày cập nhật',  drillDown.UpdatedAt],
+                ['Hạn chót',       drillDown.DueDate],
               ] as [string, any][]).map(([label, val]) => (
                 <div key={label} className="bg-slate-50 rounded-xl p-3">
                   <p className="text-[11px] font-semibold text-slate-400 mb-1">{label}</p>
@@ -208,8 +208,8 @@ export default function TaskDashboard() {
               ))}
             </div>
             <div className="flex gap-3 mt-5">
-              <button onClick={() => downloadCSV([drillDown], `${drillDown.id}.csv`)} className="flex-1 py-2 bg-indigo-500 hover:bg-indigo-400 text-white font-semibold rounded-xl text-sm transition-colors">📥 Export</button>
-              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Close</button>
+              <button onClick={() => downloadCSV([drillDown], `${drillDown.id}.csv`)} className="flex-1 py-2 bg-indigo-500 hover:bg-indigo-400 text-white font-semibold rounded-xl text-sm transition-colors">📥 Xuất CSV</button>
+              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Đóng</button>
             </div>
           </div>
         </div>

@@ -12,12 +12,12 @@ export default function CTASection() {
 
         {/* TITLE */}
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-5 tracking-tight text-slate-800">
-          Ready To Transform Your <span className="text-green-600">Business?</span>
+          Sẵn sàng chuyển đổi số cùng <span className="text-green-600">NHT?</span>
         </h2>
 
         {/* DESCRIPTION */}
         <p className="mb-10 text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-          Explore enterprise solutions and dashboard systems tailored for your sustainable growth.
+          Khám phá hệ sinh thái giải pháp doanh nghiệp và hệ thống dashboard quản trị giúp bạn tối ưu hóa hoạt động vận hành.
         </p>
 
         {/* BUTTONS */}
@@ -41,7 +41,7 @@ export default function CTASection() {
               duration-300
             "
           >
-            Request Demo
+            Yêu cầu Demo
           </Link>
 
           <Link
@@ -64,7 +64,7 @@ export default function CTASection() {
               duration-300
             "
           >
-            Contact Us
+            Liên hệ với chúng tôi
           </Link>
 
         </div>

@@ -7,7 +7,7 @@ export const salesWidgets: WidgetConfig[] = [
 
     type:"kpi",
 
-    title:"Revenue",
+    title:"Doanh thu",
 
     value:"$120,000",
 
@@ -15,7 +15,7 @@ export const salesWidgets: WidgetConfig[] = [
 
     icon:"DollarSign",
 
-    description:"Total sales revenue",
+    description:"Tổng doanh thu bán hàng",
 
     dataSource:"salesRevenue",
 
@@ -27,7 +27,7 @@ export const salesWidgets: WidgetConfig[] = [
 
     type: "kpi",
 
-    title: "Profit",
+    title: "Lợi nhuận",
 
     value: "$35,000",
 
@@ -37,7 +37,7 @@ export const salesWidgets: WidgetConfig[] = [
 
     color: "blue",
 
-    description: "Net Profit",
+    description: "Lợi nhuận ròng",
   },
 
   {
@@ -45,7 +45,7 @@ export const salesWidgets: WidgetConfig[] = [
 
     type: "kpi",
 
-    title: "Margin",
+    title: "Biên lợi nhuận",
 
     value: "29%",
 
@@ -55,7 +55,7 @@ export const salesWidgets: WidgetConfig[] = [
 
     color: "purple",
 
-    description: "Profit Margin",
+    description: "Biên lợi nhuận",
   },
 
   {
@@ -63,7 +63,7 @@ export const salesWidgets: WidgetConfig[] = [
 
     type:"table",
 
-    title:"Top Products",
+    title:"Sản phẩm hàng đầu",
 
     width:6,
 
@@ -81,7 +81,7 @@ export const salesWidgets: WidgetConfig[] = [
 
     chartType:"line",
 
-    title:"Sales Trend",
+    title:"Xu hướng Bán hàng",
 
     width:6,
 
@@ -100,7 +100,7 @@ export const crmWidgets: WidgetConfig[] = [
   {
     id: "leads",
     type: "kpi",
-    title: "Leads",
+    title: "Lead",
     value: "1,250",
     width: 3,
   },
@@ -108,7 +108,7 @@ export const crmWidgets: WidgetConfig[] = [
   {
     id: "customers",
     type: "kpi",
-    title: "Customers",
+    title: "Khách hàng",
     value: "280",
     width: 3,
   },
@@ -116,7 +116,7 @@ export const crmWidgets: WidgetConfig[] = [
   {
     id: "conversion",
     type: "line-chart",
-    title: "Conversion Rate",
+    title: "Tỷ lệ chuyển đổi",
     width: 6,
   },
 ];
@@ -125,7 +125,7 @@ export const hrWidgets: WidgetConfig[] = [
   {
     id: "employees",
     type: "kpi",
-    title: "Employees",
+    title: "Nhân viên",
     value: "250",
     width: 3,
   },
@@ -133,7 +133,7 @@ export const hrWidgets: WidgetConfig[] = [
   {
     id: "attendance",
     type: "line-chart",
-    title: "Attendance",
+    title: "Chuyên cần",
     width: 6,
   },
 ];
@@ -141,21 +141,21 @@ export const ceoWidgets: WidgetConfig[] = [
   {
     id: "total-revenue",
     type: "kpi",
-    title: "Total Revenue",
+    title: "Tổng Doanh thu",
     value: "$2.4M",
     width: 3,
   },
   {
     id: "profit",
     type: "kpi",
-    title: "Profit",
+    title: "Lợi nhuận",
     value: "$650K",
     width: 3,
   },
   {
     id: "ceo-trend",
     type: "line-chart",
-    title: "Business Growth",
+    title: "Tăng trưởng Kinh doanh",
     width: 6,
   },
 ];
@@ -164,21 +164,21 @@ export const financeWidgets: WidgetConfig[] = [
   {
     id: "cashflow",
     type: "kpi",
-    title: "Cash Flow",
+    title: "Dòng tiền",
     value: "$850K",
     width: 3,
   },
   {
     id: "expenses",
     type: "kpi",
-    title: "Expenses",
+    title: "Chi phí",
     value: "$120K",
     width: 3,
   },
   {
     id: "finance-trend",
     type: "line-chart",
-    title: "Finance Trend",
+    title: "Xu hướng Tài chính",
     width: 6,
   },
 ];
@@ -187,21 +187,21 @@ export const projectWidgets: WidgetConfig[] = [
   {
     id: "projects",
     type: "kpi",
-    title: "Projects",
+    title: "Dự án",
     value: "18",
     width: 3,
   },
   {
     id: "completed",
     type: "kpi",
-    title: "Completed",
+    title: "Hoàn thành",
     value: "12",
     width: 3,
   },
   {
     id: "project-chart",
     type: "line-chart",
-    title: "Project Progress",
+    title: "Tiến độ Dự án",
     width: 6,
   },
 ];
@@ -209,7 +209,7 @@ export const kpiWidgets: WidgetConfig[] = [
   {
     id: "overall-kpi",
     type: "kpi",
-    title: "Overall KPI",
+    title: "KPI Tổng thể",
     value: "92%",
     width: 3,
   },
@@ -217,7 +217,7 @@ export const kpiWidgets: WidgetConfig[] = [
   {
     id: "target-achievement",
     type: "kpi",
-    title: "Target Achievement",
+    title: "Đạt mục tiêu",
     value: "88%",
     width: 3,
   },
@@ -225,7 +225,7 @@ export const kpiWidgets: WidgetConfig[] = [
   {
     id: "kpi-trend",
     type: "line-chart",
-    title: "KPI Trend",
+    title: "Xu hướng KPI",
     width: 6,
   },
 ];
@@ -234,7 +234,7 @@ export const warehouseWidgets: WidgetConfig[] = [
   {
     id: "inventory",
     type: "kpi",
-    title: "Inventory",
+    title: "Tồn kho",
     value: "12,500",
     width: 3,
   },
@@ -242,7 +242,7 @@ export const warehouseWidgets: WidgetConfig[] = [
   {
     id: "stock-value",
     type: "kpi",
-    title: "Stock Value",
+    title: "Giá trị tồn kho",
     value: "$450K",
     width: 3,
   },
@@ -250,7 +250,7 @@ export const warehouseWidgets: WidgetConfig[] = [
   {
     id: "warehouse-chart",
     type: "line-chart",
-    title: "Inventory Movement",
+    title: "Lưu chuyển tồn kho",
     width: 6,
   },
 ];
@@ -259,7 +259,7 @@ export const warrantyWidgets: WidgetConfig[] = [
   {
     id: "warranty-cases",
     type: "kpi",
-    title: "Warranty Cases",
+    title: "Ca bảo hành",
     value: "235",
     width: 3,
   },
@@ -267,7 +267,7 @@ export const warrantyWidgets: WidgetConfig[] = [
   {
     id: "resolved-cases",
     type: "kpi",
-    title: "Resolved Cases",
+    title: "Ca đã giải quyết",
     value: "198",
     width: 3,
   },
@@ -275,7 +275,7 @@ export const warrantyWidgets: WidgetConfig[] = [
   {
     id: "warranty-chart",
     type: "line-chart",
-    title: "Warranty Trend",
+    title: "Xu hướng Bảo hành",
     width: 6,
   },
 ];
@@ -284,7 +284,7 @@ export const productionWidgets: WidgetConfig[] = [
   {
     id: "production-volume",
     type: "kpi",
-    title: "Production Volume",
+    title: "Sản lượng Sản xuất",
     value: "18,000",
     width: 3,
   },
@@ -292,7 +292,7 @@ export const productionWidgets: WidgetConfig[] = [
   {
     id: "defect-rate",
     type: "kpi",
-    title: "Defect Rate",
+    title: "Tỷ lệ lỗi",
     value: "1.2%",
     width: 3,
   },
@@ -300,7 +300,7 @@ export const productionWidgets: WidgetConfig[] = [
   {
     id: "production-chart",
     type: "line-chart",
-    title: "Production Output",
+    title: "Sản lượng Sản xuất",
     width: 6,
   },
 ];
@@ -309,7 +309,7 @@ export const workflowWidgets: WidgetConfig[] = [
   {
     id: "active-workflows",
     type: "kpi",
-    title: "Active Workflows",
+    title: "Quy trình Đang chạy",
     value: "48",
     width: 3,
   },
@@ -317,7 +317,7 @@ export const workflowWidgets: WidgetConfig[] = [
   {
     id: "completed-workflows",
     type: "kpi",
-    title: "Completed",
+    title: "Hoàn thành",
     value: "1,250",
     width: 3,
   },
@@ -325,7 +325,7 @@ export const workflowWidgets: WidgetConfig[] = [
   {
     id: "workflow-chart",
     type: "line-chart",
-    title: "Workflow Performance",
+    title: "Hiệu suất Quy trình",
     width: 6,
   },
 ];
@@ -334,7 +334,7 @@ export const taskWidgets: WidgetConfig[] = [
   {
     id: "total-tasks",
     type: "kpi",
-    title: "Total Tasks",
+    title: "Tổng Công việc",
     value: "420",
     width: 3,
   },
@@ -342,7 +342,7 @@ export const taskWidgets: WidgetConfig[] = [
   {
     id: "completed-tasks",
     type: "kpi",
-    title: "Completed Tasks",
+    title: "Công việc Hoàn thành",
     value: "365",
     width: 3,
   },
@@ -350,7 +350,7 @@ export const taskWidgets: WidgetConfig[] = [
   {
     id: "task-chart",
     type: "line-chart",
-    title: "Task Completion Trend",
+    title: "Xu hướng Hoàn thành Công việc",
     width: 6,
   },
 ];

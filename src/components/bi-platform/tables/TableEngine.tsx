@@ -27,12 +27,12 @@ export const TableEngine: React.FC<TableEngineProps> = ({ config, data, onRowCli
     <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col gap-4">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
         <div>
-          <h3 className="text-lg font-bold text-slate-900">{config.title || 'Detail Records'}</h3>
-          <p className="text-sm text-slate-500">Total {data.length} records found</p>
+          <h3 className="text-lg font-bold text-slate-900">{config.title || 'Bản ghi chi tiết'}</h3>
+          <p className="text-sm text-slate-500">Tìm thấy tổng cộng {data.length} bản ghi</p>
         </div>
         {onExport && (
           <button onClick={() => onExport(data)} className="mt-2 sm:mt-0 flex items-center gap-2 px-4 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-sm rounded-lg border border-slate-200 transition-colors">
-            ⬇️ Export
+            ⬇️ Xuất CSV
           </button>
         )}
       </div>
@@ -82,17 +82,17 @@ export const TableEngine: React.FC<TableEngineProps> = ({ config, data, onRowCli
 
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-2">
         <div className="text-sm text-slate-500">
-          Showing <span className="font-medium text-slate-900">{data.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1}</span> to <span className="font-medium text-slate-900">{Math.min(page * PAGE_SIZE, data.length)}</span> of <span className="font-medium text-slate-900">{data.length}</span> results
+          Hiển thị từ <span className="font-medium text-slate-900">{data.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1}</span> đến <span className="font-medium text-slate-900">{Math.min(page * PAGE_SIZE, data.length)}</span> trên tổng số <span className="font-medium text-slate-900">{data.length}</span> kết quả
         </div>
         <div className="flex gap-1 bg-slate-50 p-1 rounded-lg border border-slate-200">
           <button disabled={page === 1} onClick={() => setPage(p => Math.max(1, p - 1))} className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${page === 1 ? 'text-slate-400 cursor-not-allowed' : 'text-slate-700 hover:bg-white hover:shadow-sm'}`}>
-            Previous
+            Trước
           </button>
           <div className="flex items-center px-3 text-sm font-bold text-emerald-600 bg-white shadow-sm rounded-md border border-slate-200">
             {page} / {totalPages}
           </div>
           <button disabled={page === totalPages || totalPages === 0} onClick={() => setPage(p => Math.min(totalPages, p + 1))} className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${page === totalPages || totalPages === 0 ? 'text-slate-400 cursor-not-allowed' : 'text-slate-700 hover:bg-white hover:shadow-sm'}`}>
-            Next
+            Sau
           </button>
         </div>
       </div>

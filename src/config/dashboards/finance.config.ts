@@ -7,18 +7,18 @@ export const financeConfig: BIDashboardConfig = {
   theme: 'emerald',
 
   filters: [
-    { id: 'startYear',   label: 'Start Year',    type: 'date-range', defaultValue: 2025 },
-    { id: 'endYear',     label: 'End Year',      type: 'date-range', defaultValue: 2026 },
-    { id: 'Department',  label: 'Department',    type: 'select' },
-    { id: 'AccountType', label: 'Account Type',  type: 'select', options: ['All', 'Revenue', 'Expense'] },
-    { id: 'Category',    label: 'Category',      type: 'select' },
+    { id: 'startYear',   label: 'Năm bắt đầu',    type: 'date-range', defaultValue: 2025 },
+    { id: 'endYear',     label: 'Năm kết thúc',      type: 'date-range', defaultValue: 2026 },
+    { id: 'Phòng ban',  label: 'Phòng ban',    type: 'select' },
+    { id: 'AccountType', label: 'Account Type',  type: 'select', options: ['Tất cả', 'Doanh thu', 'Chi phí'] },
+    { id: 'Danh mục',    label: 'Danh mục',      type: 'select' },
   ],
 
   layout: {
     kpis: [
-      { id: 'kpi-revenue',    title: 'Total Revenue',     type: 'kpi', gridSpan: 1 },
+      { id: 'kpi-revenue',    title: 'Tổng Doanh thu',     type: 'kpi', gridSpan: 1 },
       { id: 'kpi-expense',    title: 'Total Expense',     type: 'kpi', gridSpan: 1 },
-      { id: 'kpi-profit',     title: 'Net Profit',        type: 'kpi', gridSpan: 1 },
+      { id: 'kpi-profit',     title: 'Lợi nhuận ròng',        type: 'kpi', gridSpan: 1 },
       { id: 'kpi-margin',     title: 'Profit Margin',     type: 'kpi', gridSpan: 1 },
       { id: 'kpi-budget-var', title: 'Budget Variance',   type: 'kpi', gridSpan: 1 },
       { id: 'kpi-roi',        title: 'Est. ROI',          type: 'kpi', gridSpan: 1 },
@@ -35,8 +35,8 @@ export const financeConfig: BIDashboardConfig = {
         gridSpan: 2,
         dataSource: 'profitTrend',
         metrics: [
-          { label: 'Revenue', dataKey: 'revenue', color: '#10b981', type: 'currency' },
-          { label: 'Expense', dataKey: 'expense', color: '#ef4444', type: 'currency' },
+          { label: 'Doanh thu', dataKey: 'revenue', color: '#10b981', type: 'currency' },
+          { label: 'Chi phí', dataKey: 'expense', color: '#ef4444', type: 'currency' },
           { label: 'Profit',  dataKey: 'profit',  color: '#3b82f6', type: 'currency' },
         ],
       },
@@ -47,7 +47,7 @@ export const financeConfig: BIDashboardConfig = {
         chartType: 'pie',
         gridSpan: 1,
         dataSource: 'expenseBreakdown',
-        metrics: [{ label: 'Amount', dataKey: 'value', type: 'currency' }],
+        metrics: [{ label: 'Số tiền', dataKey: 'value', type: 'currency' }],
       },
       {
         id: 'chart-budget-variance',
@@ -71,11 +71,11 @@ export const financeConfig: BIDashboardConfig = {
         columns: [
           { header: 'ID',          accessor: 'id',          type: 'text',     align: 'left'   },
           { header: 'Period',      accessor: 'Month',       type: 'text',     align: 'left'   },
-          { header: 'Department',  accessor: 'Department',  type: 'text',     align: 'left'   },
-          { header: 'Type',        accessor: 'AccountType', type: 'badge',    align: 'center' },
-          { header: 'Category',    accessor: 'Category',    type: 'text',     align: 'left'   },
-          { header: 'Amount',      accessor: 'Amount',      type: 'currency', align: 'right'  },
-          { header: 'Budget',      accessor: 'Budget',      type: 'currency', align: 'right'  },
+          { header: 'Phòng ban',  accessor: 'Department',  type: 'text',     align: 'left'   },
+          { header: 'Loại',        accessor: 'AccountType', type: 'badge',    align: 'center' },
+          { header: 'Danh mục',    accessor: 'Category',    type: 'text',     align: 'left'   },
+          { header: 'Số tiền',      accessor: 'Amount',      type: 'currency', align: 'right'  },
+          { header: 'Ngân sách',      accessor: 'Budget',      type: 'currency', align: 'right'  },
           { header: 'Variance',    accessor: 'Variance',    type: 'currency', align: 'right'  },
         ],
       },

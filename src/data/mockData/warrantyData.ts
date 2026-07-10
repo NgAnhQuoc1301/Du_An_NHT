@@ -2,19 +2,19 @@ export interface WarrantyRecord {
   id: string;
   Customer: string;
   Product: string;
-  Category: string; // 'Electronics', 'Appliances', 'Accessories', 'Other'
+  Category: string; // 'Điện tử', 'Gia dụng', 'Phụ kiện', 'Khác'
   Issue: string;
-  Status: string; // 'Pending', 'Processing', 'Resolved', 'Rejected'
-  Priority: string; // 'High', 'Medium', 'Low'
+  Status: string; // 'Chờ xử lý', 'Đang xử lý', 'Đã giải quyết', 'Đã từ chối'
+  Priority: string; // 'Cao', 'Trung bình', 'Thấp'
   RequestDate: string; // YYYY-MM-DD
   ResolutionDate: string | null;
   Cost: number;
 }
 
-const CATEGORIES = ['Electronics', 'Appliances', 'Accessories', 'Other'];
-const STATUSES = ['Pending', 'Processing', 'Resolved', 'Rejected'];
-const PRIORITIES = ['High', 'Medium', 'Low'];
-const ISSUES = ['Power failure', 'Broken screen', 'Overheating', 'Noisy operation', 'Water leak', 'Software bug'];
+const CATEGORIES = ['Điện tử', 'Gia dụng', 'Phụ kiện', 'Khác'];
+const STATUSES = ['Chờ xử lý', 'Đang xử lý', 'Đã giải quyết', 'Đã từ chối'];
+const PRIORITIES = ['Cao', 'Trung bình', 'Thấp'];
+const ISSUES = ['Lỗi nguồn', 'Vỡ màn hình', 'Quá nhiệt', 'Hoạt động ồn', 'Rò rỉ nước', 'Lỗi phần mềm'];
 
 function randomDate(start: Date, end: Date) {
   const d = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
@@ -27,7 +27,7 @@ function generateWarrantyData(): WarrantyRecord[] {
   for (let i = 1; i <= 200; i++) {
     const reqDate = randomDate(new Date('2024-01-01'), now);
     const status = STATUSES[Math.floor(Math.random() * STATUSES.length)];
-    const isResolved = status === 'Resolved' || status === 'Rejected';
+    const isResolved = status === 'Đã giải quyết' || status === 'Đã từ chối';
     const resDate = isResolved ? randomDate(new Date(reqDate), now) : null;
     
     data.push({
@@ -40,7 +40,7 @@ function generateWarrantyData(): WarrantyRecord[] {
       Priority: PRIORITIES[Math.floor(Math.random() * PRIORITIES.length)],
       RequestDate: reqDate,
       ResolutionDate: resDate,
-      Cost: isResolved && status === 'Resolved' ? Math.floor(10 + Math.random() * 200) : 0,
+      Cost: isResolved && status === 'Đã giải quyết' ? Math.floor(10 + Math.random() * 200) : 0,
     });
   }
   return data;
@@ -49,14 +49,14 @@ function generateWarrantyData(): WarrantyRecord[] {
 export const WARRANTY_DATA = generateWarrantyData();
 
 export const WARRANTY_STATUS_COLORS: Record<string, string> = {
-  'Pending': '#f59e0b',
-  'Processing': '#3b82f6',
-  'Resolved': '#10b981',
-  'Rejected': '#ef4444',
+  'Chờ xử lý': '#f59e0b',
+  'Đang xử lý': '#3b82f6',
+  'Đã giải quyết': '#10b981',
+  'Đã từ chối': '#ef4444',
 };
 
 export const WARRANTY_PRIORITY_COLORS: Record<string, string> = {
-  'High': '#ef4444',
-  'Medium': '#f59e0b',
-  'Low': '#10b981',
+  'Cao': '#ef4444',
+  'Trung bình': '#f59e0b',
+  'Thấp': '#10b981',
 };

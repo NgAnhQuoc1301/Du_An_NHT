@@ -21,7 +21,7 @@ function downloadCSV(rows: ProductionRecord[], filename = 'production_export.csv
 
 const DEFAULT_FILTERS: Record<string, any> = {
   startYear: 2025, endYear: 2026,
-  Plant: 'All', Line: 'All', ProductType: 'All', Shift: 'All',
+  Plant: 'Tất cả', Line: 'Tất cả', ProductType: 'Tất cả', Shift: 'Tất cả',
 };
 
 const KPI_PREMIUM: Record<string, string> = {
@@ -41,10 +41,10 @@ export default function ProductionDashboard() {
   const filteredData = useMemo(() =>
     PRODUCTION_DATA.filter(d => {
       if (d.Year < filters.startYear || d.Year > filters.endYear) return false;
-      if (filters.Plant       !== 'All' && d.Plant       !== filters.Plant)       return false;
-      if (filters.Line        !== 'All' && d.Line        !== filters.Line)        return false;
-      if (filters.ProductType !== 'All' && d.ProductType !== filters.ProductType) return false;
-      if (filters.Shift       !== 'All' && d.Shift       !== filters.Shift)       return false;
+      if (filters.Plant       !== 'Tất cả' && d.Plant       !== filters.Plant)       return false;
+      if (filters.Line        !== 'Tất cả' && d.Line        !== filters.Line)        return false;
+      if (filters.ProductType !== 'Tất cả' && d.ProductType !== filters.ProductType) return false;
+      if (filters.Shift       !== 'Tất cả' && d.Shift       !== filters.Shift)       return false;
       return true;
     }), [filters]);
 
@@ -193,7 +193,7 @@ export default function ProductionDashboard() {
                 ['OEE',          `${drillDown.OEE}%`],
                 ['Output Actual',drillDown.OutputActual],
                 ['Output Target',drillDown.OutputTarget],
-                ['Defects',      drillDown.Defects],
+                ['Lỗi',      drillDown.Defects],
                 ['Downtime',     `${drillDown.DowntimeMinutes} mins`],
                 ['Energy',       `${drillDown.EnergyConsumed} kWh`],
               ] as [string, any][]).map(([label, val]) => (
@@ -205,7 +205,7 @@ export default function ProductionDashboard() {
             </div>
             <div className="flex gap-3 mt-5">
               <button onClick={() => downloadCSV([drillDown], `${drillDown.id}.csv`)} className="flex-1 py-2 bg-blue-500 hover:bg-blue-400 text-white font-semibold rounded-xl text-sm transition-colors">📥 Export</button>
-              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Close</button>
+              <button onClick={() => setDrillDown(null)} className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-colors">Đóng</button>
             </div>
           </div>
         </div>
