@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react';
 import { financeConfig } from '../../config/dashboards/finance.config';
-import { FINANCE_DATA, FINANCE_EXPENSE_COLORS } from '../../data/mockData/financeData';
+import { FINANCE_CATEGORY_COLORS } from '../../data/mockData/financeData';
 import type { FinanceRecord } from '../../data/mockData/financeData';
+import { useFinanceData } from '../../hooks/useDashboardData';
+import { DashboardSkeleton } from '../../components/bi-platform/shell/DashboardSkeleton';
 
 import { DashboardHeader }   from '../../components/bi-platform/shell/DashboardHeader';
 import { GlobalFilterPanel } from '../../components/bi-platform/filters/GlobalFilterPanel';
@@ -41,18 +43,21 @@ const KPI_PREMIUM: Record<string, string> = {
 export default function FinanceDashboard() {
   const [filters, setFilters] = useState<Record<string, any>>(DEFAULT_FILTERS);
   const [drillDown, setDrillDown] = useState<FinanceRecord | null>(null);
+  const { data: sourceData, isLoading } = useFinanceData();
 
   const handleChange = (key: string, value: any) => setFilters(p => ({ ...p, [key]: value }));
   const handleReset  = () => setFilters(DEFAULT_FILTERS);
 
-  const filteredData = useMemo(() =>
-    FINANCE_DATA.filter(d => {
+  const filteredData = useMemo(() => {
+    if (!sourceData) return [];
+    return sourceData.filter(d => {
       if (d.Year < filters.startYear || d.Year > filters.endYear) return false;
       if (filters.Department  !== 'Tất cả' && d.Department  !== filters.Department)  return false;
       if (filters.AccountType !== 'Tất cả' && d.AccountType !== filters.AccountType) return false;
       if (filters.Category    !== 'Tất cả' && d.Category    !== filters.Category)    return false;
       return true;
-    }), [filters]);
+    });
+  }, [filters, sourceData]);
 
   const kpis = useMemo(() => {
     if (!filteredData.length) return {} as Record<string, any>;
@@ -103,13 +108,13 @@ export default function FinanceDashboard() {
       return MONTH_ORDER.indexOf(aMonth) - MONTH_ORDER.indexOf(bMonth);
     });
 
-    // Expense Breakdown
-    const expMap = new Map<string, number>();
-    filteredData.filter(d => d.AccountType === 'Chi phí').forEach(d => {
-      expMap.set(d.Category, (expMap.get(d.Category) ?? 0) + d.Amount);
+    // Category Breakdown
+    const catMap = new Map<string, number>();
+    filteredData.forEach(d => {
+      catMap.set(d.Category, (catMap.get(d.Category) ?? 0) + Math.abs(d.Amount));
     });
-    const expenseBreakdown = Array.from(expMap, ([name, value]) => ({
-      name, value, fill: FINANCE_EXPENSE_COLORS[name] ?? '#64748b'
+    const categoryBreakdown = Array.from(catMap, ([name, value]) => ({
+      name, value, fill: FINANCE_CATEGORY_COLORS[name] ?? '#64748b'
     }));
 
     // Budget Variance by Dept
@@ -119,7 +124,7 @@ export default function FinanceDashboard() {
     });
     const budgetVariance = Array.from(varMap, ([name, variance]) => ({ name, variance }));
 
-    return { profitTrend, expenseBreakdown, budgetVariance };
+    return { profitTrend, categoryBreakdown, budgetVariance };
   }, [filteredData]);
 
   const kpiDisplay = (id: string): string => {
@@ -132,7 +137,7 @@ export default function FinanceDashboard() {
   const resolveChart = (src?: string): any[] => {
     switch (src) {
       case 'profitTrend':      return chartData.profitTrend;
-      case 'expenseBreakdown': return chartData.expenseBreakdown;
+      case 'categoryBreakdown': return chartData.categoryBreakdown;
       case 'budgetVariance':   return chartData.budgetVariance;
       default: return [];
     }
@@ -150,10 +155,12 @@ export default function FinanceDashboard() {
 
   const { layout } = financeConfig;
 
+  if (isLoading) return <DashboardSkeleton />;
+
   return (
     <div className="p-4 md:p-6 bg-slate-50 min-h-screen text-slate-800" style={{ fontFamily: 'Inter, sans-serif' }}>
       <DashboardHeader config={financeConfig} onExport={() => downloadCSV(filteredData)} />
-      <GlobalFilterPanel config={financeConfig.filters} sourceData={FINANCE_DATA} values={filters} onChange={handleChange} onReset={handleReset} />
+      <GlobalFilterPanel config={financeConfig.filters} sourceData={sourceData} values={filters} onChange={handleChange} onReset={handleReset} />
 
       {/* Primary KPIs */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">

@@ -2,73 +2,73 @@ import type { BIDashboardConfig } from '../../types/bi.types';
 
 export const hrConfig: BIDashboardConfig = {
   id: 'hr',
-  name: 'HR Analytics Dashboard',
-  description: 'Quản trị nhân sự — Workforce Intelligence & People Analytics',
+  name: 'Báo cáo Phân tích Nhân sự',
+  description: 'Quản trị nhân sự — Phân tích Nguồn nhân lực',
   theme: 'indigo',
 
   filters: [
     { id: 'startYear',      label: 'Năm bắt đầu',    type: 'date-range', defaultValue: 2025 },
     { id: 'endYear',        label: 'Năm kết thúc',      type: 'date-range', defaultValue: 2026 },
-    { id: 'Phòng ban',     label: 'Phòng ban',    type: 'select' },
-    { id: 'Khu vực',         label: 'Khu vực',        type: 'select' },
-    { id: 'EmploymentType', label: 'Emp. Type',     type: 'select', options: ['Tất cả', 'Full-time', 'Part-time', 'Hợp đồng'] },
-    { id: 'Trạng thái',         label: 'Trạng thái',        type: 'select', options: ['Tất cả', 'Active', 'On Leave', 'Resigned'] },
+    { id: 'Department',     label: 'Phòng ban',    type: 'select' },
+    { id: 'Region',         label: 'Khu vực',        type: 'select' },
+    { id: 'EmploymentType', label: 'Loại hợp đồng',     type: 'select' },
+    { id: 'Status',         label: 'Trạng thái',        type: 'select' },
   ],
 
   layout: {
     kpis: [
-      { id: 'kpi-headcount',    title: 'Total Headcount',   type: 'kpi', gridSpan: 1 },
-      { id: 'kpi-hired',        title: 'New Hires',         type: 'kpi', gridSpan: 1 },
-      { id: 'kpi-turnover',     title: 'Turnover Rate',     type: 'kpi', gridSpan: 1 },
-      { id: 'kpi-performance',  title: 'Avg Performance',   type: 'kpi', gridSpan: 1 },
+      { id: 'kpi-headcount',    title: 'Tổng nhân sự',   type: 'kpi', gridSpan: 1 },
+      { id: 'kpi-hired',        title: 'Tuyển mới',         type: 'kpi', gridSpan: 1 },
+      { id: 'kpi-turnover',     title: 'Tỷ lệ nghỉ việc',     type: 'kpi', gridSpan: 1 },
+      { id: 'kpi-performance',  title: 'Hiệu suất TB',   type: 'kpi', gridSpan: 1 },
     ],
 
     charts: [
       {
         id: 'chart-headcount-dept',
-        type: 'chart', title: 'Headcount by Department',
+        type: 'chart', title: 'Nhân sự theo Phòng ban',
         chartType: 'bar', gridSpan: 2, dataSource: 'deptHeadcount',
         metrics: [
-          { label: 'Headcount',   dataKey: 'headcount',  color: '#6366f1', type: 'number' },
+          { label: 'Nhân sự',   dataKey: 'headcount',  color: '#6366f1', type: 'number' },
           { label: 'Lương TB',  dataKey: 'avgSalary',  color: '#10b981', type: 'currency' },
         ],
       },
       {
         id: 'chart-emp-type',
-        type: 'chart', title: 'Employment Type Mix',
+        type: 'chart', title: 'Cơ cấu Hợp đồng',
         chartType: 'pie', gridSpan: 2, dataSource: 'empTypeMix',
-        metrics: [{ label: 'Count', dataKey: 'value', type: 'number' }],
+        metrics: [{ label: 'Số lượng', dataKey: 'value', type: 'number' }],
       },
       {
         id: 'chart-hiring-trend',
-        type: 'chart', title: 'Hiring Trend (Quarterly)',
+        type: 'chart', title: 'Xu hướng Tuyển dụng (Quý)',
         chartType: 'line', gridSpan: 2, dataSource: 'hiringTrend',
         metrics: [
-          { label: 'Hired',    dataKey: 'hired',    color: '#10b981', type: 'number' },
-          { label: 'Resigned', dataKey: 'resigned', color: '#ef4444', type: 'number' },
+          { label: 'Tuyển mới',    dataKey: 'hired',    color: '#10b981', type: 'number' },
+          { label: 'Đã nghỉ việc', dataKey: 'resigned', color: '#ef4444', type: 'number' },
         ],
       },
       {
         id: 'chart-performance-dept',
-        type: 'chart', title: 'Performance Score by Department',
+        type: 'chart', title: 'Điểm Hiệu suất theo Phòng ban',
         chartType: 'radar', gridSpan: 2, dataSource: 'deptPerformance',
-        metrics: [{ label: 'Performance', dataKey: 'score', color: '#6366f1', type: 'number' }],
+        metrics: [{ label: 'Hiệu suất', dataKey: 'score', color: '#6366f1', type: 'number' }],
       },
     ],
 
     tables: [
       {
         id: 'table-hr-detail',
-        type: 'table', title: 'Employee Records',
+        type: 'table', title: 'Hồ sơ Nhân viên',
         dataSource: 'filteredData',
         columns: [
-          { header: 'Tên',        accessor: 'FullName',         type: 'text',    align: 'left'   },
+          { header: 'Họ và tên',        accessor: 'FullName',         type: 'text',    align: 'left'   },
           { header: 'Phòng ban',  accessor: 'Department',       type: 'text',    align: 'left'   },
-          { header: 'Position',    accessor: 'Position',         type: 'text',    align: 'left'   },
+          { header: 'Vị trí',    accessor: 'Position',         type: 'text',    align: 'left'   },
           { header: 'Khu vực',      accessor: 'Region',           type: 'text',    align: 'left'   },
-          { header: 'Loại',        accessor: 'EmploymentType',   type: 'text',    align: 'center' },
+          { header: 'Hợp đồng',        accessor: 'EmploymentType',   type: 'text',    align: 'center' },
           { header: 'Lương',      accessor: 'Salary',           type: 'currency',align: 'right'  },
-          { header: 'Performance', accessor: 'PerformanceScore', type: 'badge',   align: 'center' },
+          { header: 'Hiệu suất', accessor: 'PerformanceScore', type: 'badge',   align: 'center' },
           { header: 'Trạng thái',      accessor: 'Status',           type: 'text',    align: 'center' },
         ],
       },

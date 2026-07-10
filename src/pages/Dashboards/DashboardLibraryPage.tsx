@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Users, Briefcase, Database, LineChart, Layers, Activity, LayoutDashboard, TrendingUp, Package, ShieldCheck, Factory, GitMerge, CheckSquare } from "lucide-react";
+import { Briefcase, Landmark, ShoppingCart, HeartHandshake, Contact, Boxes, Factory, Wrench, Target, Kanban, Workflow, ListTodo, LayoutDashboard, Activity } from "lucide-react";
 
 import { dashboardConfigs } from "../../data/dashboardConfigs";
 import { dashboardMetadata } from "../../data/dashboardMetadata";
@@ -32,55 +32,55 @@ const SORT_OPTIONS = [
 export const getCategoryIcon = (category: string | undefined, className?: string) => {
   const css = className || "w-7 h-7 text-white";
   switch (category) {
-    case 'Bán hàng': return <TrendingUp className={css} strokeWidth={1.5} />;
-    case 'Nhân sự': return <Users className={css} strokeWidth={1.5} />;
+    case 'Bán hàng': return <ShoppingCart className={css} strokeWidth={1.5} />;
+    case 'Nhân sự': return <Contact className={css} strokeWidth={1.5} />;
     case 'Ban Giám đốc': return <Briefcase className={css} strokeWidth={1.5} />;
-    case 'Khách hàng': return <Database className={css} strokeWidth={1.5} />;
-    case 'Tài chính': return <LineChart className={css} strokeWidth={1.5} />;
-    case 'Dự án': return <Layers className={css} strokeWidth={1.5} />;
-    case 'Đánh giá': return <Activity className={css} strokeWidth={1.5} />;
-    case 'Kho vận': return <Package className={css} strokeWidth={1.5} />;
-    case 'Bảo hành': return <ShieldCheck className={css} strokeWidth={1.5} />;
+    case 'Khách hàng': return <HeartHandshake className={css} strokeWidth={1.5} />;
+    case 'Tài chính': return <Landmark className={css} strokeWidth={1.5} />;
+    case 'Dự án': return <Kanban className={css} strokeWidth={1.5} />;
+    case 'Đánh giá': return <Target className={css} strokeWidth={1.5} />;
+    case 'Kho vận': return <Boxes className={css} strokeWidth={1.5} />;
+    case 'Bảo hành': return <Wrench className={css} strokeWidth={1.5} />;
     case 'Sản xuất': return <Factory className={css} strokeWidth={1.5} />;
-    case 'Quy trình': return <GitMerge className={css} strokeWidth={1.5} />;
-    case 'Công việc': return <CheckSquare className={css} strokeWidth={1.5} />;
+    case 'Quy trình': return <Workflow className={css} strokeWidth={1.5} />;
+    case 'Công việc': return <ListTodo className={css} strokeWidth={1.5} />;
     default: return <LayoutDashboard className={css} strokeWidth={1.5} />;
   }
 };
 
 export const getCategoryGradient = (category: string | undefined) => {
   switch (category) {
-    case 'Bán hàng': return "from-emerald-500 to-green-600 shadow-emerald-500/30";
-    case 'Nhân sự': return "from-emerald-500 to-green-600 shadow-emerald-500/30";
-    case 'Ban Giám đốc': return "from-green-500 to-green-600 shadow-green-500/30";
-    case 'Khách hàng': return "from-green-500 to-red-600 shadow-green-500/30";
-    case 'Tài chính': return "from-emerald-500 to-emerald-600 shadow-emerald-500/30";
-    case 'Dự án': return "from-emerald-500 to-emerald-600 shadow-emerald-500/30";
-    case 'Đánh giá': return "from-green-500 to-green-600 shadow-green-500/30";
-    case 'Kho vận': return "from-emerald-500 to-emerald-700 shadow-emerald-500/30";
-    case 'Bảo hành': return "from-emerald-500 to-emerald-600 shadow-emerald-500/30";
-    case 'Sản xuất': return "from-green-500 to-green-600 shadow-green-500/30";
-    case 'Quy trình': return "from-emerald-500 to-emerald-600 shadow-emerald-500/30";
-    case 'Công việc': return "from-green-500 to-green-600 shadow-green-500/30";
-    default: return "from-green-500 to-emerald-600 shadow-green-500/30";
+    case 'Bán hàng': return "from-orange-500 to-amber-500 shadow-orange-500/30";
+    case 'Nhân sự': return "from-fuchsia-500 to-purple-600 shadow-fuchsia-500/30";
+    case 'Ban Giám đốc': return "from-slate-700 to-slate-900 shadow-slate-700/30";
+    case 'Khách hàng': return "from-rose-500 to-pink-500 shadow-rose-500/30";
+    case 'Tài chính': return "from-blue-600 to-indigo-600 shadow-blue-500/30";
+    case 'Dự án': return "from-indigo-500 to-cyan-500 shadow-indigo-500/30";
+    case 'Đánh giá': return "from-violet-500 to-purple-600 shadow-violet-500/30";
+    case 'Kho vận': return "from-amber-500 to-yellow-600 shadow-amber-500/30";
+    case 'Bảo hành': return "from-cyan-500 to-blue-500 shadow-cyan-500/30";
+    case 'Sản xuất': return "from-slate-500 to-slate-700 shadow-slate-500/30";
+    case 'Quy trình': return "from-indigo-500 to-blue-600 shadow-indigo-500/30";
+    case 'Công việc': return "from-sky-500 to-blue-500 shadow-sky-500/30";
+    default: return "from-indigo-500 to-purple-600 shadow-indigo-500/30";
   }
 };
 
 const getCategoryBadgeStyle = (category: string | undefined) => {
   switch (category) {
-    case 'Bán hàng': return "bg-emerald-50 text-emerald-700 border-emerald-100";
-    case 'Nhân sự': return "bg-emerald-50 text-emerald-700 border-emerald-100";
-    case 'Ban Giám đốc': return "bg-green-50 text-green-700 border-green-100";
-    case 'Khách hàng': return "bg-green-50 text-green-700 border-green-100";
-    case 'Tài chính': return "bg-emerald-50 text-emerald-700 border-emerald-100";
-    case 'Dự án': return "bg-emerald-50 text-emerald-700 border-emerald-100";
-    case 'Đánh giá': return "bg-green-50 text-green-700 border-green-100";
-    case 'Kho vận': return "bg-emerald-50 text-emerald-700 border-emerald-100";
-    case 'Bảo hành': return "bg-emerald-50 text-emerald-700 border-emerald-100";
-    case 'Sản xuất': return "bg-green-50 text-green-700 border-green-100";
-    case 'Quy trình': return "bg-emerald-50 text-emerald-700 border-emerald-100";
-    case 'Công việc': return "bg-green-50 text-green-700 border-green-100";
-    default: return "bg-green-50 text-green-700 border-green-100";
+    case 'Bán hàng': return "bg-orange-50 text-orange-700 border-orange-100";
+    case 'Nhân sự': return "bg-fuchsia-50 text-fuchsia-700 border-fuchsia-100";
+    case 'Ban Giám đốc': return "bg-slate-100 text-slate-700 border-slate-200";
+    case 'Khách hàng': return "bg-rose-50 text-rose-700 border-rose-100";
+    case 'Tài chính': return "bg-blue-50 text-blue-700 border-blue-100";
+    case 'Dự án': return "bg-indigo-50 text-indigo-700 border-indigo-100";
+    case 'Đánh giá': return "bg-violet-50 text-violet-700 border-violet-100";
+    case 'Kho vận': return "bg-amber-50 text-amber-700 border-amber-100";
+    case 'Bảo hành': return "bg-cyan-50 text-cyan-700 border-cyan-100";
+    case 'Sản xuất': return "bg-slate-50 text-slate-700 border-slate-100";
+    case 'Quy trình': return "bg-indigo-50 text-indigo-700 border-indigo-100";
+    case 'Công việc': return "bg-sky-50 text-sky-700 border-sky-100";
+    default: return "bg-indigo-50 text-indigo-700 border-indigo-100";
   }
 };
 

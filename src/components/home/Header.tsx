@@ -13,23 +13,23 @@ export default function Header() {
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     isActive
-      ? "text-green-600 font-semibold text-sm relative after:absolute after:bottom-[-21px] after:left-0 after:w-full after:h-[2px] after:bg-green-600 transition-colors"
-      : "text-slate-600 hover:text-green-600 text-sm font-medium transition-colors duration-200";
+      ? "text-emerald-600 font-bold text-sm relative after:absolute after:bottom-[-24px] after:left-1/2 after:-translate-x-1/2 after:w-full after:h-[3px] after:bg-gradient-to-r after:from-emerald-400 after:to-teal-500 after:rounded-t-md transition-all"
+      : "text-slate-500 hover:text-emerald-600 text-sm font-semibold relative after:absolute after:bottom-[-24px] after:left-1/2 after:-translate-x-1/2 after:w-0 hover:after:w-full after:h-[3px] after:bg-emerald-200 after:rounded-t-md after:transition-all after:duration-300 transition-colors duration-300";
 
   const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>
     isActive
-      ? "text-green-600 font-semibold text-sm bg-green-50/50 px-3 py-2 rounded-lg"
-      : "text-slate-600 hover:text-green-600 text-sm font-medium px-3 py-2 rounded-lg hover:bg-slate-50 transition-all";
+      ? "text-emerald-600 font-bold text-sm bg-gradient-to-r from-emerald-50 to-teal-50/50 border-l-4 border-emerald-500 px-4 py-2.5 rounded-r-lg shadow-sm"
+      : "text-slate-600 hover:text-emerald-600 text-sm font-semibold border-l-4 border-transparent px-4 py-2.5 rounded-r-lg hover:bg-slate-50 transition-all";
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 border-b border-slate-100 backdrop-blur-md shadow-sm shadow-slate-100/40">
+    <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-emerald-100 shadow-[0_4px_30px_rgba(16,185,129,0.08)] transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
 
-        {/* LOGO - Đã được bọc thẻ Link về trang chủ và thêm hiệu ứng hover mượt */}
+        {/* LOGO */}
         <Link 
           to="/" 
-          className="text-xl font-bold text-green-600 tracking-tight flex items-center gap-1.5 hover:opacity-90 transition-opacity"
-          onClick={() => setMenuOpen(false)} // Đóng luôn mobile menu nếu đang mở khi bấm logo
+          className="text-xl font-extrabold bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent tracking-tight flex items-center gap-2 hover:opacity-80 transition-opacity"
+          onClick={() => setMenuOpen(false)}
         >
           <img
             src="https://nagakawa.com.vn/wp-content/uploads/2023/09/logo-nht.png"
@@ -45,8 +45,8 @@ export default function Header() {
             }
           }}
           />
-          <span className="hidden items-center gap-1.5">
-            <span className="inline-block w-2 h-5 bg-green-600 rounded-sm"></span>
+          <span className="hidden items-center gap-2">
+            <span className="inline-block w-2.5 h-6 bg-gradient-to-b from-emerald-400 to-teal-600 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.4)]"></span>
             Nagakawa
           </span>
         </Link>
@@ -67,18 +67,18 @@ export default function Header() {
 
         {/* Hamburger — mobile */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2 focus:outline-none rounded-lg hover:bg-slate-50 transition-colors"
+          className="md:hidden flex flex-col gap-1.5 p-2 focus:outline-none rounded-lg hover:bg-emerald-50 transition-colors"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle Menu"
         >
-          <span className={`block w-5 h-0.5 bg-green-600 transition-all duration-300 ${
-            menuOpen ? "rotate-45 translate-y-2 !bg-green-600" : ""
+          <span className={`block w-5 h-[2.5px] rounded-full bg-emerald-600 transition-all duration-300 ${
+            menuOpen ? "rotate-45 translate-y-2" : ""
           }`} />
-          <span className={`block w-5 h-0.5 bg-green-600 transition-all duration-300 ${
+          <span className={`block w-5 h-[2.5px] rounded-full bg-emerald-600 transition-all duration-300 ${
             menuOpen ? "opacity-0" : ""
           }`} />
-          <span className={`block w-5 h-0.5 bg-green-600 transition-all duration-300 ${
-            menuOpen ? "-rotate-45 -translate-y-2 !bg-green-600" : ""
+          <span className={`block w-5 h-[2.5px] rounded-full bg-emerald-600 transition-all duration-300 ${
+            menuOpen ? "-rotate-45 -translate-y-2" : ""
           }`} />
         </button>
 
@@ -86,7 +86,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white border-t border-slate-100 px-4 py-3 flex flex-col gap-1 shadow-inner animate-fadeIn">
+        <div className="md:hidden absolute top-16 left-0 w-full bg-white/95 backdrop-blur-xl border-b border-emerald-100 px-4 py-4 flex flex-col gap-2 shadow-[0_10px_30px_rgba(16,185,129,0.1)] animate-fadeIn">
           {navLinks.map((link) => (
             <NavLink
               key={link.to}

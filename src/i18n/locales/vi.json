@@ -1,0 +1,14 @@
+{
+  "common": {
+    "all": "Tất cả",
+    "reset": "Đặt lại",
+    "export": "Xuất CSV",
+    "no_data": "Không có dữ liệu phù hợp với bộ lọc",
+    "total_records": "Tìm thấy tổng cộng {{count}} bản ghi",
+    "stt": "STT",
+    "dark_mode": "Chế độ tối",
+    "light_mode": "Chế độ sáng",
+    "language": "Ngôn ngữ",
+    "close": "Đóng"
+  }
+}

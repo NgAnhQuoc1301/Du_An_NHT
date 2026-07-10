@@ -2,30 +2,29 @@ import type { BIDashboardConfig } from '../../types/bi.types';
 
 export const warrantyConfig: BIDashboardConfig = {
   id: 'warranty-dashboard',
-  name: 'Bảo hành & Hỗ trợ',
+  name: 'Báo cáo Bảo hành & Hỗ trợ',
   description: 'Theo dõi yêu cầu bảo hành, thẻ hỗ trợ và chỉ số giải quyết',
+  theme: 'blue',
+
   filters: [
-    { id: 'startYear', label: 'Năm bắt đầu', type: 'date-range', defaultValue: 2024 },
+    { id: 'startYear', label: 'Năm bắt đầu', type: 'date-range', defaultValue: 2025 },
     { id: 'endYear', label: 'Năm kết thúc', type: 'date-range', defaultValue: 2026 },
     {
-      id: 'Danh mục',
+      id: 'Category',
       label: 'Danh mục',
       type: 'select',
-      options: ['Tất cả', 'Điện tử', 'Gia dụng', 'Phụ kiện', 'Khác'],
       defaultValue: 'Tất cả',
     },
     {
-      id: 'Trạng thái',
+      id: 'Status',
       label: 'Trạng thái',
       type: 'select',
-      options: ['Tất cả', 'Chờ xử lý', 'Đang xử lý', 'Đã giải quyết', 'Đã từ chối'],
       defaultValue: 'Tất cả',
     },
     {
-      id: 'Ưu tiên',
+      id: 'Priority',
       label: 'Ưu tiên',
       type: 'select',
-      options: ['Tất cả', 'Cao', 'Trung bình', 'Thấp'],
       defaultValue: 'Tất cả',
     }
   ],
@@ -38,7 +37,7 @@ export const warrantyConfig: BIDashboardConfig = {
       { id: 'kpi-resolution-time', title: 'Thời gian xử lý TB', type: 'kpi', gridSpan: 1 },
       { id: 'kpi-resolution-rate', title: 'Tỷ lệ giải quyết', type: 'kpi', gridSpan: 1 },
       { id: 'kpi-high-priority', title: 'Ưu tiên Cao', type: 'kpi', gridSpan: 1 },
-      { id: 'kpi-unique-products', title: 'Sản phẩm Unique', type: 'kpi', gridSpan: 1 },
+      { id: 'kpi-unique-products', title: 'Sản phẩm Lỗi', type: 'kpi', gridSpan: 1 },
     ],
     charts: [
       {
@@ -61,7 +60,7 @@ export const warrantyConfig: BIDashboardConfig = {
       },
       {
         id: 'chart-trend',
-        title: 'Request Trend (Monthly)',
+        title: 'Xu hướng Yêu cầu (Tháng)',
         type: 'chart',
         chartType: 'line',
         dataSource: 'trendData',
@@ -76,7 +75,7 @@ export const warrantyConfig: BIDashboardConfig = {
         type: 'table',
         dataSource: 'filteredData',
         columns: [
-          { accessor: 'id', header: 'Request ID', type: 'text', align: 'left' },
+          { accessor: 'id', header: 'Mã Yêu cầu', type: 'text', align: 'left' },
           { accessor: 'Customer', header: 'Khách hàng', type: 'text', align: 'left' },
           { accessor: 'Product', header: 'Sản phẩm', type: 'text', align: 'left' },
           { accessor: 'Category', header: 'Danh mục', type: 'text', align: 'left' },

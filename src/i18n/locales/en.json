@@ -1,0 +1,14 @@
+{
+  "common": {
+    "all": "All",
+    "reset": "Reset",
+    "export": "Export CSV",
+    "no_data": "No data matches filters",
+    "total_records": "Found {{count}} records in total",
+    "stt": "#",
+    "dark_mode": "Dark Mode",
+    "light_mode": "Light Mode",
+    "language": "Language",
+    "close": "Close"
+  }
+}

@@ -1,13 +1,14 @@
 import React from 'react';
 import type { BIDashboardConfig } from '../../../types/bi.types';
 import { DashboardHeader } from './DashboardHeader';
+import { GlobalFilterPanel } from '../filters/GlobalFilterPanel';
 
 interface DashboardShellProps {
   config: BIDashboardConfig;
   data?: any[]; // Inject data for the dashboard
 }
 
-export const DashboardShell: React.FC<DashboardShellProps> = ({ config }) => {
+export const DashboardShell: React.FC<DashboardShellProps> = ({ config, data }) => {
   const handleExport = () => {
     console.log("Export triggered for", config.name);
     // TODO: Connect to ExportEngine
@@ -17,18 +18,9 @@ export const DashboardShell: React.FC<DashboardShellProps> = ({ config }) => {
     <div className="p-4 md:p-6 bg-slate-50 min-h-screen text-slate-800 font-sans">
       <DashboardHeader config={config} onExport={handleExport} />
 
-      {/* Global Filter Panel Placeholder */}
+      {/* Global Filter Panel */}
       {config.filters && config.filters.length > 0 && (
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 mb-6">
-          <p className="text-sm font-semibold text-slate-400">GlobalFilterPanel</p>
-          <div className="flex gap-4 mt-2">
-            {config.filters.map(filter => (
-              <div key={filter.id} className="px-3 py-1 bg-slate-100 rounded text-xs text-slate-600">
-                {filter.label}
-              </div>
-            ))}
-          </div>
-        </div>
+        <GlobalFilterPanel config={config.filters} sourceData={data} />
       )}
 
       {/* KPIs Engine Placeholder */}

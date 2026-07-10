@@ -44,6 +44,14 @@ const DEFAULT_FILTERS: Record<string, any> = {
   Department: 'Tất cả',
 };
 
+const KPI_PREMIUM: Record<string, string> = {
+  'kpi-revenue': 'from-emerald-500 to-teal-600',
+  'kpi-profit':  'from-blue-500 to-indigo-600',
+  'kpi-cost':    'from-rose-500 to-red-600',
+  'kpi-ebitda':  'from-violet-500 to-purple-600',
+  'kpi-yoy':     'from-amber-500 to-orange-600',
+};
+
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function CEODashboard() {
@@ -186,7 +194,8 @@ export default function CEODashboard() {
             key={kpi.id}
             config={kpi}
             value={kpiDisplayValue(kpi.id)}
-            variant="default" // Using default white card style to match the clean TV dashboard look
+            variant="premium"
+            colorGradient={KPI_PREMIUM[kpi.id]}
           />
         ))}
       </div>

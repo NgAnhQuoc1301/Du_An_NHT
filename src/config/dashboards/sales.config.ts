@@ -2,32 +2,32 @@ import type { BIDashboardConfig } from '../../types/bi.types';
 
 export const salesConfig: BIDashboardConfig = {
   id: 'sales',
-  name: 'Sales Performance Dashboard',
-  description: 'Phân tích doanh số — Sales Intelligence & Pipeline Tracking',
+  name: 'Báo cáo Hiệu suất Bán hàng',
+  description: 'Phân tích doanh số — Năng suất Bán hàng & Theo dõi Cơ hội',
   theme: 'blue',
 
   filters: [
     { id: 'startYear',  label: 'Năm bắt đầu', type: 'date-range', defaultValue: 2025 },
     { id: 'endYear',    label: 'Năm kết thúc',   type: 'date-range', defaultValue: 2026 },
-    { id: 'Khu vực',     label: 'Khu vực',     type: 'select' },
-    { id: 'Channel',    label: 'Channel',    type: 'select', options: ['Tất cả', 'Online', 'Offline', 'Partner'] },
-    { id: 'Danh mục',   label: 'Danh mục',   type: 'select', options: ['Tất cả', 'Điện tử', 'Home Appliance', 'Phụ kiện', 'Khác'] },
-    { id: 'Nhân viên bán hàng',label: 'Sales Rep',  type: 'select' },
+    { id: 'Region',     label: 'Khu vực',     type: 'select' },
+    { id: 'Channel',    label: 'Kênh bán hàng',    type: 'select' },
+    { id: 'Category',   label: 'Danh mục',   type: 'select' },
+    { id: 'SalesPerson',label: 'Nhân viên KD',  type: 'select' },
   ],
 
   layout: {
     kpis: [
       { id: 'kpi-revenue',      title: 'Doanh thu',             type: 'kpi', gridSpan: 1 },
-      { id: 'kpi-profit',       title: 'Profit',              type: 'kpi', gridSpan: 1 },
-      { id: 'kpi-conversion',   title: 'Conversion Rate',     type: 'kpi', gridSpan: 1 },
-      { id: 'kpi-achievement',  title: 'Đạt MT',     type: 'kpi', gridSpan: 1 },
+      { id: 'kpi-profit',       title: 'Lợi nhuận',              type: 'kpi', gridSpan: 1 },
+      { id: 'kpi-conversion',   title: 'Tỷ lệ chuyển đổi',     type: 'kpi', gridSpan: 1 },
+      { id: 'kpi-achievement',  title: 'Tỷ lệ đạt mục tiêu',     type: 'kpi', gridSpan: 1 },
     ],
 
     charts: [
       {
         id: 'chart-sales-funnel',
         type: 'chart',
-        title: 'Sales Funnel Chart',
+        title: 'Phễu Bán hàng',
         chartType: 'funnel',
         gridSpan: 1,
         dataSource: 'salesFunnel',
@@ -36,7 +36,7 @@ export const salesConfig: BIDashboardConfig = {
       {
         id: 'chart-revenue-trend',
         type: 'chart',
-        title: 'Revenue vs Target',
+        title: 'Doanh thu vs Mục tiêu',
         chartType: 'composed',
         gridSpan: 2,
         dataSource: 'revenueTrend',
@@ -48,7 +48,7 @@ export const salesConfig: BIDashboardConfig = {
       {
         id: 'chart-region-bar',
         type: 'chart',
-        title: 'Regional Bar Chart',
+        title: 'Doanh thu theo Khu vực',
         chartType: 'bar',
         gridSpan: 1,
         dataSource: 'regionSummary',
@@ -62,18 +62,18 @@ export const salesConfig: BIDashboardConfig = {
       {
         id: 'table-sales-detail',
         type: 'table',
-        title: 'Sales Detail Records',
+        title: 'Dữ liệu Bán hàng Chi tiết',
         dataSource: 'filteredData',
         columns: [
           { header: 'Khu vực',      accessor: 'Region',          type: 'text',     align: 'left'   },
-          { header: 'Sales Rep',   accessor: 'SalesPerson',     type: 'text',     align: 'left'   },
-          { header: 'Channel',     accessor: 'Channel',         type: 'text',     align: 'left'   },
+          { header: 'Nhân viên KD',   accessor: 'SalesPerson',     type: 'text',     align: 'left'   },
+          { header: 'Kênh',     accessor: 'Channel',         type: 'text',     align: 'left'   },
           { header: 'Danh mục',    accessor: 'Category',        type: 'text',     align: 'left'   },
           { header: 'Sản phẩm',     accessor: 'Product',         type: 'text',     align: 'left'   },
           { header: 'Doanh thu',     accessor: 'Revenue',         type: 'currency', align: 'right'  },
-          { header: 'Profit',      accessor: 'Profit',          type: 'currency', align: 'right'  },
-          { header: 'Orders',      accessor: 'Orders',          type: 'number',   align: 'right'  },
-          { header: 'Achievement', accessor: 'AchievementRate', type: 'badge',    align: 'center' },
+          { header: 'Lợi nhuận',      accessor: 'Profit',          type: 'currency', align: 'right'  },
+          { header: 'Số đơn hàng',      accessor: 'Orders',          type: 'number',   align: 'right'  },
+          { header: 'Mức đạt', accessor: 'AchievementRate', type: 'badge',    align: 'center' },
         ],
       },
     ],

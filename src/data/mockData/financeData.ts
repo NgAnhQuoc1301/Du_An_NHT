@@ -94,7 +94,8 @@ function generateFinanceData(): FinanceRecord[] {
 
 export const FINANCE_DATA = generateFinanceData();
 
-export const FINANCE_EXPENSE_COLORS: Record<string, string> = {
+export const FINANCE_CATEGORY_COLORS: Record<string, string> = {
+  // Expenses
   'Lương': '#3b82f6',
   Marketing: '#10b981',
   Rent: '#f59e0b',
@@ -102,4 +103,10 @@ export const FINANCE_EXPENSE_COLORS: Record<string, string> = {
   Travel: '#ef4444',
   Utilities: '#06b6d4',
   Legal: '#ec4899',
+  // Revenue
+  'Product Sales': '#14b8a6',
+  'Service Fees': '#6366f1',
+  'Subscriptions': '#8b5cf6',
+  'Consulting': '#f43f5e',
+  'Licensing': '#f59e0b',
 };

@@ -9,7 +9,7 @@ interface KpiEngineProps {
   colorGradient?: string; // e.g. "from-emerald-500 to-teal-600"
 }
 
-export const KpiEngine: React.FC<KpiEngineProps> = ({ config, value, trend, variant = 'default', colorGradient }) => {
+export const KpiEngine: React.FC<KpiEngineProps> = React.memo(({ config, value, trend, variant = 'default', colorGradient }) => {
   if (variant === 'premium' && colorGradient) {
     return (
       <div className={`bg-gradient-to-br ${colorGradient} p-6 rounded-2xl shadow-lg text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-300 h-full`}>
@@ -21,10 +21,20 @@ export const KpiEngine: React.FC<KpiEngineProps> = ({ config, value, trend, vari
   }
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 hover:border-emerald-200 hover:shadow-md transition-all duration-300 group h-full">
-      <p className="text-[11px] font-semibold text-slate-400 group-hover:text-emerald-500 transition-colors">{config.title}</p>
-      <p className="text-base font-bold text-slate-800 mt-1">{value}</p>
-      {trend && <p className="text-[10px] font-medium text-emerald-500 mt-1">{trend}</p>}
+    <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.3)] border border-slate-100 dark:border-slate-800 hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+      {/* Decorative gradient blur in background */}
+      <div className={`absolute -right-10 -top-10 w-32 h-32 rounded-full blur-3xl opacity-10 dark:opacity-20 transition-opacity group-hover:opacity-20 dark:group-hover:opacity-30 ${config.trend === 'up' ? 'bg-emerald-500' : config.trend === 'down' ? 'bg-rose-500' : 'bg-blue-500'}`} />
+      
+      <div className="flex justify-between items-start mb-4 relative z-10">
+        <div>
+          <p className="text-[13px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+            {config.title}
+          </p>
+          <h3 className="text-3xl font-extrabold text-slate-800 dark:text-white tracking-tight">
+            {value}
+          </h3>
+        </div>
+      </div>
     </div>
   );
-};
+});

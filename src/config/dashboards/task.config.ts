@@ -11,8 +11,8 @@ export const taskConfig: BIDashboardConfig = {
     { id: 'endYear',    label: 'Năm kết thúc',  type: 'date-range', defaultValue: 2026 },
     { id: 'Assignee',   label: 'Người phụ trách',type: 'select' },
     { id: 'Project',    label: 'Dự án',         type: 'select' },
-    { id: 'Trạng thái',     label: 'Trạng thái',    type: 'select', options: ['Tất cả', 'Chưa làm', 'Đang làm', 'Hoàn thành', 'Bị chặn'] },
-    { id: 'Ưu tiên',   label: 'Ưu tiên',       type: 'select', options: ['Tất cả', 'Cao', 'Trung bình', 'Thấp'] },
+    { id: 'Status',     label: 'Trạng thái',    type: 'select', options: ['Tất cả', 'Chưa làm', 'Đang làm', 'Hoàn thành', 'Bị chặn'] },
+    { id: 'Priority',   label: 'Ưu tiên',       type: 'select', options: ['Tất cả', 'Cao', 'Trung bình', 'Thấp'] },
   ],
 
   layout: {
