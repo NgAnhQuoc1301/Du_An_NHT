@@ -1,12 +1,35 @@
 @import "tailwindcss";
 @custom-variant dark (&:is(.dark *));
 
-body{
-    margin:0;
-    background:#F8FAFC;
-    color:#0F172A;
-    font-family:
-      Inter,
-      system-ui,
-      sans-serif;
+body {
+    margin: 0;
+    /* Deep Luxury Blue */
+    background: #0B132B;
+    background-image: radial-gradient(circle at top right, rgba(16, 185, 129, 0.05), transparent 400px), 
+                      radial-gradient(circle at bottom left, rgba(212, 175, 55, 0.03), transparent 400px);
+    background-attachment: fixed;
+    color: #f8fafc;
+    font-family: 'Outfit', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Utilities for Playfair */
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Luxurious Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0B132B;
+}
+::-webkit-scrollbar-thumb {
+  background: #1C2541;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
 }
